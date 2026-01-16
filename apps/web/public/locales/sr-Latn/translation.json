@@ -1,4 +1,8 @@
 {
+  "language": {
+    "english": "Engleski",
+    "serbian": "Srpski"
+  },
   "public": {
     "greeting": "Dobrodošli u Apartments AI"
   }

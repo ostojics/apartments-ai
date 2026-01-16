@@ -26,6 +26,11 @@ i18n
       loadPath: '/locales/{{lng}}/translation.json',
     },
   })
-  .catch(() => undefined);
+  .catch((error) => {
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to initialize i18n', error);
+    }
+  });
 
 export default i18n;
