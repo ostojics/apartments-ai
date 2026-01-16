@@ -6,6 +6,14 @@
   "public": {
     "greeting": "Dobrodošli u Apartments AI"
   },
+  "apartments": {
+    "title": "Izaberite svoj apartman",
+    "subtitle": "Izbor apartmana",
+    "description": "Izaberite jedan od dostupnih apartmana.",
+    "continue": "Nastavi",
+    "helper": "Izaberite apartman da nastavite.",
+    "imagePlaceholder": "Slika apartmana"
+  },
   "theme": {
     "light": "Svetlo",
     "dark": "Tamno",

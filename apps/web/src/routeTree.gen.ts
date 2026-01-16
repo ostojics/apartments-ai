@@ -12,6 +12,7 @@ import {Route as rootRouteImport} from './routes/__root';
 import {Route as PublicRouteRouteImport} from './routes/_public/route';
 import {Route as _pathlessLayoutRouteRouteImport} from './routes/__pathlessLayout/route';
 import {Route as PublicIndexRouteImport} from './routes/_public/index';
+import {Route as PublicApartmentsRouteImport} from './routes/_public/apartments';
 import {Route as _pathlessLayoutSettingsRouteImport} from './routes/__pathlessLayout/settings';
 
 const PublicRouteRoute = PublicRouteRouteImport.update({
@@ -27,6 +28,11 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicRouteRoute,
 } as any);
+const PublicApartmentsRoute = PublicApartmentsRouteImport.update({
+  id: '/apartments',
+  path: '/apartments',
+  getParentRoute: () => PublicRouteRoute,
+} as any);
 const _pathlessLayoutSettingsRoute = _pathlessLayoutSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -35,10 +41,12 @@ const _pathlessLayoutSettingsRoute = _pathlessLayoutSettingsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/settings': typeof _pathlessLayoutSettingsRoute;
+  '/apartments': typeof PublicApartmentsRoute;
   '/': typeof PublicIndexRoute;
 }
 export interface FileRoutesByTo {
   '/settings': typeof _pathlessLayoutSettingsRoute;
+  '/apartments': typeof PublicApartmentsRoute;
   '/': typeof PublicIndexRoute;
 }
 export interface FileRoutesById {
@@ -46,14 +54,21 @@ export interface FileRoutesById {
   '/__pathlessLayout': typeof _pathlessLayoutRouteRouteWithChildren;
   '/_public': typeof PublicRouteRouteWithChildren;
   '/__pathlessLayout/settings': typeof _pathlessLayoutSettingsRoute;
+  '/_public/apartments': typeof PublicApartmentsRoute;
   '/_public/': typeof PublicIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/settings' | '/';
+  fullPaths: '/settings' | '/apartments' | '/';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/settings' | '/';
-  id: '__root__' | '/__pathlessLayout' | '/_public' | '/__pathlessLayout/settings' | '/_public/';
+  to: '/settings' | '/apartments' | '/';
+  id:
+    | '__root__'
+    | '/__pathlessLayout'
+    | '/_public'
+    | '/__pathlessLayout/settings'
+    | '/_public/apartments'
+    | '/_public/';
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -84,6 +99,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport;
       parentRoute: typeof PublicRouteRoute;
     };
+    '/_public/apartments': {
+      id: '/_public/apartments';
+      path: '/apartments';
+      fullPath: '/apartments';
+      preLoaderRoute: typeof PublicApartmentsRouteImport;
+      parentRoute: typeof PublicRouteRoute;
+    };
     '/__pathlessLayout/settings': {
       id: '/__pathlessLayout/settings';
       path: '/settings';
@@ -107,10 +129,12 @@ const _pathlessLayoutRouteRouteWithChildren = _pathlessLayoutRouteRoute._addFile
 );
 
 interface PublicRouteRouteChildren {
+  PublicApartmentsRoute: typeof PublicApartmentsRoute;
   PublicIndexRoute: typeof PublicIndexRoute;
 }
 
 const PublicRouteRouteChildren: PublicRouteRouteChildren = {
+  PublicApartmentsRoute: PublicApartmentsRoute,
   PublicIndexRoute: PublicIndexRoute,
 };
 

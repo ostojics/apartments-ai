@@ -6,6 +6,14 @@
   "public": {
     "greeting": "Welcome to Apartments AI"
   },
+  "apartments": {
+    "title": "Select your apartment",
+    "subtitle": "Apartment selection",
+    "description": "Choose from the apartments available to you.",
+    "continue": "Continue",
+    "helper": "Select an apartment to continue.",
+    "imagePlaceholder": "Apartment image"
+  },
   "theme": {
     "light": "Light",
     "dark": "Dark",
