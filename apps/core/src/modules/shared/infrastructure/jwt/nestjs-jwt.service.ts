@@ -22,7 +22,7 @@ export class NestJsJwtService implements IJwtService {
       return await this.jwtService.signAsync(payload, options);
     } catch (error) {
       this.logger.error('Failed to sign JWT token', error);
-      this.analyticsService.captureException(error, 'system', {context: 'JWT Signing'});
+      this.analyticsService.captureException(error as Error, 'system', {context: 'JWT Signing'});
       throw error;
     }
   }
@@ -32,7 +32,7 @@ export class NestJsJwtService implements IJwtService {
       return await this.jwtService.verifyAsync<T>(token, options);
     } catch (error) {
       this.logger.error('Failed to verify JWT token', error);
-      this.analyticsService.captureException(error, 'system', {context: 'JWT Verification'});
+      this.analyticsService.captureException(error as Error, 'system', {context: 'JWT Verification'});
       throw error;
     }
   }

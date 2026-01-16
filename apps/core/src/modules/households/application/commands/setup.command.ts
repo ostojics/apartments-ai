@@ -1,9 +1,22 @@
 import {Command} from 'src/libs/domain/commands/command.base';
 
-export class SetupCommand extends Command {
-  readonly data: any;
+export interface SetupCommandData {
+  household: {
+    name: string;
+    currencyCode: string;
+  };
+  user: {
+    email: string;
+    username: string;
+    password: string;
+  };
+  licenseKey: string;
+}
 
-  constructor(data: any) {
+export class SetupCommand extends Command {
+  readonly data: SetupCommandData;
+
+  constructor(data: SetupCommandData) {
     super({
       metadata: {
         householdName: data.household.name,
