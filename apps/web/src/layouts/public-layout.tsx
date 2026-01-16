@@ -3,6 +3,7 @@ import {ReactNode} from 'react';
 import {MailIcon} from 'lucide-react';
 import {ThemeSwitcher} from '@/modules/theme/components/theme-switcher';
 import {Button} from '@/components/ui/button';
+import {LanguageSelect} from '@/components/LanguageSelect/LanguageSelect';
 
 interface PublicLayoutProps {
   children: ReactNode;
@@ -12,7 +13,8 @@ export function PublicLayout({children}: PublicLayoutProps) {
   return (
     <section className="bg-secondary">
       <header>
-        <div className="p-4">
+        <div className="flex justify-end gap-2 p-4">
+          <LanguageSelect />
           <ThemeSwitcher />
         </div>
       </header>
