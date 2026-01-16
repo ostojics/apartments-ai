@@ -2,6 +2,7 @@ import {ReactNode} from 'react';
 
 import {MailIcon} from 'lucide-react';
 import {ThemeSwitcher} from '@/modules/theme/components/theme-switcher';
+import {Button} from '@/components/ui/button';
 
 interface PublicLayoutProps {
   children: ReactNode;
@@ -9,17 +10,18 @@ interface PublicLayoutProps {
 
 export function PublicLayout({children}: PublicLayoutProps) {
   return (
-    <div>
+    <section className="bg-secondary">
       <header>
-        <div>
+        <div className="p-4">
           <ThemeSwitcher />
         </div>
       </header>
       <main>{children}</main>
+      <Button>Hello</Button>
       <footer>
         <MailIcon />
         <a href="mailto:contact@foredeck.com">contact@foredeck.com</a>
       </footer>
-    </div>
+    </section>
   );
 }
