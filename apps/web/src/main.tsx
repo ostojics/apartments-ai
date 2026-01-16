@@ -5,6 +5,7 @@ import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
 import {RouterProvider} from '@tanstack/react-router';
 import {Toaster} from 'sonner';
 import './index.css';
+import './modules/i18n/i18n';
 import {router} from './router';
 
 import {MSW_ENABLED} from './common/constants/constants';

@@ -1,0 +1,14 @@
+{
+  "language": {
+    "english": "English",
+    "serbian": "Serbian (Latin)"
+  },
+  "public": {
+    "greeting": "Welcome to Apartments AI"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  }
+}
