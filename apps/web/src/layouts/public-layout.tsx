@@ -3,7 +3,7 @@ import {ReactNode} from 'react';
 import {MailIcon} from 'lucide-react';
 import {ThemeSwitcher} from '@/modules/theme/components/theme-switcher';
 import {Button} from '@/components/ui/button';
-import {LanguageSelect} from '@/components/LanguageSelect/LanguageSelect';
+import {LanguageSelect} from '@/components/language-select/language-select';
 
 interface PublicLayoutProps {
   children: ReactNode;

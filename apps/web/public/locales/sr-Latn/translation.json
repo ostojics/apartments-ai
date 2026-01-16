@@ -5,5 +5,10 @@
   },
   "public": {
     "greeting": "Dobrodošli u Apartments AI"
+  },
+  "theme": {
+    "light": "Svetlo",
+    "dark": "Tamno",
+    "system": "Sistem"
   }
 }
