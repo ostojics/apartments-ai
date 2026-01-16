@@ -12,9 +12,10 @@ const LANGUAGE_LABELS: Record<I18nLanguage, string> = {
 export function LanguageSelect() {
   const {i18n} = useTranslation();
 
-  const currentLanguage =
-    SUPPORTED_LANGUAGES.find((language) => language === i18n.resolvedLanguage || language === i18n.language) ??
-    DEFAULT_LANGUAGE;
+  const resolvedLanguage = i18n.resolvedLanguage ?? i18n.language;
+  const currentLanguage = SUPPORTED_LANGUAGES.includes(resolvedLanguage as I18nLanguage)
+    ? (resolvedLanguage as I18nLanguage)
+    : DEFAULT_LANGUAGE;
 
   return (
     <DropdownMenu>
