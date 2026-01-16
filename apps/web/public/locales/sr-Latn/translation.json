@@ -6,6 +6,71 @@
   "public": {
     "greeting": "Dobrodošli u Apartments AI"
   },
+  "apartment": {
+    "badge": "Profil apartmana",
+    "title": "Apartman {{id}}",
+    "subtitle": "Resursi, pravila i detalji za stanare zajednice {{community}}.",
+    "tabs": {
+      "chat": "Chat",
+      "manual": "Priručnik"
+    },
+    "chat": {
+      "title": "Chat je skoro spreman",
+      "description": "Uskoro ćete moći da postavljate pitanja i dobijate odgovore odmah.",
+      "note": "Do tada pogledajte priručnik za ključne informacije o zajednici."
+    },
+    "cards": {
+      "overview": "Pregled",
+      "amenities": "Sadržaji",
+      "policies": "Pravila",
+      "officeHours": "Radno vreme",
+      "contact": "Kontakt",
+      "actions": "Brze akcije"
+    },
+    "overview": {
+      "description": "Pregled osnovnih informacija o zajednici.",
+      "communityLabel": "Zajednica",
+      "communityValue": "Sunrise Lofts",
+      "addressLabel": "Adresa",
+      "addressValue": "123 Maple Street, Denver, CO",
+      "officeLabel": "Kancelarija za izdavanje",
+      "officeValue": "Zgrada A, apartman 210",
+      "floorPlansLabel": "Tipovi stanova",
+      "floorPlansValue": "Studio, jedno- i dvosobni stanovi"
+    },
+    "amenities": {
+      "description": "Svakodnevne pogodnosti za stanare.",
+      "wifi": "Brzi Wi-Fi",
+      "fitness": "Fitnes studio 24/7",
+      "pet": "Zajednica pogodna za kućne ljubimce",
+      "parking": "Natkriven parking"
+    },
+    "policies": {
+      "description": "Pravila koja čine zajednicu prijatnom.",
+      "quiet": "Tišina počinje u 22:00",
+      "smoke": "Zgrade bez pušenja",
+      "guests": "Parking za goste vikendom"
+    },
+    "officeHours": {
+      "description": "Kada je tim za izdavanje dostupan.",
+      "weekday": "Pon–Pet: 9:00 – 18:00",
+      "saturday": "Sub: 10:00 – 16:00",
+      "sunday": "Ned: Zatvoreno"
+    },
+    "contact": {
+      "description": "Direktan kontakt sa timom za izdavanje.",
+      "phoneLabel": "Telefon",
+      "phoneValue": "(555) 123-4567",
+      "emailLabel": "E-pošta",
+      "emailValue": "hello@sunriselofts.com"
+    },
+    "actions": {
+      "description": "Izaberite najbolji način da stupite u kontakt.",
+      "call": "Pozovite izdavanje",
+      "email": "Pošaljite e-poštu",
+      "tour": "Zakažite obilazak"
+    }
+  },
   "theme": {
     "light": "Svetlo",
     "dark": "Tamno",

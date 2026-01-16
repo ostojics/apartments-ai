@@ -6,6 +6,71 @@
   "public": {
     "greeting": "Welcome to Apartments AI"
   },
+  "apartment": {
+    "badge": "Apartment profile",
+    "title": "Apartment {{id}}",
+    "subtitle": "Resources, policies, and details for {{community}} residents.",
+    "tabs": {
+      "chat": "Chat",
+      "manual": "Manual"
+    },
+    "chat": {
+      "title": "Chat is almost ready",
+      "description": "Soon you will be able to ask questions and get answers instantly.",
+      "note": "Until then, browse the manual for key community information."
+    },
+    "cards": {
+      "overview": "Overview",
+      "amenities": "Amenities",
+      "policies": "Policies",
+      "officeHours": "Office hours",
+      "contact": "Contact",
+      "actions": "Quick actions"
+    },
+    "overview": {
+      "description": "At-a-glance details about your apartment community.",
+      "communityLabel": "Community",
+      "communityValue": "Sunrise Lofts",
+      "addressLabel": "Address",
+      "addressValue": "123 Maple Street, Denver, CO",
+      "officeLabel": "Leasing office",
+      "officeValue": "Building A, Suite 210",
+      "floorPlansLabel": "Floor plans",
+      "floorPlansValue": "Studio, 1 & 2 bedroom homes"
+    },
+    "amenities": {
+      "description": "Everyday comforts available to residents.",
+      "wifi": "High-speed Wi-Fi",
+      "fitness": "24/7 fitness studio",
+      "pet": "Pet-friendly community",
+      "parking": "Covered parking"
+    },
+    "policies": {
+      "description": "Guidelines that keep the community comfortable.",
+      "quiet": "Quiet hours begin at 10 PM",
+      "smoke": "Smoke-free buildings",
+      "guests": "Guest parking available on weekends"
+    },
+    "officeHours": {
+      "description": "When the leasing team is available.",
+      "weekday": "Mon–Fri: 9:00 AM – 6:00 PM",
+      "saturday": "Sat: 10:00 AM – 4:00 PM",
+      "sunday": "Sun: Closed"
+    },
+    "contact": {
+      "description": "Reach the leasing team directly.",
+      "phoneLabel": "Phone",
+      "phoneValue": "(555) 123-4567",
+      "emailLabel": "Email",
+      "emailValue": "hello@sunriselofts.com"
+    },
+    "actions": {
+      "description": "Choose the best way to connect.",
+      "call": "Call leasing",
+      "email": "Email office",
+      "tour": "Schedule a tour"
+    }
+  },
   "theme": {
     "light": "Light",
     "dark": "Dark",
