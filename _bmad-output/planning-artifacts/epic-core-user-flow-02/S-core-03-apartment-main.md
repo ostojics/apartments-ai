@@ -32,13 +32,12 @@ Implement the main apartment page with tabs at the top to switch between chat an
 
 ### References
 
+- [ARCHITECTURE.md](../../ARCHITECTURE.md)
+- [ux-core-user-flow.md](../../ux-core-user-flow.md)
+
 ### Project Structure Notes
 
 - Confirm alignment with unified project structure (paths, modules, naming).
-
-### References
-
-- [ARCHITECTURE.md](../../ARCHITECTURE.md)
 
 ## Dev Agent Record
 

@@ -35,13 +35,12 @@ Implement the public starter screen for language selection. The page should be v
 
 ### References
 
+- [ARCHITECTURE.md](../../ARCHITECTURE.md)
+- [ux-core-user-flow.md](../../ux-core-user-flow.md)
+
 ### Project Structure Notes
 
 - Confirm alignment with unified project structure (paths, modules, naming).
-
-### References
-
-- [ARCHITECTURE.md](../../ARCHITECTURE.md)
 
 ## Dev Agent Record
 

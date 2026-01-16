@@ -37,13 +37,12 @@ Implement the public apartment selection screen. If only one apartment is availa
 
 ### References
 
+- [ARCHITECTURE.md](../../ARCHITECTURE.md)
+- [ux-core-user-flow.md](../../ux-core-user-flow.md)
+
 ### Project Structure Notes
 
 - Confirm alignment with unified project structure (paths, modules, naming).
-
-### References
-
-- [ARCHITECTURE.md](../../ARCHITECTURE.md)
 
 ## Dev Agent Record
 
