@@ -9,13 +9,14 @@ const LANGUAGE_LABELS: Record<I18nLanguage, string> = {
   'sr-Latn': 'Srpski',
 };
 
+const isSupportedLanguage = (language: string): language is I18nLanguage =>
+  SUPPORTED_LANGUAGES.includes(language as I18nLanguage);
+
 export function LanguageSelect() {
   const {i18n} = useTranslation();
 
   const resolvedLanguage = i18n.resolvedLanguage ?? i18n.language;
-  const currentLanguage = SUPPORTED_LANGUAGES.includes(resolvedLanguage as I18nLanguage)
-    ? (resolvedLanguage as I18nLanguage)
-    : DEFAULT_LANGUAGE;
+  const currentLanguage = isSupportedLanguage(resolvedLanguage) ? resolvedLanguage : DEFAULT_LANGUAGE;
 
   return (
     <DropdownMenu>

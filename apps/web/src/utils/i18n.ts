@@ -5,7 +5,7 @@ import {initReactI18next} from 'react-i18next';
 
 import {DEFAULT_LANGUAGE, I18N_LANGUAGE_KEY, SUPPORTED_LANGUAGES} from '@/common/constants/i18n';
 
-void i18n
+i18n
   .use(HttpBackend)
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -25,6 +25,7 @@ void i18n
     backend: {
       loadPath: '/locales/{{lng}}/translation.json',
     },
-  });
+  })
+  .catch(() => undefined);
 
 export default i18n;
