@@ -11,7 +11,8 @@
   },
   "public": {
     "greeting": "Dobrodošli u Apartments AI",
-    "poweredBy": "Pokreće"
+    "poweredBy": "Pokreće",
+    "welcomeDescription": "Spremni ste za sledeći korak."
   },
   "theme": {
     "light": "Svetlo",

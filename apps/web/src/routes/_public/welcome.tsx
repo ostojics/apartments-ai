@@ -17,7 +17,7 @@ function WelcomeRoute() {
           <CardTitle className="text-2xl">{t('public.greeting')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">{t('languageSelection.description')}</p>
+          <p className="text-muted-foreground">{t('public.welcomeDescription')}</p>
         </CardContent>
       </Card>
     </div>

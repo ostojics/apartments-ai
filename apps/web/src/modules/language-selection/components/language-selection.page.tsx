@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import type {ElementType} from 'react';
-import {Link} from '@tanstack/react-router';
+import {useNavigate} from '@tanstack/react-router';
 import {useTranslation} from 'react-i18next';
 
 import {GBFlag} from '@/components/icons/gb-flag';
@@ -20,8 +20,24 @@ export function LanguageSelectionPage() {
   const currentLanguage = (i18n.resolvedLanguage ?? DEFAULT_LANGUAGE) as I18nLanguage;
   const [selectedLanguage, setSelectedLanguage] = useState<I18nLanguage>(currentLanguage);
 
-  const handleContinue = () => {
-    void i18n.changeLanguage(selectedLanguage);
+  const navigate = useNavigate();
+
+  const handleContinue = async () => {
+    try {
+      await i18n.changeLanguage(selectedLanguage);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to change the language preference. Please try again.', error);
+      return;
+    }
+
+    try {
+      await navigate({to: '/welcome'});
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to navigate to the welcome screen. Please try again.', error);
+      return;
+    }
   };
 
   return (
@@ -63,10 +79,8 @@ export function LanguageSelectionPage() {
             })}
           </div>
           <div className="flex justify-center">
-            <Button size="lg" className="w-full sm:w-auto" asChild>
-              <Link to="/welcome" onClick={handleContinue}>
-                {t('languageSelection.continue')}
-              </Link>
+            <Button size="lg" className="w-full sm:w-auto" onClick={handleContinue}>
+              {t('languageSelection.continue')}
             </Button>
           </div>
         </CardContent>

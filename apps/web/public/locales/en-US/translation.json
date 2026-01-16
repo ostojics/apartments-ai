@@ -11,7 +11,8 @@
   },
   "public": {
     "greeting": "Welcome to Apartments AI",
-    "poweredBy": "Powered by"
+    "poweredBy": "Powered by",
+    "welcomeDescription": "You're ready for the next step."
   },
   "theme": {
     "light": "Light",
