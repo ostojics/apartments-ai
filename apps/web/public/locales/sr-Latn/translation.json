@@ -1,14 +1,22 @@
 {
   "language": {
     "english": "Engleski",
-    "serbian": "Srpski"
+    "serbian": "Srpski",
+    "selectLabel": "Izaberi jezik"
+  },
+  "languageSelection": {
+    "title": "Izaberite svoj jezik",
+    "description": "Izaberite jezik koji želite da koristite u Apartments AI.",
+    "continue": "Nastavi"
   },
   "public": {
-    "greeting": "Dobrodošli u Apartments AI"
+    "greeting": "Dobrodošli u Apartments AI",
+    "poweredBy": "Pokreće"
   },
   "theme": {
     "light": "Svetlo",
     "dark": "Tamno",
-    "system": "Sistem"
+    "system": "Sistem",
+    "toggle": "Promeni temu"
   }
 }

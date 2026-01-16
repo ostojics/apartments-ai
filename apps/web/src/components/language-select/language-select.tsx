@@ -18,7 +18,7 @@ export function LanguageSelect() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" aria-label="Select language">
+        <Button variant="outline" size="sm" aria-label={t('language.selectLabel')}>
           {t(LANGUAGE_LABEL_KEYS[currentLanguage])}
         </Button>
       </DropdownMenuTrigger>
