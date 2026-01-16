@@ -20,7 +20,7 @@ export function LanguageSelect() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" aria-label="Select language">
           {LANGUAGE_LABELS[currentLanguage]}
         </Button>
       </DropdownMenuTrigger>
