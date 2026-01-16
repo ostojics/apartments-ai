@@ -23,14 +23,12 @@ i18n
       lookupLocalStorage: I18N_LANGUAGE_KEY,
     },
     backend: {
-      loadPath: '/locales/{{lng}}/translation.json',
+      loadPath: 'locales/{{lng}}/translation.json',
     },
   })
   .catch((error) => {
-    if (import.meta.env.DEV) {
-      // eslint-disable-next-line no-console
-      console.error('Failed to initialize i18n', error);
-    }
+    // eslint-disable-next-line no-console
+    console.error('Failed to initialize i18n', error);
   });
 
 export default i18n;
