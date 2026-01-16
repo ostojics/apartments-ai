@@ -1,0 +1,18 @@
+# BMM Workflow Status
+
+project_name: apartments-ai
+user_name: Slobodan
+communication_language: English
+document_output_language: English
+user_skill_level: intermediate
+date: 2026-01-16
+state: UX_USER_FLOWS_DRAFTED
+notes: |
+  Product brief and PRD completed. Core UX user flows for the public chat MVP have been drafted, including step-by-step flows, wireframe descriptions, and branding requirements (see ux-core-user-flow.md).
+
+  Architecture planning completed:
+    - Baseline architecture documented for backend (NestJS, DDD, modular monolith) and frontend (React, Vite, modular structure).
+    - Multi-tenant architecture approach defined: subdomain-based tenant isolation, tenant_id in all records, tenant-aware backend and frontend logic.
+    - Architecture file created in planning artifacts.
+
+  Project is ready to proceed to detailed implementation planning and actionable artifacts for the public chat MVP and multi-tenant features.
