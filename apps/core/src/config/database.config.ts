@@ -1,6 +1,11 @@
 import {registerAs} from '@nestjs/config';
 import {PostgresConnectionOptions} from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import {InitExtensionAndTypes1758655322744} from 'src/migrations/1758655322744-InitExtensionAndTypes';
+import {CreateLicenses1758657000000} from 'src/migrations/1758657000000-CreateLicenses';
+import {CreateTenants1758657000100} from 'src/migrations/1758657000100-CreateTenants';
+import {CreateFeedback1758657000200} from 'src/migrations/1758657000200-CreateFeedback';
+import {CreateBuildings1758657000300} from 'src/migrations/1758657000300-CreateBuildings';
+import {CreateKnowledgeBases1758657000400} from 'src/migrations/1758657000400-CreateKnowledgeBases';
 
 export const DatabaseConfigName = 'database';
 
@@ -30,7 +35,14 @@ export function getConfig(): DatabaseConfig {
       // ScheduledTransactionExecution,
     ],
     useUTC: true,
-    migrations: [InitExtensionAndTypes1758655322744],
+    migrations: [
+      InitExtensionAndTypes1758655322744,
+      CreateLicenses1758657000000,
+      CreateTenants1758657000100,
+      CreateFeedback1758657000200,
+      CreateBuildings1758657000300,
+      CreateKnowledgeBases1758657000400,
+    ],
     migrationsRun: true,
     extra: {
       max: process.env.DB_POOL_MAX ? parseInt(process.env.DB_POOL_MAX, 10) : 15,
