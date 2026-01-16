@@ -211,6 +211,47 @@ modules/
 
 ---
 
+## Internationalization (i18n)
+
+Apartments AI supports multilingual user experiences through a robust internationalization (i18n) setup, primarily in the frontend. The architecture ensures that all user-facing text can be easily translated and that language selection is seamless and persistent across sessions.
+
+### Libraries & Technologies
+
+- **i18next**: Core i18n library for JavaScript.
+- **react-i18next**: React bindings for i18next.
+- **i18next-browser-languagedetector**: Detects user language in the browser.
+- **i18next-http-backend**: Loads translations from static files via HTTP.
+
+### Folder Structure & Key Files
+
+- **Translation Files**: `apps/web/public/locales/{lng}/translation.json` (e.g., `en-US`, `nl-NL`)
+- **Type Definitions**: `apps/web/src/common/constants/i18n.ts`
+- **i18n Configuration**: `apps/web/src/utils/i18n.ts`
+
+### Configuration & Usage
+
+- **Type Definitions**: Supported languages and local storage key are defined in `i18n.ts`.
+- **Initialization**: i18n is initialized in `utils/i18n.ts` with React integration, language detection, and backend loading.
+- **Language Detection**: Uses browser settings and local storage (`i18nextLng` key) to determine the user's language, with fallback to English.
+- **Language Selection**: The LanguageSelect component allows users to switch languages, updating i18n and UI state.
+- **Using Translations**: Components use the `useTranslation` hook from `react-i18next` to access translation strings.
+
+### Adding a New Language
+
+1. Create a new folder in `public/locales/` (e.g., `fr-FR`).
+2. Add a `translation.json` file with translated strings.
+3. Update the `i18nLanguage` type in `i18n.ts`.
+4. Add the new language to any language mapping utilities.
+
+### Design Principles
+
+- **Separation of Concerns**: i18n logic is encapsulated in dedicated files and components.
+- **Extensibility**: New languages can be added with minimal changes.
+- **User Experience**: Language preference is detected and persisted for a seamless experience.
+- **Maintainability**: Centralized configuration and type safety ensure reliable multilingual support.
+
+---
+
 ## Summary
 
 Apartments AI is architected for multi-tenant SaaS, with strict tenant isolation, subdomain-based routing, and tenant-aware data access. The backend leverages DDD and modular monolith patterns with NestJS, while the frontend is a modern, modular React application with strong separation of concerns, component-driven development, and robust multi-tenancy support.
