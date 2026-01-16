@@ -10,22 +10,7 @@
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foredeck</title>
-    <script>
-      (function () {
-        const storageKey = 'theme-preference';
-        const storedPreference = localStorage.getItem(storageKey);
-
-        let theme;
-        if (storedPreference === 'light' || storedPreference === 'dark') {
-          theme = storedPreference;
-        } else {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-
-        document.documentElement.setAttribute('data-theme', theme);
-      })();
-    </script>
+    <title>Apartments AI</title>
   </head>
   <body>
     <div id="root"></div>
