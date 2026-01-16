@@ -1,4 +1,5 @@
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useState} from 'react';
+import {useNavigate} from '@tanstack/react-router';
 import {useTranslation} from 'react-i18next';
 
 import {AspectRatio} from '@/components/ui/aspect-ratio';
@@ -12,8 +13,6 @@ interface ApartmentSummary {
   address: string;
   imageUrl?: string;
 }
-
-const APARTMENT_PLACEHOLDER_TEXT_KEY = 'apartments.imagePlaceholder';
 
 const apartments: ApartmentSummary[] = [
   {
@@ -35,28 +34,32 @@ const apartments: ApartmentSummary[] = [
   },
 ];
 
-const buildApartmentPath = (apartmentId: string) => `/apartments/${apartmentId}`;
-
 export function ApartmentsPage() {
   const {t} = useTranslation();
+  const navigate = useNavigate();
   const [selectedApartmentId, setSelectedApartmentId] = useState<string | null>(null);
 
-  const availableApartments = useMemo(() => apartments, []);
-
   useEffect(() => {
-    const [singleApartment] = availableApartments;
+    const [singleApartment] = apartments;
 
-    if (availableApartments.length === 1 && singleApartment) {
-      window.location.assign(buildApartmentPath(singleApartment.id));
+    if (apartments.length === 1 && singleApartment) {
+      void navigate({
+        to: '/apartments/$apartmentId',
+        params: {apartmentId: singleApartment.id},
+        replace: true,
+      });
     }
-  }, [availableApartments]);
+  }, [navigate]);
 
   const handleContinue = () => {
     if (!selectedApartmentId) {
       return;
     }
 
-    window.location.assign(buildApartmentPath(selectedApartmentId));
+    void navigate({
+      to: '/apartments/$apartmentId',
+      params: {apartmentId: selectedApartmentId},
+    });
   };
 
   return (
@@ -70,7 +73,7 @@ export function ApartmentsPage() {
       </header>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {availableApartments.map((apartment) => {
+        {apartments.map((apartment) => {
           const isSelected = selectedApartmentId === apartment.id;
 
           return (
@@ -101,7 +104,7 @@ export function ApartmentsPage() {
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-muted text-sm text-muted-foreground">
-                      {t(APARTMENT_PLACEHOLDER_TEXT_KEY)}
+                      {t('apartments.imagePlaceholder')}
                     </div>
                   )}
                 </AspectRatio>

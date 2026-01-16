@@ -12,7 +12,10 @@
     "description": "Choose from the apartments available to you.",
     "continue": "Continue",
     "helper": "Select an apartment to continue.",
-    "imagePlaceholder": "Apartment image"
+    "imagePlaceholder": "Apartment image",
+    "detailTitle": "Apartment details",
+    "detailSubtitle": "Apartment overview",
+    "detailDescription": "Details for apartment {{id}} will be available soon."
   },
   "theme": {
     "light": "Light",

@@ -12,7 +12,10 @@
     "description": "Izaberite jedan od dostupnih apartmana.",
     "continue": "Nastavi",
     "helper": "Izaberite apartman da nastavite.",
-    "imagePlaceholder": "Slika apartmana"
+    "imagePlaceholder": "Slika apartmana",
+    "detailTitle": "Detalji apartmana",
+    "detailSubtitle": "Pregled apartmana",
+    "detailDescription": "Detalji za apartman {{id}} biće dostupni uskoro."
   },
   "theme": {
     "light": "Svetlo",
