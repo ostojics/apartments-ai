@@ -3,8 +3,8 @@ export const SUPPORTED_LANGUAGES = ['en-US', 'sr-Latn'] as const;
 export type I18nLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
 export const LANGUAGE_LABEL_KEYS: Record<I18nLanguage, string> = {
-  'en-US': 'language.english',
-  'sr-Latn': 'language.serbian',
+  'en-US': 'English',
+  'sr-Latn': 'Srpski',
 };
 
 export const DEFAULT_LANGUAGE: I18nLanguage = 'en-US';

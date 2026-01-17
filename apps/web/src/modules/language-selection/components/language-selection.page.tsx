@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import type {ElementType} from 'react';
 import {useNavigate} from '@tanstack/react-router';
 import {useTranslation} from 'react-i18next';
@@ -9,6 +8,7 @@ import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {cn} from '@/lib/utils/cn';
 import {DEFAULT_LANGUAGE, I18nLanguage, LANGUAGE_LABEL_KEYS, SUPPORTED_LANGUAGES} from '@/modules/i18n/constants/i18n';
+import {toast} from 'sonner';
 
 const languageFlags: Record<I18nLanguage, ElementType> = {
   'en-US': GBFlag,
@@ -18,26 +18,19 @@ const languageFlags: Record<I18nLanguage, ElementType> = {
 export function LanguageSelectionPage() {
   const {i18n, t} = useTranslation();
   const currentLanguage = (i18n.resolvedLanguage ?? DEFAULT_LANGUAGE) as I18nLanguage;
-  const [selectedLanguage, setSelectedLanguage] = useState<I18nLanguage>(currentLanguage);
 
   const navigate = useNavigate();
 
-  const handleContinue = async () => {
+  const handleSelectLanguage = async (language: I18nLanguage) => {
     try {
-      await i18n.changeLanguage(selectedLanguage);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Failed to change the language preference. Please try again.', error);
-      return;
+      await i18n.changeLanguage(language);
+    } catch {
+      toast.error(t('languageSelection.errors.selectionFailed'));
     }
+  };
 
-    try {
-      await navigate({to: '/welcome'});
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Failed to navigate to the welcome screen. Please try again.', error);
-      return;
-    }
+  const handleContinue = async () => {
+    await navigate({to: '/welcome'});
   };
 
   return (
@@ -51,7 +44,7 @@ export function LanguageSelectionPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             {SUPPORTED_LANGUAGES.map((language) => {
               const Flag = languageFlags[language];
-              const isSelected = selectedLanguage === language;
+              const isSelected = currentLanguage === language;
 
               return (
                 <Button
@@ -59,11 +52,11 @@ export function LanguageSelectionPage() {
                   type="button"
                   variant={isSelected ? 'default' : 'outline'}
                   className={cn(
-                    'h-auto w-full justify-start gap-4 rounded-xl px-5 py-5 text-left',
+                    'h-auto w-full justify-start gap-4 rounded-xl px-5 py-5 text-left cursor-pointer',
                     !isSelected && 'hover:border-primary/60',
                   )}
                   aria-pressed={isSelected}
-                  onClick={() => setSelectedLanguage(language)}
+                  onClick={() => handleSelectLanguage(language)}
                 >
                   <span
                     className={cn(
@@ -73,7 +66,7 @@ export function LanguageSelectionPage() {
                   >
                     <Flag className="size-5" />
                   </span>
-                  <span className="text-base font-semibold">{t(LANGUAGE_LABEL_KEYS[language])}</span>
+                  <span className="text-base font-semibold">{LANGUAGE_LABEL_KEYS[language]}</span>
                 </Button>
               );
             })}

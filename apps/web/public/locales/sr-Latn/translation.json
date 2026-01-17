@@ -7,7 +7,10 @@
   "languageSelection": {
     "title": "Izaberite svoj jezik",
     "description": "Izaberite jezik koji želite da koristite u Apartments AI.",
-    "continue": "Nastavi"
+    "continue": "Nastavite",
+    "errors": {
+      "selectionFailed": "Izbor jezika nije uspeo. Molimo pokušajte ponovo."
+    }
   },
   "public": {
     "greeting": "Dobrodošli u Apartments AI",

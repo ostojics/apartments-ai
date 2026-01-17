@@ -7,7 +7,10 @@
   "languageSelection": {
     "title": "Choose your language",
     "description": "Select the language you want to use throughout Apartments AI.",
-    "continue": "Continue"
+    "continue": "Continue",
+    "errors": {
+      "selectionFailed": "Failed to select language. Please try again."
+    }
   },
   "public": {
     "greeting": "Welcome to Apartments AI",
