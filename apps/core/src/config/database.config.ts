@@ -23,8 +23,6 @@ export function getConfig(): DatabaseConfig {
     database: process.env.DB_DATABASE ?? 'nestwise_dev',
     ssl: process.env.DB_USE_SSL === 'true',
     entities: [
-      // User,
-      // Household,
       // Account,
       // Category,
       // Transaction,

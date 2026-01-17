@@ -5,7 +5,6 @@ import {LicenseEntity} from '../../domain/license.entity';
 import {LicenseOrmEntity} from './license.entity';
 import {LicenseMapper} from './license.mapper';
 import {TypeOrmUnitOfWork} from 'src/libs/infrastructure/persistence/typeorm-unit-of-work';
-import {HouseholdOrmEntity} from 'src/modules/households/infrastructure/persistence/household.entity';
 
 @Injectable()
 export class TypeOrmLicenseRepository implements ILicenseRepository {
@@ -38,16 +37,6 @@ export class TypeOrmLicenseRepository implements ILicenseRepository {
     if (!record) return null;
 
     return LicenseMapper.toDomain(record);
-  }
-
-  async findByHouseholdId(householdId: string): Promise<LicenseEntity | null> {
-    const manager = TypeOrmUnitOfWork.getManager() ?? this.dataSource.manager;
-    const householdRepo = manager.getRepository(HouseholdOrmEntity);
-
-    const household = await householdRepo.findOne({where: {id: householdId}});
-    if (!household) return null;
-
-    return this.findById(household.licenseId);
   }
 
   async update(license: LicenseEntity): Promise<void> {
