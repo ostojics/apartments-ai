@@ -34,7 +34,32 @@
     "subtitle": "Resources, policies, and details for {{community}} residents.",
     "tabs": {
       "chat": "Chat",
-      "manual": "Manual"
+      "manual": "Manual",
+      "promotions": "Promotions"
+    },
+    "promotions": {
+      "title": "Promotions & discounts",
+      "description": "Share your details to receive the latest specials for your community.",
+      "helper": "We'll send offers and move-in specials to your inbox.",
+      "form": {
+        "nameLabel": "Full name",
+        "namePlaceholder": "Taylor Jordan",
+        "emailLabel": "Email address",
+        "emailPlaceholder": "taylor@example.com",
+        "phoneLabel": "Phone number (optional)",
+        "phonePlaceholder": "(555) 123-4567",
+        "submit": "Get promotions"
+      },
+      "toasts": {
+        "success": "Thanks! We'll send the latest promotions shortly.",
+        "error": "We couldn't submit your request. Please try again."
+      },
+      "errors": {
+        "nameRequired": "Full name is required.",
+        "emailRequired": "Email is required.",
+        "emailInvalid": "Enter a valid email address.",
+        "phoneInvalid": "Enter a valid phone number."
+      }
     },
     "chat": {
       "title": "Chat is almost ready",

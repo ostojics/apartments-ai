@@ -34,7 +34,32 @@
     "subtitle": "Resursi, pravila i detalji za stanare zajednice {{community}}.",
     "tabs": {
       "chat": "Razgovor",
-      "manual": "Priručnik"
+      "manual": "Priručnik",
+      "promotions": "Promocije"
+    },
+    "promotions": {
+      "title": "Promocije i popusti",
+      "description": "Podelite svoje podatke kako biste dobijali najnovije ponude za vašu zajednicu.",
+      "helper": "Ponude i popuste šaljemo direktno u vaše sanduče.",
+      "form": {
+        "nameLabel": "Puno ime",
+        "namePlaceholder": "Tejlor Jordan",
+        "emailLabel": "Adresa e-pošte",
+        "emailPlaceholder": "tejlor@example.com",
+        "phoneLabel": "Broj telefona (opciono)",
+        "phonePlaceholder": "(555) 123-4567",
+        "submit": "Zatražite promocije"
+      },
+      "toasts": {
+        "success": "Hvala! Najnovije promocije stižu uskoro.",
+        "error": "Ne možemo da pošaljemo zahtev. Molimo pokušajte ponovo."
+      },
+      "errors": {
+        "nameRequired": "Puno ime je obavezno.",
+        "emailRequired": "E-pošta je obavezna.",
+        "emailInvalid": "Unesite važeću adresu e-pošte.",
+        "phoneInvalid": "Unesite važeći broj telefona."
+      }
     },
     "chat": {
       "title": "Chat je skoro spreman",
