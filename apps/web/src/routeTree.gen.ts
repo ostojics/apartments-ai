@@ -12,6 +12,7 @@ import {Route as rootRouteImport} from './routes/__root';
 import {Route as PublicRouteRouteImport} from './routes/_public/route';
 import {Route as _pathlessLayoutRouteRouteImport} from './routes/__pathlessLayout/route';
 import {Route as PublicIndexRouteImport} from './routes/_public/index';
+import {Route as PublicWelcomeRouteImport} from './routes/_public/welcome';
 import {Route as _pathlessLayoutSettingsRouteImport} from './routes/__pathlessLayout/settings';
 
 const PublicRouteRoute = PublicRouteRouteImport.update({
@@ -27,6 +28,11 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicRouteRoute,
 } as any);
+const PublicWelcomeRoute = PublicWelcomeRouteImport.update({
+  id: '/welcome',
+  path: '/welcome',
+  getParentRoute: () => PublicRouteRoute,
+} as any);
 const _pathlessLayoutSettingsRoute = _pathlessLayoutSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -35,10 +41,12 @@ const _pathlessLayoutSettingsRoute = _pathlessLayoutSettingsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/settings': typeof _pathlessLayoutSettingsRoute;
+  '/welcome': typeof PublicWelcomeRoute;
   '/': typeof PublicIndexRoute;
 }
 export interface FileRoutesByTo {
   '/settings': typeof _pathlessLayoutSettingsRoute;
+  '/welcome': typeof PublicWelcomeRoute;
   '/': typeof PublicIndexRoute;
 }
 export interface FileRoutesById {
@@ -46,14 +54,15 @@ export interface FileRoutesById {
   '/__pathlessLayout': typeof _pathlessLayoutRouteRouteWithChildren;
   '/_public': typeof PublicRouteRouteWithChildren;
   '/__pathlessLayout/settings': typeof _pathlessLayoutSettingsRoute;
+  '/_public/welcome': typeof PublicWelcomeRoute;
   '/_public/': typeof PublicIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/settings' | '/';
+  fullPaths: '/settings' | '/welcome' | '/';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/settings' | '/';
-  id: '__root__' | '/__pathlessLayout' | '/_public' | '/__pathlessLayout/settings' | '/_public/';
+  to: '/settings' | '/welcome' | '/';
+  id: '__root__' | '/__pathlessLayout' | '/_public' | '/__pathlessLayout/settings' | '/_public/welcome' | '/_public/';
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -84,6 +93,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport;
       parentRoute: typeof PublicRouteRoute;
     };
+    '/_public/welcome': {
+      id: '/_public/welcome';
+      path: '/welcome';
+      fullPath: '/welcome';
+      preLoaderRoute: typeof PublicWelcomeRouteImport;
+      parentRoute: typeof PublicRouteRoute;
+    };
     '/__pathlessLayout/settings': {
       id: '/__pathlessLayout/settings';
       path: '/settings';
@@ -107,10 +123,12 @@ const _pathlessLayoutRouteRouteWithChildren = _pathlessLayoutRouteRoute._addFile
 );
 
 interface PublicRouteRouteChildren {
+  PublicWelcomeRoute: typeof PublicWelcomeRoute;
   PublicIndexRoute: typeof PublicIndexRoute;
 }
 
 const PublicRouteRouteChildren: PublicRouteRouteChildren = {
+  PublicWelcomeRoute: PublicWelcomeRoute,
   PublicIndexRoute: PublicIndexRoute,
 };
 

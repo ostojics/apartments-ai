@@ -1,14 +1,26 @@
 {
   "language": {
     "english": "English",
-    "serbian": "Serbian (Latin)"
+    "serbian": "Serbian (Latin)",
+    "selectLabel": "Select language"
+  },
+  "languageSelection": {
+    "title": "Choose your language",
+    "description": "Select the language you want to use throughout Apartments AI.",
+    "continue": "Continue",
+    "errors": {
+      "selectionFailed": "Failed to select language. Please try again."
+    }
   },
   "public": {
-    "greeting": "Welcome to Apartments AI"
+    "greeting": "Welcome to Apartments AI",
+    "poweredBy": "Powered by",
+    "welcomeDescription": "You're ready for the next step."
   },
   "theme": {
     "light": "Light",
     "dark": "Dark",
-    "system": "System"
+    "system": "System",
+    "toggle": "Toggle theme"
   }
 }
