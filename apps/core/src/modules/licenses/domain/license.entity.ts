@@ -4,49 +4,56 @@ import {LicenseUsedEvent} from './events/license-used.event';
 
 export class LicenseEntity extends BaseEntity {
   #key: string;
-  #expiresAt: Date;
+  #validDate: Date;
   #usedAt: Date | null;
-  #note: string | null;
+  #allowedBuildings: number;
+  #metadata: Record<string, unknown>;
 
   private constructor(
     id: string | undefined,
     key: string,
-    expiresAt: Date,
+    validDate: Date,
     usedAt: Date | null,
-    note: string | null,
+    allowedBuildings: number,
+    metadata: Record<string, unknown>,
     createdAt?: string,
     updatedAt?: string,
   ) {
     super(id, createdAt, updatedAt);
 
     this.#key = key;
-    this.#expiresAt = expiresAt;
+    this.#validDate = validDate;
     this.#usedAt = usedAt;
-    this.#note = note;
+    this.#allowedBuildings = allowedBuildings;
+    this.#metadata = metadata;
   }
 
   public static create(data: {
     id?: string;
     key: string;
-    expiresAt: Date;
+    validDate: Date;
     usedAt?: Date | null;
-    note?: string | null;
+    allowedBuildings?: number;
+    metadata?: Record<string, unknown>;
 
     createdAt?: string;
     updatedAt?: string;
   }): LicenseEntity {
+    const allowedBuildings = data.allowedBuildings ?? 1;
+    const metadata = data.metadata ?? {};
     const license = new LicenseEntity(
       data.id,
       data.key,
-      data.expiresAt,
+      data.validDate,
       data.usedAt ?? null,
-      data.note ?? null,
+      allowedBuildings,
+      metadata,
 
       data.createdAt,
       data.updatedAt,
     );
 
-    license.addEvent(new LicenseCreatedEvent(license.id, data.key, data.expiresAt));
+    license.addEvent(new LicenseCreatedEvent(license.id, data.key, data.validDate));
 
     return license;
   }
@@ -55,16 +62,20 @@ export class LicenseEntity extends BaseEntity {
     return this.#key;
   }
 
-  public get expiresAt(): Date {
-    return this.#expiresAt;
+  public get validDate(): Date {
+    return this.#validDate;
   }
 
   public get usedAt(): Date | null {
     return this.#usedAt;
   }
 
-  public get note(): string | null {
-    return this.#note;
+  public get allowedBuildings(): number {
+    return this.#allowedBuildings;
+  }
+
+  public get metadata(): Record<string, unknown> {
+    return this.#metadata;
   }
 
   public get isUsed(): boolean {
@@ -72,7 +83,7 @@ export class LicenseEntity extends BaseEntity {
   }
 
   public get isExpired(): boolean {
-    return new Date() > this.#expiresAt;
+    return new Date() > this.#validDate;
   }
 
   public isValid(): boolean {
@@ -92,19 +103,5 @@ export class LicenseEntity extends BaseEntity {
     this.markUpdated();
 
     this.addEvent(new LicenseUsedEvent(this.id, this.#key));
-  }
-
-  public updateNote(note: string): void {
-    this.#note = note;
-    this.markUpdated();
-  }
-
-  public extendExpiration(newExpirationDate: Date): void {
-    if (newExpirationDate <= this.#expiresAt) {
-      throw new Error('New expiration date must be later than current expiration date');
-    }
-
-    this.#expiresAt = newExpirationDate;
-    this.markUpdated();
   }
 }

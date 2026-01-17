@@ -8,14 +8,17 @@ export class LicenseOrmEntity {
   @Column('uuid', {unique: true})
   key: string;
 
-  @Column('timestamp with time zone', {name: 'expires_at'})
-  expiresAt: Date;
+  @Column('timestamp with time zone', {name: 'valid_date'})
+  validDate: Date;
 
   @Column('timestamp with time zone', {name: 'used_at', nullable: true})
   usedAt: Date | null;
 
-  @Column('text', {nullable: true})
-  note: string | null;
+  @Column('integer', {name: 'allowed_buildings', default: 1})
+  allowedBuildings: number;
+
+  @Column('jsonb', {default: () => "'{}'::jsonb"})
+  metadata: Record<string, unknown>;
 
   @CreateDateColumn({name: 'created_at', type: 'timestamp with time zone'})
   createdAt: Date;
