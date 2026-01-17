@@ -91,30 +91,34 @@ export class BuildingEntity extends BaseEntity {
   }
 
   public update(data: {name?: string; slug?: string; imageUrl?: string | null; address?: string | null}): void {
+    const updatedFields: {
+      name?: string;
+      slug?: string;
+      imageUrl?: string | null;
+      address?: string | null;
+    } = {};
+
     if (data.name !== undefined) {
       this.#name = data.name;
+      updatedFields.name = data.name;
     }
 
     if (data.slug !== undefined) {
       this.#slug = data.slug;
+      updatedFields.slug = data.slug;
     }
 
     if (data.imageUrl !== undefined) {
       this.#imageUrl = data.imageUrl;
+      updatedFields.imageUrl = data.imageUrl;
     }
 
     if (data.address !== undefined) {
       this.#address = data.address;
+      updatedFields.address = data.address;
     }
 
-    this.addEvent(
-      new BuildingUpdatedEvent(this.id, {
-        name: data.name,
-        slug: data.slug,
-        imageUrl: data.imageUrl,
-        address: data.address,
-      }),
-    );
+    this.addEvent(new BuildingUpdatedEvent(this.id, updatedFields));
 
     this.markUpdated();
   }
