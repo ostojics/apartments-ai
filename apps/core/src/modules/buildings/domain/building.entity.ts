@@ -75,23 +75,19 @@ export class BuildingEntity extends BaseEntity {
   }
 
   public updateName(newName: string): void {
-    this.#name = newName;
-    this.markUpdated();
+    this.update({name: newName});
   }
 
   public updateSlug(newSlug: string): void {
-    this.#slug = newSlug;
-    this.markUpdated();
+    this.update({slug: newSlug});
   }
 
   public updateImageUrl(newImageUrl: string | null): void {
-    this.#imageUrl = newImageUrl;
-    this.markUpdated();
+    this.update({imageUrl: newImageUrl});
   }
 
   public updateAddress(newAddress: string | null): void {
-    this.#address = newAddress;
-    this.markUpdated();
+    this.update({address: newAddress});
   }
 
   public update(data: {name?: string; slug?: string; imageUrl?: string | null; address?: string | null}): void {
