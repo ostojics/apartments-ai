@@ -1,7 +1,5 @@
 import type {PromotionsRequestDTO} from '@acme/contracts';
 import {promotionsRequestSchema} from '@acme/contracts';
-import {zodResolver} from '@hookform/resolvers/zod';
-import type {Resolver} from 'react-hook-form';
 import {useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
 import {toast} from 'sonner';
@@ -11,6 +9,7 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/compo
 import {Form, FormControl, FormField, FormItem, FormLabel} from '@/components/ui/form';
 import {Input} from '@/components/ui/input';
 import {Spinner} from '@/components/ui/spinner';
+import {createZodResolver} from '@/lib/utils/zod-resolver';
 import {usePromotionsMutation} from '@/modules/apartments/hooks/use-promotions-mutation';
 
 import {FormError} from './form-error';
@@ -18,9 +17,7 @@ import {FormError} from './form-error';
 export function PromotionsTab() {
   const {t} = useTranslation();
   const promotionsMutation = usePromotionsMutation();
-  const resolver = zodResolver(
-    promotionsRequestSchema as unknown as Parameters<typeof zodResolver>[0],
-  ) as unknown as Resolver<PromotionsRequestDTO>;
+  const resolver = createZodResolver<PromotionsRequestDTO>(promotionsRequestSchema);
   const form = useForm<PromotionsRequestDTO>({
     resolver,
     defaultValues: {
