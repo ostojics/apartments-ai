@@ -36,14 +36,6 @@ export class LicenseResponseSwaggerDTO {
   note: string | null;
 
   @ApiProperty({
-    description: 'ID of household that used this license',
-    format: 'uuid',
-    example: 'e5f6g7h8-i9j0-1234-ef01-567890123456',
-    nullable: true,
-  })
-  householdId: string | null;
-
-  @ApiProperty({
     description: 'Whether the license has been used',
     example: true,
   })
