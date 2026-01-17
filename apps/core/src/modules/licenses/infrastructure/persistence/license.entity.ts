@@ -14,10 +14,10 @@ export class LicenseOrmEntity {
   @Column('timestamp with time zone', {name: 'used_at', nullable: true})
   usedAt: Date | null;
 
-  @Column('integer', {name: 'allowed_buildings', default: 1})
+  @Column('integer', {name: 'allowed_buildings'})
   allowedBuildings: number;
 
-  @Column('jsonb', {default: () => "'{}'::jsonb"})
+  @Column('jsonb')
   metadata: Record<string, unknown>;
 
   @CreateDateColumn({name: 'created_at', type: 'timestamp with time zone'})
