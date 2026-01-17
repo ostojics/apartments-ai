@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 
 export default function ApartmentManualTab() {
   const {t} = useTranslation();
-  const markdownContent = t('apartment.manual.content', {interpolation: {prefix: '[[', suffix: ']]'}});
+  const markdownContent = t('apartment.manual.content', {skipInterpolation: true});
 
   return <Markdown remarkPlugins={[remarkGfm]}>{markdownContent}</Markdown>;
 }
