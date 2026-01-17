@@ -118,6 +118,10 @@ export class BuildingEntity extends BaseEntity {
       updatedFields.address = data.address;
     }
 
+    if (Object.keys(updatedFields).length === 0) {
+      return;
+    }
+
     this.addEvent(new BuildingUpdatedEvent(this.id, updatedFields));
 
     this.markUpdated();
