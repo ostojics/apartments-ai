@@ -96,7 +96,7 @@ export class LicenseEntity extends BaseEntity {
     }
 
     if (this.isExpired) {
-      throw new Error('License has passed its valid date');
+      throw new Error('License is no longer valid');
     }
 
     this.#usedAt = new Date();
