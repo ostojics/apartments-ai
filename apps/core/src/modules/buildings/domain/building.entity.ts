@@ -98,22 +98,22 @@ export class BuildingEntity extends BaseEntity {
       address?: string | null;
     } = {};
 
-    if (data.name !== undefined) {
+    if (data.name !== undefined && data.name !== this.#name) {
       this.#name = data.name;
       updatedFields.name = data.name;
     }
 
-    if (data.slug !== undefined) {
+    if (data.slug !== undefined && data.slug !== this.#slug) {
       this.#slug = data.slug;
       updatedFields.slug = data.slug;
     }
 
-    if (data.imageUrl !== undefined) {
+    if (data.imageUrl !== undefined && data.imageUrl !== this.#imageUrl) {
       this.#imageUrl = data.imageUrl;
       updatedFields.imageUrl = data.imageUrl;
     }
 
-    if (data.address !== undefined) {
+    if (data.address !== undefined && data.address !== this.#address) {
       this.#address = data.address;
       updatedFields.address = data.address;
     }
