@@ -28,7 +28,7 @@ Here is an example of a plugin to highlight code:
 \`\`\`js
 import React from 'react'
 import ReactDom from 'react-dom'
-import {MarkdownHooks} from 'react-markdown'
+import Markdown from 'react-markdown'
 import rehypeStarryNight from 'rehype-starry-night'
 
 const markdown = \`
@@ -36,7 +36,7 @@ const markdown = \`
 \`
 
 ReactDom.render(
-  <MarkdownHooks rehypePlugins={[rehypeStarryNight]}>{markdown}</MarkdownHooks>,
+  <Markdown rehypePlugins={[rehypeStarryNight]}>{markdown}</Markdown>,
   document.querySelector('#content')
 )
 \`\`\`
