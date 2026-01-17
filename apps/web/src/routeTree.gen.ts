@@ -15,7 +15,6 @@ import {Route as PublicIndexRouteImport} from './routes/_public/index';
 import {Route as _pathlessLayoutSettingsRouteImport} from './routes/__pathlessLayout/settings';
 import {Route as PublicApartmentsRouteRouteImport} from './routes/_public/apartments/route';
 import {Route as PublicApartmentsIndexRouteImport} from './routes/_public/apartments/index';
-import {Route as PublicApartmentsIdRouteImport} from './routes/_public/apartments/$id';
 import {Route as PublicApartmentsApartmentIdRouteImport} from './routes/_public/apartments/$apartmentId';
 
 const PublicRouteRoute = PublicRouteRouteImport.update({
@@ -46,11 +45,6 @@ const PublicApartmentsIndexRoute = PublicApartmentsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicApartmentsRouteRoute,
 } as any);
-const PublicApartmentsIdRoute = PublicApartmentsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => PublicApartmentsRouteRoute,
-} as any);
 const PublicApartmentsApartmentIdRoute = PublicApartmentsApartmentIdRouteImport.update({
   id: '/$apartmentId',
   path: '/$apartmentId',
@@ -62,14 +56,12 @@ export interface FileRoutesByFullPath {
   '/settings': typeof _pathlessLayoutSettingsRoute;
   '/': typeof PublicIndexRoute;
   '/apartments/$apartmentId': typeof PublicApartmentsApartmentIdRoute;
-  '/apartments/$id': typeof PublicApartmentsIdRoute;
   '/apartments/': typeof PublicApartmentsIndexRoute;
 }
 export interface FileRoutesByTo {
   '/settings': typeof _pathlessLayoutSettingsRoute;
   '/': typeof PublicIndexRoute;
   '/apartments/$apartmentId': typeof PublicApartmentsApartmentIdRoute;
-  '/apartments/$id': typeof PublicApartmentsIdRoute;
   '/apartments': typeof PublicApartmentsIndexRoute;
 }
 export interface FileRoutesById {
@@ -80,14 +72,13 @@ export interface FileRoutesById {
   '/__pathlessLayout/settings': typeof _pathlessLayoutSettingsRoute;
   '/_public/': typeof PublicIndexRoute;
   '/_public/apartments/$apartmentId': typeof PublicApartmentsApartmentIdRoute;
-  '/_public/apartments/$id': typeof PublicApartmentsIdRoute;
   '/_public/apartments/': typeof PublicApartmentsIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/apartments' | '/settings' | '/' | '/apartments/$apartmentId' | '/apartments/$id' | '/apartments/';
+  fullPaths: '/apartments' | '/settings' | '/' | '/apartments/$apartmentId' | '/apartments/';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/settings' | '/' | '/apartments/$apartmentId' | '/apartments/$id' | '/apartments';
+  to: '/settings' | '/' | '/apartments/$apartmentId' | '/apartments';
   id:
     | '__root__'
     | '/__pathlessLayout'
@@ -96,7 +87,6 @@ export interface FileRouteTypes {
     | '/__pathlessLayout/settings'
     | '/_public/'
     | '/_public/apartments/$apartmentId'
-    | '/_public/apartments/$id'
     | '/_public/apartments/';
   fileRoutesById: FileRoutesById;
 }
@@ -149,13 +139,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicApartmentsIndexRouteImport;
       parentRoute: typeof PublicApartmentsRouteRoute;
     };
-    '/_public/apartments/$id': {
-      id: '/_public/apartments/$id';
-      path: '/$id';
-      fullPath: '/apartments/$id';
-      preLoaderRoute: typeof PublicApartmentsIdRouteImport;
-      parentRoute: typeof PublicApartmentsRouteRoute;
-    };
     '/_public/apartments/$apartmentId': {
       id: '/_public/apartments/$apartmentId';
       path: '/$apartmentId';
@@ -180,13 +163,11 @@ const _pathlessLayoutRouteRouteWithChildren = _pathlessLayoutRouteRoute._addFile
 
 interface PublicApartmentsRouteRouteChildren {
   PublicApartmentsApartmentIdRoute: typeof PublicApartmentsApartmentIdRoute;
-  PublicApartmentsIdRoute: typeof PublicApartmentsIdRoute;
   PublicApartmentsIndexRoute: typeof PublicApartmentsIndexRoute;
 }
 
 const PublicApartmentsRouteRouteChildren: PublicApartmentsRouteRouteChildren = {
   PublicApartmentsApartmentIdRoute: PublicApartmentsApartmentIdRoute,
-  PublicApartmentsIdRoute: PublicApartmentsIdRoute,
   PublicApartmentsIndexRoute: PublicApartmentsIndexRoute,
 };
 
