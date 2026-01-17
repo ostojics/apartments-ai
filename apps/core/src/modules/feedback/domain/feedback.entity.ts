@@ -25,9 +25,10 @@ export class FeedbackEntity extends BaseEntity {
     createdAt?: string;
     updatedAt?: string;
   }): FeedbackEntity {
-    const feedback = new FeedbackEntity(data.id, data.content, data.metadata ?? {}, data.createdAt, data.updatedAt);
+    const metadata = {...(data.metadata ?? {})};
+    const feedback = new FeedbackEntity(data.id, data.content, metadata, data.createdAt, data.updatedAt);
 
-    feedback.addEvent(new FeedbackCreatedEvent(feedback.id, feedback.content, feedback.metadata));
+    feedback.addEvent(new FeedbackCreatedEvent(feedback.id, feedback.content, {...metadata}));
 
     return feedback;
   }
@@ -37,6 +38,6 @@ export class FeedbackEntity extends BaseEntity {
   }
 
   public get metadata(): Record<string, unknown> {
-    return this.#metadata;
+    return {...this.#metadata};
   }
 }
