@@ -1,129 +1,30 @@
-/* eslint-disable max-lines */
-import {MessageCircle} from 'lucide-react';
+import {Suspense, lazy} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle} from '@/components/ui/empty';
+import {Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle} from '@/components/ui/empty';
+import {Spinner} from '@/components/ui/spinner';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+const ChatTab = lazy(() => import('./apartment-chat-tab'));
+const ManualTab = lazy(() => import('./apartment-manual-tab'));
 
-const markdownContent = `# A demo of \`react-markdown\`
+interface TabLoadingStateProps {
+  title: string;
+  description: string;
+  ariaLabel: string;
+}
 
-\`react-markdown\` is a markdown component for React.
-
-👉 Changes are re-rendered as you type.
-
-👈 Try writing some markdown on the left.
-
-## Overview
-
-* Follows [CommonMark](https://commonmark.org)
-* Optionally follows [GitHub Flavored Markdown](https://github.github.com/gfm/)
-* Renders actual React elements instead of using \`dangerouslySetInnerHTML\`
-* Lets you define your own components (to render \`MyHeading\` instead of \`'h1'\`)
-* Has a lot of plugins
-
-## Contents
-
-Here is an example of a plugin in action
-([\`remark-toc\`](https://github.com/remarkjs/remark-toc)).
-**This section is replaced by an actual table of contents**.
-
-## Syntax highlighting
-
-Here is an example of a plugin to highlight code:
-([\`rehype-starry-night\`](https://github.com/rehypejs/rehype-starry-night)).
-
-\`\`\`js
-import React from 'react'
-import ReactDom from 'react-dom'
-import {MarkdownHooks} from 'react-markdown'
-import rehypeStarryNight from 'rehype-starry-night'
-
-const markdown = \`
-# Your markdown here
-\`
-
-ReactDom.render(
-  <MarkdownHooks rehypePlugins={[rehypeStarryNight]}>{markdown}</MarkdownHooks>,
-  document.querySelector('#content')
-)
-\`\`\`
-
-Pretty neat, eh?
-
-## GitHub flavored markdown (GFM)
-
-For GFM, you can *also* use a plugin:
-([\`remark-gfm\`](https://github.com/remarkjs/react-markdown#use)).
-It adds support for GitHub-specific extensions to the language:
-tables, strikethrough, tasklists, and literal URLs.
-
-These features **do not work by default**.
-👆 Use the toggle above to add the plugin.
-
-| Feature    | Support              |
-| ---------: | :------------------- |
-| CommonMark | 100%                 |
-| GFM        | 100% w/ \`remark-gfm\` |
-
-~~strikethrough~~
-
-* [ ] task list
-* [x] checked item
-
-https://example.com
-
-## HTML in markdown
-
-⚠️ HTML in markdown is quite unsafe, but if you want to support it, you can
-use [\`rehype-raw\`](https://github.com/rehypejs/rehype-raw).
-You should probably combine it with
-[\`rehype-sanitize\`](https://github.com/rehypejs/rehype-sanitize).
-
-<blockquote>
-  👆 Use the toggle above to add the plugin.
-</blockquote>
-
-## Components
-
-You can pass components to change things:
-
-\`\`\`js
-import React from 'react'
-import ReactDom from 'react-dom'
-import Markdown from 'react-markdown'
-import MyFancyRule from './components/my-fancy-rule.js'
-
-const markdown = \`
-# Your markdown here
-\`
-
-ReactDom.render(
-  <Markdown
-    components={{
-      // Use h2s instead of h1s
-      h1: 'h2',
-      // Use a component instead of hrs
-      hr(props) {
-        const {node, ...rest} = props
-        return <MyFancyRule {...rest} />
-      }
-    }}
-  >
-    {markdown}
-  </Markdown>,
-  document.querySelector('#content')
-)
-\`\`\`
-
-## More info?
-
-Much more info is available in the
-[readme on GitHub](https://github.com/remarkjs/react-markdown)!
-
-***
-
-A component by [Espen Hovlandsdal](https://espen.codes/)`;
+function TabLoadingState({title, description, ariaLabel}: TabLoadingStateProps) {
+  return (
+    <Empty className="bg-background">
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <Spinner className="size-6" aria-label={ariaLabel} />
+        </EmptyMedia>
+        <EmptyTitle>{title}</EmptyTitle>
+        <EmptyDescription>{description}</EmptyDescription>
+      </EmptyHeader>
+    </Empty>
+  );
+}
 
 interface ApartmentPageProps {
   apartmentId: string;
@@ -131,6 +32,13 @@ interface ApartmentPageProps {
 
 export function ApartmentPage({apartmentId}: ApartmentPageProps) {
   const {t} = useTranslation();
+  const chatTabLabel = t('apartment.tabs.chat');
+  const manualTabLabel = t('apartment.tabs.manual');
+  const loadingLabel = t('apartment.loading.label');
+  const chatLoadingTitle = t('apartment.loading.title', {tab: chatTabLabel});
+  const chatLoadingDescription = t('apartment.loading.description', {tab: chatTabLabel});
+  const manualLoadingTitle = t('apartment.loading.title', {tab: manualTabLabel});
+  const manualLoadingDescription = t('apartment.loading.description', {tab: manualTabLabel});
 
   return (
     <section className="bg-secondary/40">
@@ -143,27 +51,36 @@ export function ApartmentPage({apartmentId}: ApartmentPageProps) {
 
         <Tabs defaultValue="manual" className="gap-6">
           <TabsList className="w-full justify-start sm:w-fit">
-            <TabsTrigger value="chat">{t('apartment.tabs.chat')}</TabsTrigger>
-            <TabsTrigger value="manual">{t('apartment.tabs.manual')}</TabsTrigger>
+            <TabsTrigger value="chat">{chatTabLabel}</TabsTrigger>
+            <TabsTrigger value="manual">{manualTabLabel}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="chat">
-            <Empty className="bg-background">
-              <EmptyHeader>
-                <EmptyMedia variant="icon">
-                  <MessageCircle />
-                </EmptyMedia>
-                <EmptyTitle>{t('apartment.chat.title')}</EmptyTitle>
-                <EmptyDescription>{t('apartment.chat.description')}</EmptyDescription>
-              </EmptyHeader>
-              <EmptyContent>
-                <p className="text-muted-foreground text-sm">{t('apartment.chat.note')}</p>
-              </EmptyContent>
-            </Empty>
+            <Suspense
+              fallback={
+                <TabLoadingState
+                  ariaLabel={loadingLabel}
+                  title={chatLoadingTitle}
+                  description={chatLoadingDescription}
+                />
+              }
+            >
+              <ChatTab />
+            </Suspense>
           </TabsContent>
 
           <TabsContent value="manual">
-            <Markdown remarkPlugins={[remarkGfm]}>{markdownContent}</Markdown>
+            <Suspense
+              fallback={
+                <TabLoadingState
+                  ariaLabel={loadingLabel}
+                  title={manualLoadingTitle}
+                  description={manualLoadingDescription}
+                />
+              }
+            >
+              <ManualTab />
+            </Suspense>
           </TabsContent>
         </Tabs>
       </div>
