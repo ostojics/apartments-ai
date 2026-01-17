@@ -1,5 +1,5 @@
-const PUBLIC_PAGES = ['/login', '/onboarding'];
+const PUBLIC_ROUTES = ['/', '/apartments'];
 
 export const isPublicRoute = (path: string) => {
-  return PUBLIC_PAGES.some((page) => path.startsWith(page));
+  return PUBLIC_ROUTES.some((page) => path.startsWith(page));
 };

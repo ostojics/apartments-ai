@@ -1,17 +1,39 @@
 {
   "language": {
     "english": "Engleski",
-    "serbian": "Srpski"
+    "serbian": "Srpski",
+    "selectLabel": "Izaberi jezik"
+  },
+  "languageSelection": {
+    "title": "Izaberite svoj jezik",
+    "description": "Izaberite jezik koji želite da koristite u Apartments AI.",
+    "continue": "Nastavite",
+    "errors": {
+      "selectionFailed": "Izbor jezika nije uspeo. Molimo pokušajte ponovo."
+    }
   },
   "public": {
-    "greeting": "Dobrodošli u Apartments AI"
+    "greeting": "Dobrodošli u Apartments AI",
+    "poweredBy": "Pokreće",
+    "welcomeDescription": "Spremni ste za sledeći korak."
+  },
+  "apartments": {
+    "title": "Izaberite svoj apartman",
+    "subtitle": "Izbor apartmana",
+    "description": "Izaberite jedan od dostupnih apartmana.",
+    "continue": "Nastavite",
+    "helper": "Izaberite apartman da nastavite.",
+    "imagePlaceholder": "Slika apartmana",
+    "detailTitle": "Detalji apartmana",
+    "detailSubtitle": "Pregled apartmana",
+    "detailDescription": "Detalji za apartman {{id}} biće dostupni uskoro."
   },
   "apartment": {
     "badge": "Profil apartmana",
     "title": "Apartman {{id}}",
     "subtitle": "Resursi, pravila i detalji za stanare zajednice {{community}}.",
     "tabs": {
-      "chat": "Chat",
+      "chat": "Razgovor",
       "manual": "Priručnik"
     },
     "chat": {
@@ -74,6 +96,7 @@
   "theme": {
     "light": "Svetlo",
     "dark": "Tamno",
-    "system": "Sistem"
+    "system": "Sistem",
+    "toggle": "Promeni temu"
   }
 }

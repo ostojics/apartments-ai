@@ -50,7 +50,7 @@ void enableMocking().then(() => {
         <QueryClientProvider client={queryClient}>
           <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
             <AppRouter />
-            <Toaster position="top-right" />
+            <Toaster position="bottom-right" />
             {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
           </ThemeProvider>
         </QueryClientProvider>

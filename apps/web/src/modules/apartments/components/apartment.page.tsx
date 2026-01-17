@@ -1,8 +1,5 @@
-import {Calendar, Mail, MessageCircle, Phone} from 'lucide-react';
+import {MessageCircle} from 'lucide-react';
 import {useTranslation} from 'react-i18next';
-
-import {Badge} from '@/components/ui/badge';
-import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle} from '@/components/ui/empty';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
@@ -22,13 +19,6 @@ export function ApartmentPage({apartmentId}: ApartmentPageProps) {
     {label: t('apartment.overview.floorPlansLabel'), value: t('apartment.overview.floorPlansValue')},
   ];
 
-  const amenities = [
-    t('apartment.amenities.wifi'),
-    t('apartment.amenities.fitness'),
-    t('apartment.amenities.pet'),
-    t('apartment.amenities.parking'),
-  ];
-
   const policies = [t('apartment.policies.quiet'), t('apartment.policies.smoke'), t('apartment.policies.guests')];
 
   const officeHours = [
@@ -46,7 +36,6 @@ export function ApartmentPage({apartmentId}: ApartmentPageProps) {
     <section className="bg-secondary/40">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3">
-          <Badge variant="secondary">{t('apartment.badge')}</Badge>
           <div className="flex flex-col gap-2">
             <h1 className="text-3xl font-semibold tracking-tight">{t('apartment.title', {id: apartmentId})}</h1>
             <p className="text-muted-foreground max-w-2xl text-sm/relaxed">
@@ -96,20 +85,6 @@ export function ApartmentPage({apartmentId}: ApartmentPageProps) {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>{t('apartment.cards.amenities')}</CardTitle>
-                    <CardDescription>{t('apartment.amenities.description')}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="grid gap-2 text-sm">
-                    {amenities.map((item) => (
-                      <span key={item} className="rounded-md border border-dashed px-3 py-2">
-                        {item}
-                      </span>
-                    ))}
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
                     <CardTitle>{t('apartment.cards.policies')}</CardTitle>
                     <CardDescription>{t('apartment.policies.description')}</CardDescription>
                   </CardHeader>
@@ -150,27 +125,6 @@ export function ApartmentPage({apartmentId}: ApartmentPageProps) {
                         <span className="font-medium">{item.value}</span>
                       </div>
                     ))}
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{t('apartment.cards.actions')}</CardTitle>
-                    <CardDescription>{t('apartment.actions.description')}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="grid gap-3">
-                    <Button className="w-full justify-start gap-2" type="button">
-                      <Phone className="size-4" />
-                      {t('apartment.actions.call')}
-                    </Button>
-                    <Button variant="outline" className="w-full justify-start gap-2" type="button">
-                      <Mail className="size-4" />
-                      {t('apartment.actions.email')}
-                    </Button>
-                    <Button variant="secondary" className="w-full justify-start gap-2" type="button">
-                      <Calendar className="size-4" />
-                      {t('apartment.actions.tour')}
-                    </Button>
                   </CardContent>
                 </Card>
               </div>
