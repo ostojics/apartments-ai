@@ -6,9 +6,10 @@ export class LicenseMapper {
     return LicenseEntity.create({
       id: ormEntity.id,
       key: ormEntity.key,
-      expiresAt: ormEntity.expiresAt,
+      validDate: ormEntity.validDate,
       usedAt: ormEntity.usedAt,
-      note: ormEntity.note,
+      allowedBuildings: ormEntity.allowedBuildings,
+      metadata: ormEntity.metadata,
       createdAt: ormEntity.createdAt.toISOString(),
     });
   }
@@ -17,9 +18,10 @@ export class LicenseMapper {
     const ormEntity = new LicenseOrmEntity();
     ormEntity.id = domainEntity.id;
     ormEntity.key = domainEntity.key;
-    ormEntity.expiresAt = domainEntity.expiresAt;
+    ormEntity.validDate = domainEntity.validDate;
     ormEntity.usedAt = domainEntity.usedAt;
-    ormEntity.note = domainEntity.note;
+    ormEntity.allowedBuildings = domainEntity.allowedBuildings;
+    ormEntity.metadata = domainEntity.metadata;
     ormEntity.createdAt = new Date(domainEntity.createdAt);
 
     return ormEntity;
