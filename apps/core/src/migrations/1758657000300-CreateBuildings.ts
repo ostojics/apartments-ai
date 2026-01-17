@@ -10,6 +10,7 @@ export class CreateBuildings1758657000300 implements MigrationInterface {
         "created_at" timestamp with time zone NOT NULL DEFAULT now(),
         "tenant_id" uuid NOT NULL,
         "image_url" text,
+        "address" text,
         CONSTRAINT "PK_buildings_id" PRIMARY KEY ("id"),
         CONSTRAINT "FK_buildings_tenant_id" FOREIGN KEY ("tenant_id") REFERENCES "tenants" ("id")
       );

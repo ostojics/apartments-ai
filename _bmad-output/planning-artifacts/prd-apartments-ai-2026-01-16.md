@@ -20,6 +20,14 @@ Apartments AI is a multi-tenant platform enabling users to interact with an AI a
    - Clients (property owners) provide apartment data.
    - The agent utilizes this data to deliver relevant, context-aware responses.
 
+4. **Promotions & Discount Tab**
+   - Users can access a dedicated tab for promotions and discounts on the apartment page.
+   - The tab provides a form for users to submit their name, email, and optional phone number to receive promotions or discounts.
+   - Form validation uses a shared schema and returns i18n keys for errors, which are displayed using the i18n library.
+   - Users receive feedback via toast notifications on error or successful submission.
+   - The form is mobile responsive, localized, and includes a loading spinner during submission.
+   - No backend is required initially; a mock endpoint is used for testing.
+
 ---
 
 ## Non-Functional Requirements
@@ -48,6 +56,7 @@ Apartments AI is a multi-tenant platform enabling users to interact with an AI a
 - Documents and data are stored in the database and used for LLM context.
 - Rate limiting and abuse prevention are active on public routes.
 - Multi-tenant architecture supports scalability and isolation.
+- Users can access a promotions/discount tab on the apartment page, submit the form, and receive localized feedback.
 
 ---
 
