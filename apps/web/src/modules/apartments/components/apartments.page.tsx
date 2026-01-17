@@ -39,6 +39,17 @@ export function ApartmentsPage() {
   const navigate = useNavigate();
   const [selectedApartmentId, setSelectedApartmentId] = useState<string | null>(null);
 
+  const handleContinue = () => {
+    if (!selectedApartmentId) {
+      return;
+    }
+
+    void navigate({
+      to: '/apartments/$apartmentId',
+      params: {apartmentId: selectedApartmentId},
+    });
+  };
+
   useEffect(() => {
     const [singleApartment] = apartments;
 
@@ -50,17 +61,6 @@ export function ApartmentsPage() {
       });
     }
   }, [navigate]);
-
-  const handleContinue = () => {
-    if (!selectedApartmentId) {
-      return;
-    }
-
-    void navigate({
-      to: '/apartments/$apartmentId',
-      params: {apartmentId: selectedApartmentId},
-    });
-  };
 
   return (
     <section className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-6 py-10">
@@ -118,7 +118,7 @@ export function ApartmentsPage() {
         })}
       </div>
 
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-col items-center gap-3 mt-4">
         <Button size="lg" disabled={!selectedApartmentId} onClick={handleContinue}>
           {t('apartments.continue')}
         </Button>

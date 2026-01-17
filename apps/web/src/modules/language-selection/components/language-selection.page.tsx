@@ -30,7 +30,7 @@ export function LanguageSelectionPage() {
   };
 
   const handleContinue = async () => {
-    await navigate({to: '/welcome'});
+    await navigate({to: '/apartments'});
   };
 
   return (
