@@ -17,6 +17,17 @@
     "poweredBy": "Pokreće",
     "welcomeDescription": "Spremni ste za sledeći korak."
   },
+  "apartments": {
+    "title": "Izaberite svoj apartman",
+    "subtitle": "Izbor apartmana",
+    "description": "Izaberite jedan od dostupnih apartmana.",
+    "continue": "Nastavite",
+    "helper": "Izaberite apartman da nastavite.",
+    "imagePlaceholder": "Slika apartmana",
+    "detailTitle": "Detalji apartmana",
+    "detailSubtitle": "Pregled apartmana",
+    "detailDescription": "Detalji za apartman {{id}} biće dostupni uskoro."
+  },
   "theme": {
     "light": "Svetlo",
     "dark": "Tamno",

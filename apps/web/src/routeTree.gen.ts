@@ -12,8 +12,10 @@ import {Route as rootRouteImport} from './routes/__root';
 import {Route as PublicRouteRouteImport} from './routes/_public/route';
 import {Route as _pathlessLayoutRouteRouteImport} from './routes/__pathlessLayout/route';
 import {Route as PublicIndexRouteImport} from './routes/_public/index';
-import {Route as PublicWelcomeRouteImport} from './routes/_public/welcome';
 import {Route as _pathlessLayoutSettingsRouteImport} from './routes/__pathlessLayout/settings';
+import {Route as PublicApartmentsRouteRouteImport} from './routes/_public/apartments/route';
+import {Route as PublicApartmentsIndexRouteImport} from './routes/_public/apartments/index';
+import {Route as PublicApartmentsApartmentIdRouteImport} from './routes/_public/apartments/$apartmentId';
 
 const PublicRouteRoute = PublicRouteRouteImport.update({
   id: '/_public',
@@ -28,41 +30,64 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicRouteRoute,
 } as any);
-const PublicWelcomeRoute = PublicWelcomeRouteImport.update({
-  id: '/welcome',
-  path: '/welcome',
-  getParentRoute: () => PublicRouteRoute,
-} as any);
 const _pathlessLayoutSettingsRoute = _pathlessLayoutSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => _pathlessLayoutRouteRoute,
 } as any);
+const PublicApartmentsRouteRoute = PublicApartmentsRouteRouteImport.update({
+  id: '/apartments',
+  path: '/apartments',
+  getParentRoute: () => PublicRouteRoute,
+} as any);
+const PublicApartmentsIndexRoute = PublicApartmentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PublicApartmentsRouteRoute,
+} as any);
+const PublicApartmentsApartmentIdRoute = PublicApartmentsApartmentIdRouteImport.update({
+  id: '/$apartmentId',
+  path: '/$apartmentId',
+  getParentRoute: () => PublicApartmentsRouteRoute,
+} as any);
 
 export interface FileRoutesByFullPath {
+  '/apartments': typeof PublicApartmentsRouteRouteWithChildren;
   '/settings': typeof _pathlessLayoutSettingsRoute;
-  '/welcome': typeof PublicWelcomeRoute;
   '/': typeof PublicIndexRoute;
+  '/apartments/$apartmentId': typeof PublicApartmentsApartmentIdRoute;
+  '/apartments/': typeof PublicApartmentsIndexRoute;
 }
 export interface FileRoutesByTo {
   '/settings': typeof _pathlessLayoutSettingsRoute;
-  '/welcome': typeof PublicWelcomeRoute;
   '/': typeof PublicIndexRoute;
+  '/apartments/$apartmentId': typeof PublicApartmentsApartmentIdRoute;
+  '/apartments': typeof PublicApartmentsIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   '/__pathlessLayout': typeof _pathlessLayoutRouteRouteWithChildren;
   '/_public': typeof PublicRouteRouteWithChildren;
+  '/_public/apartments': typeof PublicApartmentsRouteRouteWithChildren;
   '/__pathlessLayout/settings': typeof _pathlessLayoutSettingsRoute;
-  '/_public/welcome': typeof PublicWelcomeRoute;
   '/_public/': typeof PublicIndexRoute;
+  '/_public/apartments/$apartmentId': typeof PublicApartmentsApartmentIdRoute;
+  '/_public/apartments/': typeof PublicApartmentsIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/settings' | '/welcome' | '/';
+  fullPaths: '/apartments' | '/settings' | '/' | '/apartments/$apartmentId' | '/apartments/';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/settings' | '/welcome' | '/';
-  id: '__root__' | '/__pathlessLayout' | '/_public' | '/__pathlessLayout/settings' | '/_public/welcome' | '/_public/';
+  to: '/settings' | '/' | '/apartments/$apartmentId' | '/apartments';
+  id:
+    | '__root__'
+    | '/__pathlessLayout'
+    | '/_public'
+    | '/_public/apartments'
+    | '/__pathlessLayout/settings'
+    | '/_public/'
+    | '/_public/apartments/$apartmentId'
+    | '/_public/apartments/';
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -93,19 +118,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport;
       parentRoute: typeof PublicRouteRoute;
     };
-    '/_public/welcome': {
-      id: '/_public/welcome';
-      path: '/welcome';
-      fullPath: '/welcome';
-      preLoaderRoute: typeof PublicWelcomeRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
     '/__pathlessLayout/settings': {
       id: '/__pathlessLayout/settings';
       path: '/settings';
       fullPath: '/settings';
       preLoaderRoute: typeof _pathlessLayoutSettingsRouteImport;
       parentRoute: typeof _pathlessLayoutRouteRoute;
+    };
+    '/_public/apartments': {
+      id: '/_public/apartments';
+      path: '/apartments';
+      fullPath: '/apartments';
+      preLoaderRoute: typeof PublicApartmentsRouteRouteImport;
+      parentRoute: typeof PublicRouteRoute;
+    };
+    '/_public/apartments/': {
+      id: '/_public/apartments/';
+      path: '/';
+      fullPath: '/apartments/';
+      preLoaderRoute: typeof PublicApartmentsIndexRouteImport;
+      parentRoute: typeof PublicApartmentsRouteRoute;
+    };
+    '/_public/apartments/$apartmentId': {
+      id: '/_public/apartments/$apartmentId';
+      path: '/$apartmentId';
+      fullPath: '/apartments/$apartmentId';
+      preLoaderRoute: typeof PublicApartmentsApartmentIdRouteImport;
+      parentRoute: typeof PublicApartmentsRouteRoute;
     };
   }
 }
@@ -122,13 +161,27 @@ const _pathlessLayoutRouteRouteWithChildren = _pathlessLayoutRouteRoute._addFile
   _pathlessLayoutRouteRouteChildren,
 );
 
+interface PublicApartmentsRouteRouteChildren {
+  PublicApartmentsApartmentIdRoute: typeof PublicApartmentsApartmentIdRoute;
+  PublicApartmentsIndexRoute: typeof PublicApartmentsIndexRoute;
+}
+
+const PublicApartmentsRouteRouteChildren: PublicApartmentsRouteRouteChildren = {
+  PublicApartmentsApartmentIdRoute: PublicApartmentsApartmentIdRoute,
+  PublicApartmentsIndexRoute: PublicApartmentsIndexRoute,
+};
+
+const PublicApartmentsRouteRouteWithChildren = PublicApartmentsRouteRoute._addFileChildren(
+  PublicApartmentsRouteRouteChildren,
+);
+
 interface PublicRouteRouteChildren {
-  PublicWelcomeRoute: typeof PublicWelcomeRoute;
+  PublicApartmentsRouteRoute: typeof PublicApartmentsRouteRouteWithChildren;
   PublicIndexRoute: typeof PublicIndexRoute;
 }
 
 const PublicRouteRouteChildren: PublicRouteRouteChildren = {
-  PublicWelcomeRoute: PublicWelcomeRoute,
+  PublicApartmentsRouteRoute: PublicApartmentsRouteRouteWithChildren,
   PublicIndexRoute: PublicIndexRoute,
 };
 
