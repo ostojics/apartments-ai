@@ -9,6 +9,7 @@ export class CreateLicenses1758657000000 implements MigrationInterface {
         "created_at" timestamp with time zone NOT NULL DEFAULT now(),
         "valid_date" timestamp with time zone NOT NULL,
         "used_at" timestamp with time zone,
+        "allowed_buildings" integer NOT NULL DEFAULT 1,
         "metadata" jsonb NOT NULL DEFAULT '{}'::jsonb,
         CONSTRAINT "PK_licenses_id" PRIMARY KEY ("id"),
         CONSTRAINT "UQ_licenses_key" UNIQUE ("key")
