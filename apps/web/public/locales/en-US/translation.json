@@ -35,7 +35,7 @@
     "tabs": {
       "chat": "Chat",
       "manual": "Manual",
-      "promotions": "Promotions"
+      "promotions": "Discounts"
     },
     "promotions": {
       "title": "Promotions & discounts",
@@ -43,9 +43,9 @@
       "helper": "We'll send offers and move-in specials to your inbox.",
       "form": {
         "nameLabel": "Full name",
-        "namePlaceholder": "Taylor Jordan",
+        "namePlaceholder": "John Smith",
         "emailLabel": "Email address",
-        "emailPlaceholder": "taylor@example.com",
+        "emailPlaceholder": "john@example.com",
         "phoneLabel": "Phone number (optional)",
         "phonePlaceholder": "(555) 123-4567",
         "submit": "Get promotions"
@@ -58,13 +58,19 @@
         "nameRequired": "Full name is required.",
         "emailRequired": "Email is required.",
         "emailInvalid": "Enter a valid email address.",
-        "phoneInvalid": "Enter a valid phone number."
+        "phoneInvalid": "Enter a valid phone number.",
+        "languageInvalid": "Invalid locale format (e.g., en-US, sr-Latn)"
       }
     },
     "chat": {
       "title": "Chat is almost ready",
       "description": "Soon you will be able to ask questions and get answers instantly.",
       "note": "Until then, browse the manual for key community information."
+    },
+    "loading": {
+      "label": "Loading",
+      "title": "Loading {{tab}}",
+      "description": "Please wait while we prepare the {{tab}} content."
     },
     "cards": {
       "overview": "Overview",

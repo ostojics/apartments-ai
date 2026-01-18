@@ -1,16 +1,25 @@
-import {MessageCircle} from 'lucide-react';
+import {lazy, Suspense} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle} from '@/components/ui/empty';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
-import {ApartmentManual} from '@/modules/apartments/components/apartment-manual';
-import {PromotionsTab} from '@/modules/apartments/components/promotions-tab';
+import {useParams} from '@tanstack/react-router';
+import {TabLoadingState} from './tab-loading';
+const ApartmentChatTab = lazy(() => import('./apartment-chat-tab'));
+const ApartmentManualTab = lazy(() => import('./apartment-manual-tab'));
+const ApartmentsPromotionsTab = lazy(() => import('./promotions-tab'));
 
-interface ApartmentPageProps {
-  apartmentId: string;
-}
-
-export function ApartmentPage({apartmentId}: ApartmentPageProps) {
+export function ApartmentPage() {
   const {t} = useTranslation();
+  const {apartmentId} = useParams({from: '/_public/apartments/$apartmentId'});
+  const chatTabLabel = t('apartment.tabs.chat');
+  const manualTabLabel = t('apartment.tabs.manual');
+  const loadingLabel = t('apartment.loading.label');
+  const chatLoadingTitle = t('apartment.loading.title', {tab: chatTabLabel});
+  const chatLoadingDescription = t('apartment.loading.description', {tab: chatTabLabel});
+  const manualLoadingTitle = t('apartment.loading.title', {tab: manualTabLabel});
+  const manualLoadingDescription = t('apartment.loading.description', {tab: manualTabLabel});
+  const promotionsTabLabel = t('apartment.tabs.promotions');
+  const promotionsLoadingTitle = t('apartment.loading.title', {tab: promotionsTabLabel});
+  const promotionsLoadingDescription = t('apartment.loading.description', {tab: promotionsTabLabel});
 
   return (
     <section className="bg-secondary/40">
@@ -21,7 +30,7 @@ export function ApartmentPage({apartmentId}: ApartmentPageProps) {
           </div>
         </div>
 
-        <Tabs defaultValue="manual" className="gap-6">
+        <Tabs defaultValue="chat" className="gap-6">
           <TabsList className="h-auto w-full flex-wrap justify-start gap-2 sm:h-9 sm:w-fit sm:flex-nowrap">
             <TabsTrigger value="chat">{t('apartment.tabs.chat')}</TabsTrigger>
             <TabsTrigger value="manual">{t('apartment.tabs.manual')}</TabsTrigger>
@@ -29,26 +38,45 @@ export function ApartmentPage({apartmentId}: ApartmentPageProps) {
           </TabsList>
 
           <TabsContent value="chat">
-            <Empty className="bg-background">
-              <EmptyHeader>
-                <EmptyMedia variant="icon">
-                  <MessageCircle />
-                </EmptyMedia>
-                <EmptyTitle>{t('apartment.chat.title')}</EmptyTitle>
-                <EmptyDescription>{t('apartment.chat.description')}</EmptyDescription>
-              </EmptyHeader>
-              <EmptyContent>
-                <p className="text-muted-foreground text-sm">{t('apartment.chat.note')}</p>
-              </EmptyContent>
-            </Empty>
-          </TabsContent>
-
-          <TabsContent value="manual">
-            <ApartmentManual />
+            <Suspense
+              fallback={
+                <TabLoadingState
+                  ariaLabel={loadingLabel}
+                  title={chatLoadingTitle}
+                  description={chatLoadingDescription}
+                />
+              }
+            >
+              <ApartmentChatTab />
+            </Suspense>
           </TabsContent>
 
           <TabsContent value="promotions">
-            <PromotionsTab />
+            <Suspense
+              fallback={
+                <TabLoadingState
+                  ariaLabel={loadingLabel}
+                  title={promotionsLoadingTitle}
+                  description={promotionsLoadingDescription}
+                />
+              }
+            >
+              <ApartmentsPromotionsTab />
+            </Suspense>
+          </TabsContent>
+
+          <TabsContent value="manual">
+            <Suspense
+              fallback={
+                <TabLoadingState
+                  ariaLabel={loadingLabel}
+                  title={manualLoadingTitle}
+                  description={manualLoadingDescription}
+                />
+              }
+            >
+              <ApartmentManualTab />
+            </Suspense>
           </TabsContent>
         </Tabs>
       </div>

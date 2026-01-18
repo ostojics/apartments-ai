@@ -35,7 +35,7 @@
     "tabs": {
       "chat": "Razgovor",
       "manual": "Priručnik",
-      "promotions": "Promocije"
+      "promotions": "Popusti"
     },
     "promotions": {
       "title": "Promocije i popusti",
@@ -43,12 +43,12 @@
       "helper": "Ponude i popuste šaljemo direktno u vaše sanduče.",
       "form": {
         "nameLabel": "Puno ime",
-        "namePlaceholder": "Tejlor Jordan",
+        "namePlaceholder": "Marko Marković",
         "emailLabel": "Adresa e-pošte",
-        "emailPlaceholder": "tejlor@example.com",
+        "emailPlaceholder": "marko@gmail.com",
         "phoneLabel": "Broj telefona (opciono)",
-        "phonePlaceholder": "(555) 123-4567",
-        "submit": "Zatražite promocije"
+        "phonePlaceholder": "+381 60 1234567",
+        "submit": "Pošaljite"
       },
       "toasts": {
         "success": "Hvala! Najnovije promocije stižu uskoro.",
@@ -58,13 +58,19 @@
         "nameRequired": "Puno ime je obavezno.",
         "emailRequired": "E-pošta je obavezna.",
         "emailInvalid": "Unesite važeću adresu e-pošte.",
-        "phoneInvalid": "Unesite važeći broj telefona."
+        "phoneInvalid": "Unesite važeći broj telefona.",
+        "languageInvalid": "Nevažeći format lokaliteta (npr., en-US, sr-Latn)"
       }
     },
     "chat": {
       "title": "Chat je skoro spreman",
       "description": "Uskoro ćete moći da postavljate pitanja i dobijate odgovore odmah.",
       "note": "Do tada pogledajte priručnik za ključne informacije o zajednici."
+    },
+    "loading": {
+      "label": "Učitavanje",
+      "title": "Učitava se {{tab}}",
+      "description": "Molimo sačekajte dok pripremamo sadržaj za {{tab}}."
     },
     "cards": {
       "overview": "Pregled",

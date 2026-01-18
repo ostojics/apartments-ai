@@ -1,6 +1,3 @@
-import type {PromotionsRequestDTO} from '@acme/contracts';
-import {promotionsRequestSchema} from '@acme/contracts';
-import {useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
 import {toast} from 'sonner';
 
@@ -9,32 +6,28 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/compo
 import {Form, FormControl, FormField, FormItem, FormLabel} from '@/components/ui/form';
 import {Input} from '@/components/ui/input';
 import {Spinner} from '@/components/ui/spinner';
-import {createZodResolver} from '@/lib/utils/zod-resolver';
 import {usePromotionsMutation} from '@/modules/apartments/hooks/use-promotions-mutation';
 
 import {FormError} from './form-error';
+import {usePromotionsForm} from '../hooks/use-promotions.form';
+import {DEFAULT_LANGUAGE} from '@/modules/i18n/constants/i18n';
 
-export function PromotionsTab() {
-  const {t} = useTranslation();
+export default function PromotionsTab() {
+  const {t, i18n} = useTranslation();
   const promotionsMutation = usePromotionsMutation();
-  const resolver = createZodResolver<PromotionsRequestDTO>(promotionsRequestSchema);
-  const form = useForm<PromotionsRequestDTO>({
-    resolver,
-    defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-    },
-  });
+  const preferredLanguage = i18n.resolvedLanguage ?? DEFAULT_LANGUAGE;
+  const form = usePromotionsForm({preferredLanguage});
 
   const handleSubmit = form.handleSubmit(async (values) => {
-    try {
-      await promotionsMutation.mutateAsync(values);
-      form.reset();
-      toast.success(t('apartment.promotions.toasts.success'));
-    } catch {
-      toast.error(t('apartment.promotions.toasts.error'));
-    }
+    await promotionsMutation.mutateAsync(values, {
+      onSuccess: () => {
+        form.reset();
+        toast.success(t('apartment.promotions.toasts.success'));
+      },
+      onError: () => {
+        toast.error(t('apartment.promotions.toasts.error'));
+      },
+    });
   });
 
   return (

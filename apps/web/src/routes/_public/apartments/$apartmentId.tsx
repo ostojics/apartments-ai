@@ -6,7 +6,5 @@ export const Route = createFileRoute('/_public/apartments/$apartmentId')({
 });
 
 function ApartmentDetailRoute() {
-  const params = Route.useParams();
-
-  return <ApartmentPage apartmentId={params.apartmentId} />;
+  return <ApartmentPage />;
 }
