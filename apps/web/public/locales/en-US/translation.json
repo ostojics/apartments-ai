@@ -41,6 +41,11 @@
       "description": "Soon you will be able to ask questions and get answers instantly.",
       "note": "Until then, browse the manual for key community information."
     },
+    "loading": {
+      "label": "Loading",
+      "title": "Loading {{tab}}",
+      "description": "Please wait while we prepare the {{tab}} content."
+    },
     "cards": {
       "overview": "Overview",
       "amenities": "Amenities",

@@ -41,6 +41,11 @@
       "description": "Uskoro ćete moći da postavljate pitanja i dobijate odgovore odmah.",
       "note": "Do tada pogledajte priručnik za ključne informacije o zajednici."
     },
+    "loading": {
+      "label": "Učitavanje",
+      "title": "Učitava se {{tab}}",
+      "description": "Molimo sačekajte dok pripremamo sadržaj za {{tab}}."
+    },
     "cards": {
       "overview": "Pregled",
       "amenities": "Sadržaji",

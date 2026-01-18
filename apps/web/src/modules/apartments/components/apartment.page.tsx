@@ -1,18 +1,21 @@
-import {MessageCircle} from 'lucide-react';
+import {lazy, Suspense} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle} from '@/components/ui/empty';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import {apartmentMarkdownComponents} from '@/modules/apartments/components/markdown/markdown-components';
-import {markdownContent} from '@/modules/apartments/components/markdown/markdown-content';
+import {useParams} from '@tanstack/react-router';
+import {TabLoadingState} from './tab-loading';
+const ApartmentChatTab = lazy(() => import('./apartment-chat-tab'));
+const ApartmentManualTab = lazy(() => import('./apartment-manual-tab'));
 
-interface ApartmentPageProps {
-  apartmentId: string;
-}
-
-export function ApartmentPage({apartmentId}: ApartmentPageProps) {
+export function ApartmentPage() {
   const {t} = useTranslation();
+  const {apartmentId} = useParams({from: '/_public/apartments/$apartmentId'});
+  const chatTabLabel = t('apartment.tabs.chat');
+  const manualTabLabel = t('apartment.tabs.manual');
+  const loadingLabel = t('apartment.loading.label');
+  const chatLoadingTitle = t('apartment.loading.title', {tab: chatTabLabel});
+  const chatLoadingDescription = t('apartment.loading.description', {tab: chatTabLabel});
+  const manualLoadingTitle = t('apartment.loading.title', {tab: manualTabLabel});
+  const manualLoadingDescription = t('apartment.loading.description', {tab: manualTabLabel});
 
   return (
     <section className="bg-secondary/40">
@@ -23,33 +26,38 @@ export function ApartmentPage({apartmentId}: ApartmentPageProps) {
           </div>
         </div>
 
-        <Tabs defaultValue="manual" className="gap-6">
+        <Tabs defaultValue="chat" className="gap-6">
           <TabsList className="w-full justify-start sm:w-fit">
-            <TabsTrigger value="chat">{t('apartment.tabs.chat')}</TabsTrigger>
-            <TabsTrigger value="manual">{t('apartment.tabs.manual')}</TabsTrigger>
+            <TabsTrigger value="chat">{chatTabLabel}</TabsTrigger>
+            <TabsTrigger value="manual">{manualTabLabel}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="chat">
-            <Empty className="bg-background">
-              <EmptyHeader>
-                <EmptyMedia variant="icon">
-                  <MessageCircle />
-                </EmptyMedia>
-                <EmptyTitle>{t('apartment.chat.title')}</EmptyTitle>
-                <EmptyDescription>{t('apartment.chat.description')}</EmptyDescription>
-              </EmptyHeader>
-              <EmptyContent>
-                <p className="text-muted-foreground text-sm">{t('apartment.chat.note')}</p>
-              </EmptyContent>
-            </Empty>
+            <Suspense
+              fallback={
+                <TabLoadingState
+                  ariaLabel={loadingLabel}
+                  title={chatLoadingTitle}
+                  description={chatLoadingDescription}
+                />
+              }
+            >
+              <ApartmentChatTab />
+            </Suspense>
           </TabsContent>
 
           <TabsContent value="manual">
-            <div className="rounded-2xl border border-border/70 bg-background p-6 shadow-sm sm:p-8">
-              <Markdown remarkPlugins={[remarkGfm]} components={apartmentMarkdownComponents}>
-                {markdownContent}
-              </Markdown>
-            </div>
+            <Suspense
+              fallback={
+                <TabLoadingState
+                  ariaLabel={loadingLabel}
+                  title={manualLoadingTitle}
+                  description={manualLoadingDescription}
+                />
+              }
+            >
+              <ApartmentManualTab />
+            </Suspense>
           </TabsContent>
         </Tabs>
       </div>
