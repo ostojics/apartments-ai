@@ -7,7 +7,7 @@ export class CreateLicenses1758657000000 implements MigrationInterface {
         "id" uuid NOT NULL,
         "key" uuid NOT NULL DEFAULT gen_random_uuid(),
         "created_at" timestamp with time zone NOT NULL DEFAULT now(),
-        "valid_date" timestamp with time zone NOT NULL,
+        "expires_at" timestamp with time zone NOT NULL,
         "used_at" timestamp with time zone,
         "allowed_buildings" integer NOT NULL DEFAULT 1,
         "metadata" jsonb NOT NULL DEFAULT '{}'::jsonb,

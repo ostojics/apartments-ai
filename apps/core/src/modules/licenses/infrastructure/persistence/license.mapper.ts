@@ -8,7 +8,8 @@ export class LicenseMapper {
       key: ormEntity.key,
       expiresAt: ormEntity.expiresAt,
       usedAt: ormEntity.usedAt,
-      note: ormEntity.note,
+      allowedBuildings: ormEntity.allowedBuildings,
+      metadata: ormEntity.metadata,
       createdAt: ormEntity.createdAt.toISOString(),
     });
   }
@@ -19,7 +20,8 @@ export class LicenseMapper {
     ormEntity.key = domainEntity.key;
     ormEntity.expiresAt = domainEntity.expiresAt;
     ormEntity.usedAt = domainEntity.usedAt;
-    ormEntity.note = domainEntity.note;
+    ormEntity.allowedBuildings = domainEntity.allowedBuildings;
+    ormEntity.metadata = domainEntity.metadata;
     ormEntity.createdAt = new Date(domainEntity.createdAt);
 
     return ormEntity;

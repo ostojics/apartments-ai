@@ -6,14 +6,16 @@ export class LicenseEntity extends BaseEntity {
   #key: string;
   #expiresAt: Date;
   #usedAt: Date | null;
-  #note: string | null;
+  #allowedBuildings: number;
+  #metadata: Record<string, unknown>;
 
   private constructor(
     id: string | undefined,
     key: string,
     expiresAt: Date,
     usedAt: Date | null,
-    note: string | null,
+    allowedBuildings: number,
+    metadata: Record<string, unknown>,
     createdAt?: string,
     updatedAt?: string,
   ) {
@@ -22,7 +24,8 @@ export class LicenseEntity extends BaseEntity {
     this.#key = key;
     this.#expiresAt = expiresAt;
     this.#usedAt = usedAt;
-    this.#note = note;
+    this.#allowedBuildings = allowedBuildings;
+    this.#metadata = metadata;
   }
 
   public static create(data: {
@@ -30,17 +33,21 @@ export class LicenseEntity extends BaseEntity {
     key: string;
     expiresAt: Date;
     usedAt?: Date | null;
-    note?: string | null;
+    allowedBuildings?: number;
+    metadata?: Record<string, unknown>;
 
     createdAt?: string;
     updatedAt?: string;
   }): LicenseEntity {
+    const allowedBuildings = data.allowedBuildings ?? 1;
+    const metadata = data.metadata ?? {};
     const license = new LicenseEntity(
       data.id,
       data.key,
       data.expiresAt,
       data.usedAt ?? null,
-      data.note ?? null,
+      allowedBuildings,
+      metadata,
 
       data.createdAt,
       data.updatedAt,
@@ -63,8 +70,12 @@ export class LicenseEntity extends BaseEntity {
     return this.#usedAt;
   }
 
-  public get note(): string | null {
-    return this.#note;
+  public get allowedBuildings(): number {
+    return this.#allowedBuildings;
+  }
+
+  public get metadata(): Record<string, unknown> {
+    return this.#metadata;
   }
 
   public get isUsed(): boolean {
@@ -92,19 +103,5 @@ export class LicenseEntity extends BaseEntity {
     this.markUpdated();
 
     this.addEvent(new LicenseUsedEvent(this.id, this.#key));
-  }
-
-  public updateNote(note: string): void {
-    this.#note = note;
-    this.markUpdated();
-  }
-
-  public extendExpiration(newExpirationDate: Date): void {
-    if (newExpirationDate <= this.#expiresAt) {
-      throw new Error('New expiration date must be later than current expiration date');
-    }
-
-    this.#expiresAt = newExpirationDate;
-    this.markUpdated();
   }
 }
