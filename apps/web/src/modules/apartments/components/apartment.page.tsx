@@ -1,10 +1,10 @@
-import {Suspense, lazy} from 'react';
+import {lazy, Suspense} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
-import {TabLoadingState} from './tab-loading';
 import {useParams} from '@tanstack/react-router';
-const ChatTab = lazy(() => import('./apartment-chat-tab'));
-const ManualTab = lazy(() => import('./apartment-manual-tab'));
+import {TabLoadingState} from './tab-loading';
+const ApartmentChatTab = lazy(() => import('./apartment-chat-tab'));
+const ApartmentManualTab = lazy(() => import('./apartment-manual-tab'));
 
 export function ApartmentPage() {
   const {t} = useTranslation();
@@ -42,7 +42,7 @@ export function ApartmentPage() {
                 />
               }
             >
-              <ChatTab />
+              <ApartmentChatTab />
             </Suspense>
           </TabsContent>
 
@@ -56,7 +56,7 @@ export function ApartmentPage() {
                 />
               }
             >
-              <ManualTab />
+              <ApartmentManualTab />
             </Suspense>
           </TabsContent>
         </Tabs>
