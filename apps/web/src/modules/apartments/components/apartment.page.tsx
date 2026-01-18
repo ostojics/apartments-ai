@@ -1,37 +1,14 @@
 import {Suspense, lazy} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle} from '@/components/ui/empty';
-import {Spinner} from '@/components/ui/spinner';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
+import {TabLoadingState} from './tab-loading';
+import {useParams} from '@tanstack/react-router';
 const ChatTab = lazy(() => import('./apartment-chat-tab'));
 const ManualTab = lazy(() => import('./apartment-manual-tab'));
 
-interface TabLoadingStateProps {
-  title: string;
-  description: string;
-  ariaLabel: string;
-}
-
-function TabLoadingState({title, description, ariaLabel}: TabLoadingStateProps) {
-  return (
-    <Empty className="bg-background">
-      <EmptyHeader>
-        <EmptyMedia variant="icon">
-          <Spinner className="size-6" aria-label={ariaLabel} />
-        </EmptyMedia>
-        <EmptyTitle>{title}</EmptyTitle>
-        <EmptyDescription>{description}</EmptyDescription>
-      </EmptyHeader>
-    </Empty>
-  );
-}
-
-interface ApartmentPageProps {
-  apartmentId: string;
-}
-
-export function ApartmentPage({apartmentId}: ApartmentPageProps) {
+export function ApartmentPage() {
   const {t} = useTranslation();
+  const {apartmentId} = useParams({from: '/_public/apartments/$apartmentId'});
   const chatTabLabel = t('apartment.tabs.chat');
   const manualTabLabel = t('apartment.tabs.manual');
   const loadingLabel = t('apartment.loading.label');
@@ -49,7 +26,7 @@ export function ApartmentPage({apartmentId}: ApartmentPageProps) {
           </div>
         </div>
 
-        <Tabs defaultValue="manual" className="gap-6">
+        <Tabs defaultValue="chat" className="gap-6">
           <TabsList className="w-full justify-start sm:w-fit">
             <TabsTrigger value="chat">{chatTabLabel}</TabsTrigger>
             <TabsTrigger value="manual">{manualTabLabel}</TabsTrigger>
