@@ -76,9 +76,9 @@ apps/core/
 
 #### Command/Query Handler Patterns (CQRS)
 
-- **Definitions:** Commands and queries are thin data objects (usually in `modules/<feature>/application/commands` and `modules/<feature>/application/queries`) that capture input and metadata and extend the shared base classes in `libs/domain`.
+- **Definitions:** Commands and queries are thin data objects (usually in `modules/<feature>/application/commands` and `modules/<feature>/application/queries`) that capture input and metadata, extending shared base classes from `libs/domain/commands` and `libs/domain/queries`.
 - **Handlers:** Use case orchestration lives in `modules/<feature>/application/handlers`, implemented as `@CommandHandler` or `@QueryHandler` classes. Handlers coordinate domain entities and application services without direct infrastructure dependencies.
-- **Dependency Inversion:** Handlers depend on interfaces/ports defined in the domain or application layer (repository interfaces, queue ports, unit of work, domain event dispatcher) and receive concrete implementations via DI tokens.
+- **Dependency Inversion:** Handlers depend on domain-layer interfaces (repositories, domain event dispatcher) and application-layer ports (queues, unit of work, email/JWT services), receiving concrete implementations via DI tokens.
 - **Adapters:** Infrastructure classes (e.g., TypeORM repositories, queue adapters) implement those interfaces and are bound in module providers, keeping the application layer decoupled from persistence or transport details.
 
 ---
