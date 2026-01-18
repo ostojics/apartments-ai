@@ -43,7 +43,11 @@ export class TenantGuard implements CanActivate {
 
     const license = await this.licenseRepository.findById(tenant.licenseId);
 
-    if (!license || license.isExpired) {
+    if (!license) {
+      throw new LicenseExpiredException(tenant.licenseId);
+    }
+
+    if (license.isExpired) {
       throw new LicenseExpiredException(tenant.licenseId);
     }
 
