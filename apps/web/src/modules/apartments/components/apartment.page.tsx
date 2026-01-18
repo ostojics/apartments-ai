@@ -5,6 +5,7 @@ import {useParams} from '@tanstack/react-router';
 import {TabLoadingState} from './tab-loading';
 const ApartmentChatTab = lazy(() => import('./apartment-chat-tab'));
 const ApartmentManualTab = lazy(() => import('./apartment-manual-tab'));
+const ApartmentsPromotionsTab = lazy(() => import('./promotions-tab'));
 
 export function ApartmentPage() {
   const {t} = useTranslation();
@@ -16,6 +17,9 @@ export function ApartmentPage() {
   const chatLoadingDescription = t('apartment.loading.description', {tab: chatTabLabel});
   const manualLoadingTitle = t('apartment.loading.title', {tab: manualTabLabel});
   const manualLoadingDescription = t('apartment.loading.description', {tab: manualTabLabel});
+  const promotionsTabLabel = t('apartment.tabs.promotions');
+  const promotionsLoadingTitle = t('apartment.loading.title', {tab: promotionsTabLabel});
+  const promotionsLoadingDescription = t('apartment.loading.description', {tab: promotionsTabLabel});
 
   return (
     <section className="bg-secondary/40">
@@ -27,9 +31,10 @@ export function ApartmentPage() {
         </div>
 
         <Tabs defaultValue="chat" className="gap-6">
-          <TabsList className="w-full justify-start sm:w-fit">
-            <TabsTrigger value="chat">{chatTabLabel}</TabsTrigger>
-            <TabsTrigger value="manual">{manualTabLabel}</TabsTrigger>
+          <TabsList className="h-auto w-full flex-wrap justify-start gap-2 sm:h-9 sm:w-fit sm:flex-nowrap">
+            <TabsTrigger value="chat">{t('apartment.tabs.chat')}</TabsTrigger>
+            <TabsTrigger value="manual">{t('apartment.tabs.manual')}</TabsTrigger>
+            <TabsTrigger value="promotions">{t('apartment.tabs.promotions')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="chat">
@@ -43,6 +48,20 @@ export function ApartmentPage() {
               }
             >
               <ApartmentChatTab />
+            </Suspense>
+          </TabsContent>
+
+          <TabsContent value="promotions">
+            <Suspense
+              fallback={
+                <TabLoadingState
+                  ariaLabel={loadingLabel}
+                  title={promotionsLoadingTitle}
+                  description={promotionsLoadingDescription}
+                />
+              }
+            >
+              <ApartmentsPromotionsTab />
             </Suspense>
           </TabsContent>
 
