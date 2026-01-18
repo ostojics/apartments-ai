@@ -17,7 +17,7 @@ export const promotionsRequestSchema = z.object({
     .string()
     .trim()
     .regex(/^[a-z]{2,3}(?:-[A-Z][a-z]{3})?(?:-[A-Z]{2}|-[0-9]{3})?$/, {
-      message: 'Invalid locale format (e.g., en-US, sr-Latn)',
+      message: 'apartment.promotions.errors.languageInvalid',
     }),
 });
 
