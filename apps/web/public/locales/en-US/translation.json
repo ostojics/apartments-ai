@@ -39,8 +39,8 @@
     },
     "promotions": {
       "title": "Promotions & discounts",
-      "description": "Share your details to receive the latest specials for your community.",
-      "helper": "We'll send offers and move-in specials to your inbox.",
+      "description": "Offers come from your apartment provider, not Apartments AI. Share your details for their latest specials.",
+      "helper": "You can opt out anytime.",
       "form": {
         "nameLabel": "Full name",
         "namePlaceholder": "John Smith",

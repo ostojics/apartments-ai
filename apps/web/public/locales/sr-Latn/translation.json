@@ -39,8 +39,8 @@
     },
     "promotions": {
       "title": "Promocije i popusti",
-      "description": "Podelite svoje podatke kako biste dobijali najnovije ponude za vašu zajednicu.",
-      "helper": "Ponude i popuste šaljemo direktno u vaše sanduče.",
+      "description": "Ponude šalje vaš stanodavac ili upravnik, ne Apartments AI. Podelite podatke za njihove najnovije popuste.",
+      "helper": "Prijem poruka možete da otkažete u svakom trenutku.",
       "form": {
         "nameLabel": "Puno ime",
         "namePlaceholder": "Marko Marković",
