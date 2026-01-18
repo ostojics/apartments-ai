@@ -1,5 +1,5 @@
 import {ExecutionContext} from '@nestjs/common';
-import {LicenseExpiredException} from 'src/libs/domain/exceptions/license.exception';
+import {LicenseExpiredException, LicenseNotFoundException} from 'src/libs/domain/exceptions/license.exception';
 import {TenantNotFoundException} from 'src/libs/domain/exceptions/tenant.exception';
 import {LicenseEntity} from 'src/modules/licenses/domain/license.entity';
 import {ILicenseRepository} from 'src/modules/licenses/domain/repositories/license.repository.interface';
@@ -80,6 +80,24 @@ describe('TenantGuard', () => {
 
     await expect(guard.canActivate(buildContext(request))).rejects.toBeInstanceOf(TenantNotFoundException);
     expect(findById).not.toHaveBeenCalled();
+  });
+
+  it('throws when license is missing', async () => {
+    const {repository: tenantRepository, findBySlug} = createTenantRepository();
+    const {repository: licenseRepository, findById} = createLicenseRepository();
+    const tenant = TenantEntity.create({
+      name: 'Acme',
+      slug: 'acme',
+      licenseId: 'license-123',
+    });
+
+    findBySlug.mockResolvedValue(tenant);
+    findById.mockResolvedValue(null);
+
+    const guard = new TenantGuard(tenantRepository, licenseRepository);
+    const request = {headers: {host: 'acme.example.com'}} as TenantRequest;
+
+    await expect(guard.canActivate(buildContext(request))).rejects.toBeInstanceOf(LicenseNotFoundException);
   });
 
   it('throws when license is expired', async () => {

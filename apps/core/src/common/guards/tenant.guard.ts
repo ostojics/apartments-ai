@@ -1,6 +1,6 @@
 import {CanActivate, ExecutionContext, Inject, Injectable} from '@nestjs/common';
 import {Request} from 'express';
-import {LicenseExpiredException} from 'src/libs/domain/exceptions/license.exception';
+import {LicenseExpiredException, LicenseNotFoundException} from 'src/libs/domain/exceptions/license.exception';
 import {TenantNotFoundException} from 'src/libs/domain/exceptions/tenant.exception';
 import {
   ILicenseRepository,
@@ -44,7 +44,7 @@ export class TenantGuard implements CanActivate {
     const license = await this.licenseRepository.findById(tenant.licenseId);
 
     if (!license) {
-      throw new LicenseExpiredException(tenant.licenseId);
+      throw new LicenseNotFoundException(tenant.licenseId);
     }
 
     if (license.isExpired) {
