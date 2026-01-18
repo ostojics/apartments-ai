@@ -71,8 +71,6 @@ import {SharedModule} from './modules/shared/shared.module';
     // PosthogModule,
     // ShutdownModule,
     // AuthModule,
-    // UsersModule,
-    // HouseholdsModule,
     // AccountsModule,
     // CategoriesModule,
     // TransactionsModule,
