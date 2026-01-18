@@ -6,7 +6,7 @@ export class LicenseMapper {
     return LicenseEntity.create({
       id: ormEntity.id,
       key: ormEntity.key,
-      validDate: ormEntity.validDate,
+      expiresAt: ormEntity.expiresAt,
       usedAt: ormEntity.usedAt,
       allowedBuildings: ormEntity.allowedBuildings,
       metadata: ormEntity.metadata,
@@ -18,7 +18,7 @@ export class LicenseMapper {
     const ormEntity = new LicenseOrmEntity();
     ormEntity.id = domainEntity.id;
     ormEntity.key = domainEntity.key;
-    ormEntity.validDate = domainEntity.validDate;
+    ormEntity.expiresAt = domainEntity.expiresAt;
     ormEntity.usedAt = domainEntity.usedAt;
     ormEntity.allowedBuildings = domainEntity.allowedBuildings;
     ormEntity.metadata = domainEntity.metadata;

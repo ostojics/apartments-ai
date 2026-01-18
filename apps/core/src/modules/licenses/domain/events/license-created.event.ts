@@ -4,7 +4,7 @@ export class LicenseCreatedEvent extends DomainEvent {
   constructor(
     public readonly licenseId: string,
     public readonly key: string,
-    public readonly validDate: Date,
+    public readonly expiresAt: Date,
   ) {
     super(licenseId);
   }

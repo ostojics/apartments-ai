@@ -4,7 +4,7 @@ import {LicenseUsedEvent} from './events/license-used.event';
 
 export class LicenseEntity extends BaseEntity {
   #key: string;
-  #validDate: Date;
+  #expiresAt: Date;
   #usedAt: Date | null;
   #allowedBuildings: number;
   #metadata: Record<string, unknown>;
@@ -12,7 +12,7 @@ export class LicenseEntity extends BaseEntity {
   private constructor(
     id: string | undefined,
     key: string,
-    validDate: Date,
+    expiresAt: Date,
     usedAt: Date | null,
     allowedBuildings: number,
     metadata: Record<string, unknown>,
@@ -22,7 +22,7 @@ export class LicenseEntity extends BaseEntity {
     super(id, createdAt, updatedAt);
 
     this.#key = key;
-    this.#validDate = validDate;
+    this.#expiresAt = expiresAt;
     this.#usedAt = usedAt;
     this.#allowedBuildings = allowedBuildings;
     this.#metadata = metadata;
@@ -31,7 +31,7 @@ export class LicenseEntity extends BaseEntity {
   public static create(data: {
     id?: string;
     key: string;
-    validDate: Date;
+    expiresAt: Date;
     usedAt?: Date | null;
     allowedBuildings?: number;
     metadata?: Record<string, unknown>;
@@ -44,7 +44,7 @@ export class LicenseEntity extends BaseEntity {
     const license = new LicenseEntity(
       data.id,
       data.key,
-      data.validDate,
+      data.expiresAt,
       data.usedAt ?? null,
       allowedBuildings,
       metadata,
@@ -53,7 +53,7 @@ export class LicenseEntity extends BaseEntity {
       data.updatedAt,
     );
 
-    license.addEvent(new LicenseCreatedEvent(license.id, data.key, data.validDate));
+    license.addEvent(new LicenseCreatedEvent(license.id, data.key, data.expiresAt));
 
     return license;
   }
@@ -62,8 +62,8 @@ export class LicenseEntity extends BaseEntity {
     return this.#key;
   }
 
-  public get validDate(): Date {
-    return this.#validDate;
+  public get expiresAt(): Date {
+    return this.#expiresAt;
   }
 
   public get usedAt(): Date | null {
@@ -83,7 +83,7 @@ export class LicenseEntity extends BaseEntity {
   }
 
   public get isExpired(): boolean {
-    return new Date() > this.#validDate;
+    return new Date() > this.#expiresAt;
   }
 
   public isValid(): boolean {
@@ -96,7 +96,7 @@ export class LicenseEntity extends BaseEntity {
     }
 
     if (this.isExpired) {
-      throw new Error('License is no longer valid');
+      throw new Error('License has expired');
     }
 
     this.#usedAt = new Date();
