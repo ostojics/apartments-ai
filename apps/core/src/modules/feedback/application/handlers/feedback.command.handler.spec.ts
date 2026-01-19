@@ -1,9 +1,11 @@
 import {FeedbackHandler} from './feedback.command.handler';
-import {FeedbackCommand} from '../../../modules/feedback/application/commands/feedback.command';
+
 import {IFeedbackRepository} from 'src/modules/feedback/domain/repositories/feedback.repository.interface';
 import {FeedbackEntity} from 'src/modules/feedback/domain/feedback.entity';
-import {IUnitOfWork} from '../ports/unit-of-work.port';
+
 import {IDomainEventDispatcher} from 'src/libs/domain/events/domain.event.dispatcher.interface';
+import {IUnitOfWork} from 'src/libs/application/ports/unit-of-work.port';
+import {FeedbackCommand} from '../commands/feedback.command';
 
 describe('FeedbackHandler', () => {
   const createFeedbackRepository = () => {

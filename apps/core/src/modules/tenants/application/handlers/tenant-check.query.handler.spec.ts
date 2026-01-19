@@ -1,11 +1,11 @@
 import {TenantCheckHandler} from './tenant-check.query.handler';
-import {TenantCheckQuery} from '../../../modules/tenants/application/queries/tenant-check.query';
 import {ITenantRepository} from 'src/modules/tenants/domain/repositories/tenant.repository.interface';
 import {ILicenseRepository} from 'src/modules/licenses/domain/repositories/license.repository.interface';
 import {TenantEntity} from 'src/modules/tenants/domain/tenant.entity';
 import {LicenseEntity} from 'src/modules/licenses/domain/license.entity';
-import {LoggerPort} from '../ports/logger.port';
 import {IAnalyticsService} from 'src/modules/shared/application/analytics/analytics.interface';
+import {ILoggerPort} from 'src/libs/application/ports/logger.port';
+import {TenantCheckQuery} from '../queries/tenant-check.query';
 
 describe('TenantCheckHandler', () => {
   const createTenantRepository = () => {
@@ -38,7 +38,7 @@ describe('TenantCheckHandler', () => {
     };
   };
 
-  const createLogger = (): LoggerPort => ({
+  const createLogger = (): ILoggerPort => ({
     log: jest.fn(),
     info: jest.fn(),
     error: jest.fn(),
