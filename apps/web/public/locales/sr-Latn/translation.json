@@ -39,7 +39,7 @@
     },
     "promotions": {
       "title": "Promocije i popusti",
-      "description": "Ponude šalje vaš stanodavac ili upravnik, ne Apartments AI. Podelite podatke za njihove najnovije popuste.",
+      "description": "Podelite podatke za najnovije popuste i promocije od {{provider}}.",
       "helper": "Prijem poruka možete da otkažete u svakom trenutku.",
       "form": {
         "nameLabel": "Puno ime",

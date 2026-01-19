@@ -34,7 +34,7 @@ export default function PromotionsTab() {
     <Card className="bg-background">
       <CardHeader>
         <CardTitle className="text-xl">{t('apartment.promotions.title')}</CardTitle>
-        <CardDescription>{t('apartment.promotions.description')}</CardDescription>
+        <CardDescription>{t('apartment.promotions.description', {provider: 'Demo'})}</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
