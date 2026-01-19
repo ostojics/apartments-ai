@@ -63,9 +63,18 @@
       }
     },
     "chat": {
-      "title": "Chat je skoro spreman",
-      "description": "Uskoro ćete moći da postavljate pitanja i dobijate odgovore odmah.",
-      "note": "Do tada pogledajte priručnik za ključne informacije o zajednici."
+      "title": "Chat sa Apartments AI",
+      "description": "Postavite pitanje o sadržajima, pravilima ili zakupu i dobijete brze odgovore.",
+      "note": "Odgovore generiše AI asistent. Za hitne potrebe kontaktirajte izdavanje.",
+      "roles": {
+        "assistant": "Apartments AI",
+        "user": "Vi"
+      },
+      "messages": {
+        "greeting": "Zdravo! Ja sam vaš asistent za apartmane. Kako mogu da pomognem danas?",
+        "question": "Koji su tihi sati i da li postoji parking za goste?",
+        "response": "Tišina počinje u 22:00, a parking za goste je dostupan vikendom."
+      }
     },
     "loading": {
       "label": "Učitavanje",
