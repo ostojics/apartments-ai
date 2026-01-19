@@ -1,3 +1,4 @@
+import {useMemo} from 'react';
 import {MessageCircle} from 'lucide-react';
 import {useTranslation} from 'react-i18next';
 
@@ -10,25 +11,37 @@ interface ChatMessage {
   content: string;
 }
 
+type ChatRole = ChatMessage['role'];
+
+const CHAT_MESSAGE_DATA: {id: string; role: ChatRole; contentKey: string}[] = [
+  {
+    id: 'welcome',
+    role: 'assistant',
+    contentKey: 'apartment.chat.messages.greeting',
+  },
+  {
+    id: 'user-question',
+    role: 'user',
+    contentKey: 'apartment.chat.messages.question',
+  },
+  {
+    id: 'assistant-response',
+    role: 'assistant',
+    contentKey: 'apartment.chat.messages.response',
+  },
+];
+
 export default function ApartmentChatTab() {
   const {t} = useTranslation();
-  const messages: ChatMessage[] = [
-    {
-      id: 'welcome',
-      role: 'assistant',
-      content: t('apartment.chat.messages.greeting'),
-    },
-    {
-      id: 'user-question',
-      role: 'user',
-      content: t('apartment.chat.messages.question'),
-    },
-    {
-      id: 'assistant-response',
-      role: 'assistant',
-      content: t('apartment.chat.messages.response'),
-    },
-  ];
+  const messages = useMemo<ChatMessage[]>(
+    () =>
+      CHAT_MESSAGE_DATA.map((message) => ({
+        id: message.id,
+        role: message.role,
+        content: t(message.contentKey),
+      })),
+    [t],
+  );
 
   return (
     <Card className="bg-background">
@@ -47,15 +60,14 @@ export default function ApartmentChatTab() {
         <div className="flex flex-col gap-5 rounded-2xl border bg-muted/30 p-4 sm:p-6">
           {messages.map((message) => {
             const isUser = message.role === 'user';
+            const roleLabel = isUser ? t('apartment.chat.roles.user') : t('apartment.chat.roles.assistant');
 
             return (
               <div
                 key={message.id}
                 className={cn('flex flex-col gap-2', isUser ? 'items-end text-right' : 'items-start text-left')}
               >
-                <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  {t(`apartment.chat.roles.${message.role}`)}
-                </span>
+                <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{roleLabel}</span>
                 <div
                   className={cn(
                     'max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm',
