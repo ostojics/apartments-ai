@@ -1,5 +1,5 @@
 import {TenantCheckHandler} from './tenant-check.query.handler';
-import {TenantCheckQuery} from '../queries/tenant-check.query';
+import {TenantCheckQuery} from '../../../modules/tenants/application/queries/tenant-check.query';
 import {ITenantRepository} from 'src/modules/tenants/domain/repositories/tenant.repository.interface';
 import {ILicenseRepository} from 'src/modules/licenses/domain/repositories/license.repository.interface';
 import {TenantEntity} from 'src/modules/tenants/domain/tenant.entity';

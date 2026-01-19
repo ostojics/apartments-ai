@@ -1,5 +1,5 @@
 import {FeedbackHandler} from './feedback.command.handler';
-import {FeedbackCommand} from '../commands/feedback.command';
+import {FeedbackCommand} from '../../../modules/feedback/application/commands/feedback.command';
 import {IFeedbackRepository} from 'src/modules/feedback/domain/repositories/feedback.repository.interface';
 import {FeedbackEntity} from 'src/modules/feedback/domain/feedback.entity';
 import {IUnitOfWork} from '../ports/unit-of-work.port';

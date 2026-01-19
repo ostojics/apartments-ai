@@ -1,6 +1,6 @@
 import {Inject} from '@nestjs/common';
 import {CommandHandler, ICommandHandler} from '@nestjs/cqrs';
-import {FeedbackCommand} from '../commands/feedback.command';
+
 import {
   IFeedbackRepository,
   FEEDBACK_REPOSITORY,
@@ -10,7 +10,9 @@ import {
   DOMAIN_EVENT_DISPATCHER,
   IDomainEventDispatcher,
 } from 'src/libs/domain/events/domain.event.dispatcher.interface';
-import {IUnitOfWork, UNIT_OF_WORK} from '../ports/unit-of-work.port';
+
+import {FeedbackCommand} from '../commands/feedback.command';
+import {UNIT_OF_WORK, IUnitOfWork} from 'src/libs/application/ports/unit-of-work.port';
 
 @CommandHandler(FeedbackCommand)
 export class FeedbackHandler implements ICommandHandler<FeedbackCommand> {

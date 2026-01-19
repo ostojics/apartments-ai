@@ -1,6 +1,6 @@
 import {Inject} from '@nestjs/common';
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
-import {TenantCheckQuery} from '../queries/tenant-check.query';
+
 import {
   TENANT_REPOSITORY,
   ITenantRepository,
@@ -10,10 +10,12 @@ import {
   LICENSE_REPOSITORY,
 } from 'src/modules/licenses/domain/repositories/license.repository.interface';
 import {LicenseNotFoundError} from 'src/modules/licenses/domain/license.errors';
-import {LOGGER} from '../ports/di-tokens';
-import {LoggerPort} from '../ports/logger.port';
+
 import {ANALYTICS_SERVICE} from 'src/modules/shared/application/analytics/di-tokens';
 import {IAnalyticsService} from 'src/modules/shared/application/analytics/analytics.interface';
+import {LOGGER} from 'src/libs/application/ports/di-tokens';
+import {TenantCheckQuery} from '../queries/tenant-check.query';
+import {ILoggerPort} from 'src/libs/application/ports/logger.port';
 
 export interface TenantCheckResult {
   isValid: boolean;
@@ -25,7 +27,7 @@ export class TenantCheckHandler implements IQueryHandler<TenantCheckQuery, Tenan
   constructor(
     @Inject(TENANT_REPOSITORY) private readonly tenantRepository: ITenantRepository,
     @Inject(LICENSE_REPOSITORY) private readonly licenseRepository: ILicenseRepository,
-    @Inject(LOGGER) private readonly logger: LoggerPort,
+    @Inject(LOGGER) private readonly logger: ILoggerPort,
     @Inject(ANALYTICS_SERVICE) private readonly analyticsService: IAnalyticsService,
   ) {}
 

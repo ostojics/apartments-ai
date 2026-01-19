@@ -1,7 +1,7 @@
-import {BuildingsHandler} from './buildings.query.handler';
 import {BuildingsQuery} from '../queries/buildings.query';
 import {IBuildingRepository} from 'src/modules/buildings/domain/repositories/building.repository.interface';
 import {BuildingEntity} from 'src/modules/buildings/domain/building.entity';
+import {BuildingsHandler} from './buildings.query.handler';
 
 describe('BuildingsHandler', () => {
   const createBuildingRepository = () => {
