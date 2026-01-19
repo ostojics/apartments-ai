@@ -2,7 +2,7 @@ import {Injectable, Inject} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
 import {PostHog} from 'posthog-node';
 import {IAnalyticsService} from '../../application/analytics/analytics.interface';
-import {LoggerPort} from 'src/libs/application/ports/logger.port';
+import {ILoggerPort} from 'src/libs/application/ports/logger.port';
 import {LOGGER} from 'src/libs/application/ports/di-tokens';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class PostHogAnalyticsService implements IAnalyticsService {
 
   constructor(
     private readonly configService: ConfigService,
-    @Inject(LOGGER) private readonly logger: LoggerPort,
+    @Inject(LOGGER) private readonly logger: ILoggerPort,
   ) {
     const apiKey = this.configService.get<string>('POSTHOG_API_KEY');
     const host = this.configService.get<string>('POSTHOG_HOST');

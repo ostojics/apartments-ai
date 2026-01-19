@@ -1,7 +1,7 @@
 import {CanActivate, ExecutionContext, Inject, Injectable} from '@nestjs/common';
 import {Request} from 'express';
 import {LOGGER} from 'src/libs/application/ports/di-tokens';
-import {LoggerPort} from 'src/libs/application/ports/logger.port';
+import {ILoggerPort} from 'src/libs/application/ports/logger.port';
 import {LicenseExpiredException, LicenseNotFoundException} from 'src/libs/domain/exceptions/license.exception';
 import {TenantNotFoundException} from 'src/libs/domain/exceptions/tenant.exception';
 import {
@@ -30,7 +30,7 @@ export class TenantGuard implements CanActivate {
     @Inject(TENANT_REPOSITORY) private readonly tenantRepository: ITenantRepository,
     @Inject(LICENSE_REPOSITORY) private readonly licenseRepository: ILicenseRepository,
     @Inject(ANALYTICS_SERVICE) private readonly analyticsService: IAnalyticsService,
-    @Inject(LOGGER) private readonly logger: LoggerPort,
+    @Inject(LOGGER) private readonly logger: ILoggerPort,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
