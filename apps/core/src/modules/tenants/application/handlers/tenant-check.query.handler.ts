@@ -5,10 +5,6 @@ import {
   TENANT_REPOSITORY,
   ITenantRepository,
 } from 'src/modules/tenants/domain/repositories/tenant.repository.interface';
-import {
-  ILicenseRepository,
-  LICENSE_REPOSITORY,
-} from 'src/modules/licenses/domain/repositories/license.repository.interface';
 import {LicenseNotFoundError} from 'src/modules/licenses/domain/license.errors';
 
 import {ANALYTICS_SERVICE} from 'src/modules/shared/application/analytics/di-tokens';
@@ -16,6 +12,8 @@ import {IAnalyticsService} from 'src/modules/shared/application/analytics/analyt
 import {LOGGER} from 'src/libs/application/ports/di-tokens';
 import {TenantCheckQuery} from '../queries/tenant-check.query';
 import {ILoggerPort} from 'src/libs/application/ports/logger.port';
+import {TENANT_LICENSE_REPOSITORY_PORT} from '../ports/di-tokens';
+import {ITenantLicenseRepositoryPort} from '../ports/tenant.license.repository.port';
 
 export interface TenantCheckResult {
   isValid: boolean;
@@ -26,7 +24,7 @@ export interface TenantCheckResult {
 export class TenantCheckHandler implements IQueryHandler<TenantCheckQuery, TenantCheckResult> {
   constructor(
     @Inject(TENANT_REPOSITORY) private readonly tenantRepository: ITenantRepository,
-    @Inject(LICENSE_REPOSITORY) private readonly licenseRepository: ILicenseRepository,
+    @Inject(TENANT_LICENSE_REPOSITORY_PORT) private readonly licenseRepository: ITenantLicenseRepositoryPort,
     @Inject(LOGGER) private readonly logger: ILoggerPort,
     @Inject(ANALYTICS_SERVICE) private readonly analyticsService: IAnalyticsService,
   ) {}
