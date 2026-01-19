@@ -9,6 +9,11 @@ import {
   ILicenseRepository,
   LICENSE_REPOSITORY,
 } from 'src/modules/licenses/domain/repositories/license.repository.interface';
+import {LicenseNotFoundError} from 'src/modules/licenses/domain/license.errors';
+import {LOGGER} from '../ports/di-tokens';
+import {LoggerPort} from '../ports/logger.port';
+import {ANALYTICS_SERVICE} from 'src/modules/shared/application/analytics/di-tokens';
+import {IAnalyticsService} from 'src/modules/shared/application/analytics/analytics.interface';
 
 export interface TenantCheckResult {
   isValid: boolean;
@@ -20,6 +25,8 @@ export class TenantCheckHandler implements IQueryHandler<TenantCheckQuery, Tenan
   constructor(
     @Inject(TENANT_REPOSITORY) private readonly tenantRepository: ITenantRepository,
     @Inject(LICENSE_REPOSITORY) private readonly licenseRepository: ILicenseRepository,
+    @Inject(LOGGER) private readonly logger: LoggerPort,
+    @Inject(ANALYTICS_SERVICE) private readonly analyticsService: IAnalyticsService,
   ) {}
 
   async execute(query: TenantCheckQuery): Promise<TenantCheckResult> {
@@ -29,7 +36,18 @@ export class TenantCheckHandler implements IQueryHandler<TenantCheckQuery, Tenan
     }
 
     const license = await this.licenseRepository.findById(tenant.licenseId);
-    const isValid = license?.isValid() ?? false;
+    if (!license) {
+      const err = new LicenseNotFoundError(tenant.licenseId);
+      this.logger.debug(`License not found for tenant ${tenant.id} with license ID ${tenant.licenseId}`, err);
+      this.analyticsService.captureException(err, 'tenant_check_handler', {
+        tenantId: tenant.id,
+        licenseId: tenant.licenseId,
+      });
+
+      throw err;
+    }
+
+    const isValid = license.isValid();
 
     return {
       isValid,
