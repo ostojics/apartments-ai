@@ -1,4 +1,4 @@
-import {KnowledgeBaseHandler} from './knowledge-base.handler';
+import {KnowledgeBaseHandler} from './knowledge-base.query.handler';
 import {KnowledgeBaseQuery} from '../queries/knowledge-base.query';
 import {IKnowledgeBaseRepository} from 'src/modules/knowledge-bases/domain/repositories/knowledge-base.repository.interface';
 import {KnowledgeBaseEntity} from 'src/modules/knowledge-bases/domain/knowledge-base.entity';

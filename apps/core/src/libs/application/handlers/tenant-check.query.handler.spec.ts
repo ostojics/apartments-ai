@@ -1,9 +1,11 @@
-import {TenantCheckHandler} from './tenant-check.handler';
+import {TenantCheckHandler} from './tenant-check.query.handler';
 import {TenantCheckQuery} from '../queries/tenant-check.query';
 import {ITenantRepository} from 'src/modules/tenants/domain/repositories/tenant.repository.interface';
 import {ILicenseRepository} from 'src/modules/licenses/domain/repositories/license.repository.interface';
 import {TenantEntity} from 'src/modules/tenants/domain/tenant.entity';
 import {LicenseEntity} from 'src/modules/licenses/domain/license.entity';
+import {LoggerPort} from '../ports/logger.port';
+import {IAnalyticsService} from 'src/modules/shared/application/analytics/analytics.interface';
 
 describe('TenantCheckHandler', () => {
   const createTenantRepository = () => {
@@ -36,12 +38,31 @@ describe('TenantCheckHandler', () => {
     };
   };
 
+  const createLogger = (): LoggerPort => ({
+    log: jest.fn(),
+    info: jest.fn(),
+    error: jest.fn(),
+    warn: jest.fn(),
+    debug: jest.fn(),
+  });
+
+  const createAnalyticsService = (): IAnalyticsService => ({
+    captureEvent: jest.fn(),
+    captureException: jest.fn(),
+    shutdown: jest.fn(() => Promise.resolve()),
+  });
+
   it('returns invalid when tenant does not exist', async () => {
     const {repository: tenantRepository, findBySlug} = createTenantRepository();
     const {repository: licenseRepository, findById} = createLicenseRepository();
     findBySlug.mockResolvedValue(null);
 
-    const handler = new TenantCheckHandler(tenantRepository, licenseRepository);
+    const handler = new TenantCheckHandler(
+      tenantRepository,
+      licenseRepository,
+      createLogger(),
+      createAnalyticsService(),
+    );
     const result = await handler.execute(new TenantCheckQuery({slug: 'missing'}));
 
     expect(result).toEqual({isValid: false, tenant: null});
@@ -64,7 +85,12 @@ describe('TenantCheckHandler', () => {
     findBySlug.mockResolvedValue(tenant);
     findById.mockResolvedValue(expiredLicense);
 
-    const handler = new TenantCheckHandler(tenantRepository, licenseRepository);
+    const handler = new TenantCheckHandler(
+      tenantRepository,
+      licenseRepository,
+      createLogger(),
+      createAnalyticsService(),
+    );
     const result = await handler.execute(new TenantCheckQuery({slug: 'acme'}));
 
     expect(result.isValid).toBe(false);
@@ -87,7 +113,12 @@ describe('TenantCheckHandler', () => {
     findBySlug.mockResolvedValue(tenant);
     findById.mockResolvedValue(validLicense);
 
-    const handler = new TenantCheckHandler(tenantRepository, licenseRepository);
+    const handler = new TenantCheckHandler(
+      tenantRepository,
+      licenseRepository,
+      createLogger(),
+      createAnalyticsService(),
+    );
     const result = await handler.execute(new TenantCheckQuery({slug: 'brighton'}));
 
     expect(result).toEqual({
