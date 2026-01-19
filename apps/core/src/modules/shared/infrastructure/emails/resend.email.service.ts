@@ -2,7 +2,7 @@ import {Inject, Injectable} from '@nestjs/common';
 import {IEmailSendOptions, IEmailService} from '../../application/emails/email.service.interface';
 import {ConfigService} from '@nestjs/config';
 import {LOGGER} from 'src/libs/application/ports/di-tokens';
-import {LoggerPort} from 'src/libs/application/ports/logger.port';
+import {ILoggerPort} from 'src/libs/application/ports/logger.port';
 import {Resend} from 'resend';
 import {AppConfig, AppConfigName} from 'src/config/app.config';
 import {ANALYTICS_SERVICE} from '../../application/analytics/di-tokens';
@@ -15,7 +15,7 @@ export class ResendEmailService implements IEmailService {
 
   constructor(
     private readonly configService: ConfigService,
-    @Inject(LOGGER) private readonly logger: LoggerPort,
+    @Inject(LOGGER) private readonly logger: ILoggerPort,
     @Inject(ANALYTICS_SERVICE) private readonly analyticsService: IAnalyticsService,
   ) {
     const config = this.configService.getOrThrow<AppConfig>(AppConfigName);

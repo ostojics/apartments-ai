@@ -1,9 +1,9 @@
 import {Injectable} from '@nestjs/common';
 import {PinoLogger} from 'pino-nestjs';
-import {LoggerPort} from '../../application/ports/logger.port';
+import {ILoggerPort} from '../../application/ports/logger.port';
 
 @Injectable()
-export class PinoLoggerAdapter implements LoggerPort {
+export class PinoLoggerAdapter implements ILoggerPort {
   constructor(private readonly logger: PinoLogger) {}
 
   log(message: string, ...meta: unknown[]): void {
