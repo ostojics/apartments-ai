@@ -12,10 +12,9 @@ describe('TenantCheckHandler', () => {
     const findBySlug = jest.fn();
     return {
       repository: {
-        create: jest.fn(),
+        save: jest.fn(),
         findById: jest.fn(),
         findBySlug,
-        update: jest.fn(),
         delete: jest.fn(),
         exists: jest.fn(),
       } as jest.Mocked<ITenantRepository>,
@@ -27,10 +26,9 @@ describe('TenantCheckHandler', () => {
     const findById = jest.fn();
     return {
       repository: {
-        create: jest.fn(),
+        save: jest.fn(),
         findById,
         findByKey: jest.fn(),
-        update: jest.fn(),
         delete: jest.fn(),
         exists: jest.fn(),
       } as jest.Mocked<ILicenseRepository>,

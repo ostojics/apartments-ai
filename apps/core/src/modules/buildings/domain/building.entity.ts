@@ -49,7 +49,9 @@ export class BuildingEntity extends BaseEntity {
       data.updatedAt,
     );
 
-    building.addEvent(new BuildingCreatedEvent(building.id, data.name, data.slug, data.tenantId));
+    if (!data.id) {
+      building.addEvent(new BuildingCreatedEvent(building.id, data.name, data.slug, data.tenantId));
+    }
 
     return building;
   }

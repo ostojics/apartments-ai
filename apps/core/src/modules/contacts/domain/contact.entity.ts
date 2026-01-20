@@ -48,16 +48,18 @@ export class ContactEntity extends BaseEntity {
       data.updatedAt,
     );
 
-    contact.addEvent(
-      new ContactCreatedEvent(
-        contact.id,
-        data.tenantId,
-        data.name,
-        data.email,
-        data.phoneNumber ?? null,
-        data.preferredLanguage,
-      ),
-    );
+    if (!data.id) {
+      contact.addEvent(
+        new ContactCreatedEvent(
+          contact.id,
+          data.tenantId,
+          data.name,
+          data.email,
+          data.phoneNumber ?? null,
+          data.preferredLanguage,
+        ),
+      );
+    }
 
     return contact;
   }

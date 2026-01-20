@@ -49,7 +49,9 @@ export class KnowledgeBaseEntity extends BaseEntity {
       data.updatedAt,
     );
 
-    knowledgeBase.addEvent(new KnowledgeBaseCreatedEvent(knowledgeBase.id, data.buildingId, data.tenantId));
+    if (!data.id) {
+      knowledgeBase.addEvent(new KnowledgeBaseCreatedEvent(knowledgeBase.id, data.buildingId, data.tenantId));
+    }
 
     return knowledgeBase;
   }

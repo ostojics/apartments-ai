@@ -1,42 +1,42 @@
 import {Injectable} from '@nestjs/common';
 import {DataSource, Repository} from 'typeorm';
-import {ILicenseRepository} from '../../domain/repositories/license.repository.interface';
-import {LicenseEntity} from '../../domain/license.entity';
-import {LicenseOrmEntity} from './license.entity';
-import {LicenseMapper} from './license.mapper';
+import {ITenantRepository} from '../../domain/repositories/tenant.repository.interface';
+import {TenantEntity} from '../../domain/tenant.entity';
+import {TenantOrmEntity} from './tenant.entity';
+import {TenantMapper} from '../mappers/tenant.mapper';
 import {TypeOrmUnitOfWork} from 'src/libs/infrastructure/persistence/typeorm-unit-of-work';
 
 @Injectable()
-export class TypeOrmLicenseRepository implements ILicenseRepository {
+export class TypeOrmTenantRepository implements ITenantRepository {
   constructor(private readonly dataSource: DataSource) {}
 
   /**
    * Gets the repository using the transaction manager from ALS if available,
    * otherwise falls back to the base dataSource manager.
    */
-  private get repository(): Repository<LicenseOrmEntity> {
+  private get repository(): Repository<TenantOrmEntity> {
     const manager = TypeOrmUnitOfWork.getManager();
     const target = manager ?? this.dataSource.manager;
-    return target.getRepository(LicenseOrmEntity);
+    return target.getRepository(TenantOrmEntity);
   }
 
-  async save(license: LicenseEntity): Promise<void> {
-    const persistenceModel = LicenseMapper.toPersistence(license);
+  async save(tenant: TenantEntity): Promise<void> {
+    const persistenceModel = TenantMapper.toPersistence(tenant);
     await this.repository.save(persistenceModel);
   }
 
-  async findById(id: string): Promise<LicenseEntity | null> {
+  async findById(id: string): Promise<TenantEntity | null> {
     const record = await this.repository.findOne({where: {id}});
     if (!record) return null;
 
-    return LicenseMapper.toDomain(record);
+    return TenantMapper.toDomain(record);
   }
 
-  async findByKey(key: string): Promise<LicenseEntity | null> {
-    const record = await this.repository.findOne({where: {key}});
+  async findBySlug(slug: string): Promise<TenantEntity | null> {
+    const record = await this.repository.findOne({where: {slug}});
     if (!record) return null;
 
-    return LicenseMapper.toDomain(record);
+    return TenantMapper.toDomain(record);
   }
 
   async delete(id: string): Promise<void> {

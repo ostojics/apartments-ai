@@ -28,7 +28,9 @@ export class FeedbackEntity extends BaseEntity {
     const metadata = {...(data.metadata ?? {})};
     const feedback = new FeedbackEntity(data.id, data.content, metadata, data.createdAt, data.updatedAt);
 
-    feedback.addEvent(new FeedbackCreatedEvent(feedback.id, feedback.content, {...metadata}));
+    if (!data.id) {
+      feedback.addEvent(new FeedbackCreatedEvent(feedback.id, feedback.content, {...metadata}));
+    }
 
     return feedback;
   }
