@@ -53,7 +53,9 @@ export class LicenseEntity extends BaseEntity {
       data.updatedAt,
     );
 
-    license.addEvent(new LicenseCreatedEvent(license.id, data.key, data.expiresAt));
+    if (!data.id) {
+      license.addEvent(new LicenseCreatedEvent(license.id, data.key, data.expiresAt));
+    }
 
     return license;
   }

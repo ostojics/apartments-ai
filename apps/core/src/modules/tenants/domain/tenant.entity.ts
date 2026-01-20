@@ -31,7 +31,9 @@ export class TenantEntity extends BaseEntity {
   }): TenantEntity {
     const tenant = new TenantEntity(data.id, data.name, data.slug, data.licenseId, data.createdAt, data.updatedAt);
 
-    tenant.addEvent(new TenantCreatedEvent(tenant.id, data.name, data.slug, data.licenseId));
+    if (!data.id) {
+      tenant.addEvent(new TenantCreatedEvent(tenant.id, data.name, data.slug, data.licenseId));
+    }
 
     return tenant;
   }

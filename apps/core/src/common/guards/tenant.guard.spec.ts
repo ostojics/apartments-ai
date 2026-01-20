@@ -3,17 +3,18 @@ import {LicenseExpiredException, LicenseNotFoundException} from 'src/libs/domain
 import {TenantNotFoundException} from 'src/libs/domain/exceptions/tenant.exception';
 import {LicenseEntity} from 'src/modules/licenses/domain/license.entity';
 import {ILicenseRepository} from 'src/modules/licenses/domain/repositories/license.repository.interface';
+import {IAnalyticsService} from 'src/modules/shared/application/analytics/analytics.interface';
 import {TenantEntity} from 'src/modules/tenants/domain/tenant.entity';
 import {ITenantRepository} from 'src/modules/tenants/domain/repositories/tenant.repository.interface';
+import {ILoggerPort} from 'src/libs/application/ports/logger.port';
 import {TenantGuard, TenantRequest} from './tenant.guard';
 
 const createTenantRepository = () => {
   const findBySlug = jest.fn();
   const repository: ITenantRepository = {
-    create: jest.fn(),
+    save: jest.fn(),
     findById: jest.fn(),
     findBySlug,
-    update: jest.fn(),
     delete: jest.fn(),
     exists: jest.fn(),
   };
@@ -24,10 +25,9 @@ const createTenantRepository = () => {
 const createLicenseRepository = () => {
   const findById = jest.fn();
   const repository: ILicenseRepository = {
-    create: jest.fn(),
+    save: jest.fn(),
     findById,
     findByKey: jest.fn(),
-    update: jest.fn(),
     delete: jest.fn(),
     exists: jest.fn(),
   };
@@ -41,6 +41,20 @@ const buildContext = (request: TenantRequest): ExecutionContext =>
       getRequest: () => request,
     }),
   }) as ExecutionContext;
+
+const createLogger = (): ILoggerPort => ({
+  log: jest.fn(),
+  info: jest.fn(),
+  error: jest.fn(),
+  warn: jest.fn(),
+  debug: jest.fn(),
+});
+
+const createAnalyticsService = (): IAnalyticsService => ({
+  captureEvent: jest.fn(),
+  captureException: jest.fn(),
+  shutdown: jest.fn(() => Promise.resolve()),
+});
 
 describe('TenantGuard', () => {
   it('sets tenant info when tenant exists and license is valid', async () => {
@@ -60,7 +74,7 @@ describe('TenantGuard', () => {
     findBySlug.mockResolvedValue(tenant);
     findById.mockResolvedValue(license);
 
-    const guard = new TenantGuard(tenantRepository, licenseRepository);
+    const guard = new TenantGuard(tenantRepository, licenseRepository, createAnalyticsService(), createLogger());
     const request = {headers: {host: 'acme.example.com'}} as TenantRequest;
 
     await expect(guard.canActivate(buildContext(request))).resolves.toBe(true);
@@ -75,7 +89,7 @@ describe('TenantGuard', () => {
 
     findBySlug.mockResolvedValue(null);
 
-    const guard = new TenantGuard(tenantRepository, licenseRepository);
+    const guard = new TenantGuard(tenantRepository, licenseRepository, createAnalyticsService(), createLogger());
     const request = {headers: {host: 'missing.example.com'}} as TenantRequest;
 
     await expect(guard.canActivate(buildContext(request))).rejects.toBeInstanceOf(TenantNotFoundException);
@@ -94,7 +108,7 @@ describe('TenantGuard', () => {
     findBySlug.mockResolvedValue(tenant);
     findById.mockResolvedValue(null);
 
-    const guard = new TenantGuard(tenantRepository, licenseRepository);
+    const guard = new TenantGuard(tenantRepository, licenseRepository, createAnalyticsService(), createLogger());
     const request = {headers: {host: 'acme.example.com'}} as TenantRequest;
 
     await expect(guard.canActivate(buildContext(request))).rejects.toBeInstanceOf(LicenseNotFoundException);
@@ -117,7 +131,7 @@ describe('TenantGuard', () => {
     findBySlug.mockResolvedValue(tenant);
     findById.mockResolvedValue(license);
 
-    const guard = new TenantGuard(tenantRepository, licenseRepository);
+    const guard = new TenantGuard(tenantRepository, licenseRepository, createAnalyticsService(), createLogger());
     const request = {headers: {host: 'acme.example.com'}} as TenantRequest;
 
     await expect(guard.canActivate(buildContext(request))).rejects.toBeInstanceOf(LicenseExpiredException);

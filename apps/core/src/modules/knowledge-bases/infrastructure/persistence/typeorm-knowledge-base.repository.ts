@@ -20,7 +20,7 @@ export class TypeOrmKnowledgeBaseRepository implements IKnowledgeBaseRepository 
     return target.getRepository(KnowledgeBaseOrmEntity);
   }
 
-  async create(knowledgeBase: KnowledgeBaseEntity): Promise<void> {
+  async save(knowledgeBase: KnowledgeBaseEntity): Promise<void> {
     const persistenceModel = KnowledgeBaseMapper.toPersistence(knowledgeBase);
     await this.repository.save(persistenceModel);
   }
@@ -44,11 +44,6 @@ export class TypeOrmKnowledgeBaseRepository implements IKnowledgeBaseRepository 
     if (!record) return null;
 
     return KnowledgeBaseMapper.toDomain(record);
-  }
-
-  async update(knowledgeBase: KnowledgeBaseEntity): Promise<void> {
-    const persistenceModel = KnowledgeBaseMapper.toPersistence(knowledgeBase);
-    await this.repository.save(persistenceModel);
   }
 
   async delete(id: string): Promise<void> {

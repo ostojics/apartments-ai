@@ -20,7 +20,7 @@ export class TypeOrmTenantRepository implements ITenantRepository {
     return target.getRepository(TenantOrmEntity);
   }
 
-  async create(tenant: TenantEntity): Promise<void> {
+  async save(tenant: TenantEntity): Promise<void> {
     const persistenceModel = TenantMapper.toPersistence(tenant);
     await this.repository.save(persistenceModel);
   }
@@ -37,11 +37,6 @@ export class TypeOrmTenantRepository implements ITenantRepository {
     if (!record) return null;
 
     return TenantMapper.toDomain(record);
-  }
-
-  async update(tenant: TenantEntity): Promise<void> {
-    const persistenceModel = TenantMapper.toPersistence(tenant);
-    await this.repository.save(persistenceModel);
   }
 
   async delete(id: string): Promise<void> {

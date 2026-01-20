@@ -8,11 +8,10 @@ describe('BuildingsHandler', () => {
     const findByTenantId = jest.fn();
     return {
       repository: {
-        create: jest.fn(),
+        save: jest.fn(),
         findById: jest.fn(),
         findBySlug: jest.fn(),
         findByTenantId,
-        update: jest.fn(),
         delete: jest.fn(),
         exists: jest.fn(),
       } as jest.Mocked<IBuildingRepository>,

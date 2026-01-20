@@ -20,7 +20,7 @@ export class TypeOrmBuildingRepository implements IBuildingRepository {
     return target.getRepository(BuildingOrmEntity);
   }
 
-  async create(building: BuildingEntity): Promise<void> {
+  async save(building: BuildingEntity): Promise<void> {
     const persistenceModel = BuildingMapper.toPersistence(building);
     await this.repository.save(persistenceModel);
   }
@@ -42,11 +42,6 @@ export class TypeOrmBuildingRepository implements IBuildingRepository {
   async findByTenantId(tenantId: string): Promise<BuildingEntity[]> {
     const records = await this.repository.find({where: {tenantId}});
     return records.map((record) => BuildingMapper.toDomain(record));
-  }
-
-  async update(building: BuildingEntity): Promise<void> {
-    const persistenceModel = BuildingMapper.toPersistence(building);
-    await this.repository.save(persistenceModel);
   }
 
   async delete(id: string): Promise<void> {

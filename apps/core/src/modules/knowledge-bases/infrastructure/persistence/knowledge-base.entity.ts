@@ -1,4 +1,4 @@
-import {Column, Entity, PrimaryColumn} from 'typeorm';
+import {Column, CreateDateColumn, Entity, PrimaryColumn} from 'typeorm';
 
 @Entity('knowledge_bases')
 export class KnowledgeBaseOrmEntity {
@@ -16,6 +16,9 @@ export class KnowledgeBaseOrmEntity {
 
   @Column('text')
   information: string;
+
+  @CreateDateColumn({name: 'created_at', type: 'timestamp with time zone'})
+  createdAt: Date;
 
   @Column('jsonb', {default: () => "'{}'::jsonb"})
   metadata: Record<string, unknown>;

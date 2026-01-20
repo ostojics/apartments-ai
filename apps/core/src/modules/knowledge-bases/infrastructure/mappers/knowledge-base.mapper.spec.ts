@@ -23,6 +23,7 @@ describe('KnowledgeBaseMapper', () => {
     expect(ormEntity.knowledge).toBe('Policy details');
     expect(ormEntity.information).toBe('More information');
     expect(ormEntity.metadata).toEqual({category: 'policy'});
+    expect(ormEntity.createdAt.toISOString()).toBe('2025-09-09T03:30:00.000Z');
   });
 
   it('maps persistence to domain', () => {
@@ -33,6 +34,7 @@ describe('KnowledgeBaseMapper', () => {
     ormEntity.knowledge = 'FAQ content';
     ormEntity.information = 'Updated info';
     ormEntity.metadata = {category: 'faq'};
+    ormEntity.createdAt = new Date('2025-10-10T10:00:00.000Z');
 
     const knowledgeBase = KnowledgeBaseMapper.toDomain(ormEntity);
 
@@ -42,6 +44,6 @@ describe('KnowledgeBaseMapper', () => {
     expect(knowledgeBase.knowledge).toBe('FAQ content');
     expect(knowledgeBase.information).toBe('Updated info');
     expect(knowledgeBase.metadata).toEqual({category: 'faq'});
-    expect(Number.isNaN(Date.parse(knowledgeBase.createdAt))).toBe(false);
+    expect(knowledgeBase.createdAt).toBe('2025-10-10T10:00:00.000Z');
   });
 });

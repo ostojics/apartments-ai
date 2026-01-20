@@ -20,7 +20,7 @@ export class TypeOrmLicenseRepository implements ILicenseRepository {
     return target.getRepository(LicenseOrmEntity);
   }
 
-  async create(license: LicenseEntity): Promise<void> {
+  async save(license: LicenseEntity): Promise<void> {
     const persistenceModel = LicenseMapper.toPersistence(license);
     await this.repository.save(persistenceModel);
   }
@@ -37,11 +37,6 @@ export class TypeOrmLicenseRepository implements ILicenseRepository {
     if (!record) return null;
 
     return LicenseMapper.toDomain(record);
-  }
-
-  async update(license: LicenseEntity): Promise<void> {
-    const persistenceModel = LicenseMapper.toPersistence(license);
-    await this.repository.save(persistenceModel);
   }
 
   async delete(id: string): Promise<void> {

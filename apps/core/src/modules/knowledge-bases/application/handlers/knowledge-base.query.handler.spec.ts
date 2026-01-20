@@ -5,11 +5,10 @@ import {KnowledgeBaseEntity} from 'src/modules/knowledge-bases/domain/knowledge-
 
 describe('KnowledgeBaseHandler', () => {
   const createKnowledgeBaseRepository = (): jest.Mocked<IKnowledgeBaseRepository> => ({
-    create: jest.fn(),
+    save: jest.fn(),
     findById: jest.fn(),
     findByBuildingId: jest.fn(),
     findByTenantId: jest.fn(),
-    update: jest.fn(),
     delete: jest.fn(),
     exists: jest.fn(),
   });
