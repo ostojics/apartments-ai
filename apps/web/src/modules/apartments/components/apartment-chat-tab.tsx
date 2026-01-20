@@ -1,8 +1,10 @@
 import {useMemo} from 'react';
-import {MessageCircle} from 'lucide-react';
+import {MessageCircle, Send} from 'lucide-react';
 import {useTranslation} from 'react-i18next';
 
+import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
+import {Textarea} from '@/components/ui/textarea';
 import {cn} from '@/lib/utils/cn';
 
 interface ChatMessage {
@@ -13,21 +15,21 @@ interface ChatMessage {
 
 type ChatRole = ChatMessage['role'];
 
-const CHAT_MESSAGE_DATA: {id: string; role: ChatRole; contentKey: string}[] = [
+const CHAT_MESSAGE_DATA: {id: string; role: ChatRole; content: string}[] = [
   {
     id: 'welcome',
     role: 'assistant',
-    contentKey: 'apartment.chat.messages.greeting',
+    content: 'Zdravo! Ja sam vaš AI asistent za apartmane. Kako mogu da pomognem?',
   },
   {
     id: 'user-question',
     role: 'user',
-    contentKey: 'apartment.chat.messages.question',
+    content: 'Koji su tihi sati i da li postoji parking za goste?',
   },
   {
     id: 'assistant-response',
     role: 'assistant',
-    contentKey: 'apartment.chat.messages.response',
+    content: 'Tišina počinje u 22:00, a parking za goste je dostupan vikendom.',
   },
 ];
 
@@ -38,9 +40,9 @@ export default function ApartmentChatTab() {
       CHAT_MESSAGE_DATA.map((message) => ({
         id: message.id,
         role: message.role,
-        content: t(message.contentKey),
+        content: message.content,
       })),
-    [t],
+    [],
   );
 
   return (
@@ -82,6 +84,19 @@ export default function ApartmentChatTab() {
             );
           })}
         </div>
+        <form className="flex flex-col gap-3 rounded-2xl border bg-background p-4 shadow-sm sm:flex-row sm:items-end">
+          <div className="flex-1">
+            <Textarea
+              placeholder={t('apartment.chat.inputPlaceholder')}
+              className="min-h-20 resize-none"
+              aria-label={t('apartment.chat.inputLabel')}
+            />
+          </div>
+          <Button type="button" className="w-full sm:w-auto">
+            <span>{t('apartment.chat.send')}</span>
+            <Send className="size-4" />
+          </Button>
+        </form>
       </CardContent>
     </Card>
   );

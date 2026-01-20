@@ -65,6 +65,9 @@
     "chat": {
       "title": "Razgovor sa AI asistentom",
       "description": "AI asistent je spreman da odgovori na bilo kakva pitanja u vezi apartmana bilo kada.",
+      "inputLabel": "Poruka u razgovoru",
+      "inputPlaceholder": "Unesite pitanje...",
+      "send": "Pošaljite",
       "note": "Odgovore generiše AI asistent. Za hitne potrebe kontaktirajte izdavanje.",
       "roles": {
         "assistant": "Apartments AI",
