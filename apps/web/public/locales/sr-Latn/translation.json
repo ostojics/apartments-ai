@@ -63,8 +63,8 @@
       }
     },
     "chat": {
-      "title": "Chat sa Apartments AI",
-      "description": "Postavite pitanje o sadržajima, pravilima ili zakupu i dobijete brze odgovore.",
+      "title": "Razgovor sa AI asistentom",
+      "description": "AI asistent je spreman da odgovori na bilo kakva pitanja u vezi apartmana bilo kada.",
       "note": "Odgovore generiše AI asistent. Za hitne potrebe kontaktirajte izdavanje.",
       "roles": {
         "assistant": "Apartments AI",

@@ -70,19 +70,18 @@ export default function ApartmentChatTab() {
                 <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{roleLabel}</span>
                 <div
                   className={cn(
-                    'max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm',
+                    'max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed text-left shadow-sm',
                     isUser
                       ? 'bg-primary text-primary-foreground'
                       : 'bg-background text-foreground border border-border/60',
                   )}
                 >
-                  {message.content}
+                  <span>{message.content}</span>
                 </div>
               </div>
             );
           })}
         </div>
-        <p className="text-sm text-muted-foreground">{t('apartment.chat.note')}</p>
       </CardContent>
     </Card>
   );
