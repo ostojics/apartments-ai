@@ -31,7 +31,7 @@ export default function PromotionsTab() {
   });
 
   return (
-    <Card className="bg-background">
+    <Card className="bg-background rounded-none sm:rounded-2xl border-0 sm:border">
       <CardHeader>
         <CardTitle className="text-xl">{t('apartment.promotions.title')}</CardTitle>
         <CardDescription>{t('apartment.promotions.description', {provider: 'Demo'})}</CardDescription>

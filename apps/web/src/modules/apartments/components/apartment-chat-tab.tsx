@@ -1,5 +1,5 @@
-import {useMemo} from 'react';
-import {MessageCircle, Send} from 'lucide-react';
+import {useMemo, useState} from 'react';
+import {MessageCircle, SendHorizonal} from 'lucide-react';
 import {useTranslation} from 'react-i18next';
 
 import {Button} from '@/components/ui/button';
@@ -35,6 +35,8 @@ const CHAT_MESSAGE_DATA: {id: string; role: ChatRole; content: string}[] = [
 
 export default function ApartmentChatTab() {
   const {t} = useTranslation();
+  const [messageInput, setMessageInput] = useState('');
+
   const messages = useMemo<ChatMessage[]>(
     () =>
       CHAT_MESSAGE_DATA.map((message) => ({
@@ -46,8 +48,8 @@ export default function ApartmentChatTab() {
   );
 
   return (
-    <Card className="bg-background">
-      <CardHeader className="gap-4">
+    <Card className="bg-background rounded-none sm:rounded-2xl border-0 sm:border py-2">
+      <CardHeader className="gap-4 pb-2 pt-4 border-b-2 border-b-border/40">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
           <span className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
             <MessageCircle className="size-5" />
@@ -58,8 +60,8 @@ export default function ApartmentChatTab() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        <div className="flex flex-col gap-5 rounded-2xl border bg-muted/30 p-4 sm:p-6">
+      <CardContent className="flex flex-col gap-4 p-4">
+        <div className="flex flex-col gap-5 rounded-2xl p-0 mb-5 max-h-[30rem] overflow-y-auto">
           {messages.map((message) => {
             const isUser = message.role === 'user';
             const roleLabel = isUser ? t('apartment.chat.roles.user') : t('apartment.chat.roles.assistant');
@@ -85,15 +87,22 @@ export default function ApartmentChatTab() {
           })}
         </div>
         <form className="rounded-2xl border bg-background p-3 shadow-sm">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
+          <div className="flex flex-col gap-3 items-end">
             <Textarea
+              style={{backgroundColor: 'transparent'}}
+              value={messageInput}
+              onChange={(e) => setMessageInput(e.target.value)}
               placeholder={t('apartment.chat.inputPlaceholder')}
-              className="min-h-20 resize-none border-0 bg-transparent p-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="min-h-20 resize-none border-0 p-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
               aria-label={t('apartment.chat.inputLabel')}
             />
-            <Button type="button" className="w-full sm:w-auto">
-              <span>{t('apartment.chat.send')}</span>
-              <Send className="size-4" />
+            <Button
+              type="button"
+              className="w-12 rounded-lg"
+              disabled={!messageInput.trim()}
+              aria-label={t('apartment.chat.send')}
+            >
+              <SendHorizonal className="size-4" />
             </Button>
           </div>
         </form>

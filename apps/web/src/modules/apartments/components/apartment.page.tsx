@@ -23,9 +23,9 @@ export function ApartmentPage() {
 
   return (
     <section className="bg-secondary/40">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-0 pt-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 text-center sm:text-left">
             <h1 className="text-3xl font-semibold tracking-tight">{t('apartment.title', {id: apartmentId})}</h1>
           </div>
         </div>
