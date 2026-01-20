@@ -84,18 +84,18 @@ export default function ApartmentChatTab() {
             );
           })}
         </div>
-        <form className="flex flex-col gap-3 rounded-2xl border bg-background p-4 shadow-sm sm:flex-row sm:items-end">
-          <div className="flex-1">
+        <form className="rounded-2xl border bg-background p-3 shadow-sm">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
             <Textarea
               placeholder={t('apartment.chat.inputPlaceholder')}
-              className="min-h-20 resize-none"
+              className="min-h-20 resize-none border-0 bg-transparent p-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
               aria-label={t('apartment.chat.inputLabel')}
             />
+            <Button type="button" className="w-full sm:w-auto">
+              <span>{t('apartment.chat.send')}</span>
+              <Send className="size-4" />
+            </Button>
           </div>
-          <Button type="button" className="w-full sm:w-auto">
-            <span>{t('apartment.chat.send')}</span>
-            <Send className="size-4" />
-          </Button>
         </form>
       </CardContent>
     </Card>
