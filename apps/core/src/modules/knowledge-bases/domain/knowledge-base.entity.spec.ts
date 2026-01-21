@@ -8,13 +8,11 @@ describe('KnowledgeBaseEntity', () => {
       buildingId: 'building-1',
       tenantId: 'tenant-1',
       knowledge: 'Knowledge text',
-      information: 'Info text',
     });
 
     expect(knowledgeBase.buildingId).toBe('building-1');
     expect(knowledgeBase.tenantId).toBe('tenant-1');
     expect(knowledgeBase.knowledge).toBe('Knowledge text');
-    expect(knowledgeBase.information).toBe('Info text');
     expect(knowledgeBase.metadata).toEqual({});
     expect(knowledgeBase.getEvents()).toHaveLength(1);
     expect(knowledgeBase.getEvents()[0]).toBeInstanceOf(KnowledgeBaseCreatedEvent);
@@ -25,7 +23,6 @@ describe('KnowledgeBaseEntity', () => {
       buildingId: 'building-2',
       tenantId: 'tenant-2',
       knowledge: 'Original knowledge',
-      information: 'Original info',
       metadata: {source: 'initial'},
     });
 

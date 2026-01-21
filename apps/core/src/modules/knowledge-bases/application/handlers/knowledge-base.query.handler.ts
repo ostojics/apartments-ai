@@ -11,7 +11,6 @@ export interface KnowledgeBaseResult {
   buildingId: string;
   tenantId: string;
   knowledge: string;
-  information: string;
   metadata: Record<string, unknown>;
 }
 
@@ -30,7 +29,6 @@ export class KnowledgeBaseHandler implements IQueryHandler<KnowledgeBaseQuery, K
       buildingId: knowledgeBase.buildingId,
       tenantId: knowledgeBase.tenantId,
       knowledge: knowledgeBase.knowledge,
-      information: knowledgeBase.information,
       metadata: knowledgeBase.metadata,
     };
   }

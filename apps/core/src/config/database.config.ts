@@ -6,6 +6,7 @@ import {CreateTenants1758657000100} from 'src/migrations/1758657000100-CreateTen
 import {CreateFeedback1758657000200} from 'src/migrations/1758657000200-CreateFeedback';
 import {CreateBuildings1758657000300} from 'src/migrations/1758657000300-CreateBuildings';
 import {CreateKnowledgeBases1758657000400} from 'src/migrations/1758657000400-CreateKnowledgeBases';
+import {CreateBuildingInformation1758657000450} from 'src/migrations/1758657000450-CreateBuildingInformation';
 import {CreateContacts1758657000500} from 'src/migrations/1758657000500-CreateContacts';
 
 export const DatabaseConfigName = 'database';
@@ -41,6 +42,7 @@ export function getConfig(): DatabaseConfig {
       CreateFeedback1758657000200,
       CreateBuildings1758657000300,
       CreateKnowledgeBases1758657000400,
+      CreateBuildingInformation1758657000450,
       CreateContacts1758657000500,
     ],
     migrationsRun: true,

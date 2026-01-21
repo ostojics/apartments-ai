@@ -5,7 +5,6 @@ export class KnowledgeBaseUpdatedEvent extends DomainEvent {
     public readonly knowledgeBaseId: string,
     public readonly updatedFields: {
       knowledge?: string;
-      information?: string;
       metadata?: Record<string, unknown>;
     },
   ) {
