@@ -3,12 +3,16 @@ import {BuildingInformationCreatedEvent} from './events/building-information-cre
 
 export class BuildingInformationEntity extends BaseEntity {
   #knowledgeBaseId: string;
+  #buildingId: string;
+  #tenantId: string;
   #locale: string;
   #content: string;
 
   private constructor(
     id: string | undefined,
     knowledgeBaseId: string,
+    buildingId: string,
+    tenantId: string,
     locale: string,
     content: string,
     createdAt?: string,
@@ -17,6 +21,8 @@ export class BuildingInformationEntity extends BaseEntity {
     super(id, createdAt, updatedAt);
 
     this.#knowledgeBaseId = knowledgeBaseId;
+    this.#buildingId = buildingId;
+    this.#tenantId = tenantId;
     this.#locale = locale;
     this.#content = content;
   }
@@ -24,6 +30,8 @@ export class BuildingInformationEntity extends BaseEntity {
   public static create(data: {
     id?: string;
     knowledgeBaseId: string;
+    buildingId: string;
+    tenantId: string;
     locale: string;
     content: string;
     createdAt?: string;
@@ -32,6 +40,8 @@ export class BuildingInformationEntity extends BaseEntity {
     const information = new BuildingInformationEntity(
       data.id,
       data.knowledgeBaseId,
+      data.buildingId,
+      data.tenantId,
       data.locale,
       data.content,
       data.createdAt,
@@ -40,7 +50,14 @@ export class BuildingInformationEntity extends BaseEntity {
 
     if (!data.id) {
       information.addEvent(
-        new BuildingInformationCreatedEvent(information.id, data.knowledgeBaseId, data.locale, data.content),
+        new BuildingInformationCreatedEvent(
+          information.id,
+          data.knowledgeBaseId,
+          data.buildingId,
+          data.tenantId,
+          data.locale,
+          data.content,
+        ),
       );
     }
 
@@ -49,6 +66,14 @@ export class BuildingInformationEntity extends BaseEntity {
 
   public get knowledgeBaseId(): string {
     return this.#knowledgeBaseId;
+  }
+
+  public get buildingId(): string {
+    return this.#buildingId;
+  }
+
+  public get tenantId(): string {
+    return this.#tenantId;
   }
 
   public get locale(): string {
