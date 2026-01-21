@@ -14,7 +14,8 @@ export class CreateBuildingInformation1758657000450 implements MigrationInterfac
         CONSTRAINT "PK_building_information_id" PRIMARY KEY ("id"),
         CONSTRAINT "FK_building_information_knowledge_base_id" FOREIGN KEY ("knowledge_base_id") REFERENCES "knowledge_bases" ("id"),
         CONSTRAINT "FK_building_information_building_id" FOREIGN KEY ("building_id") REFERENCES "buildings" ("id"),
-        CONSTRAINT "FK_building_information_tenant_id" FOREIGN KEY ("tenant_id") REFERENCES "tenants" ("id")
+        CONSTRAINT "FK_building_information_tenant_id" FOREIGN KEY ("tenant_id") REFERENCES "tenants" ("id"),
+        CONSTRAINT "UQ_building_information_building_locale" UNIQUE ("building_id", "locale")
       );
     `);
   }
