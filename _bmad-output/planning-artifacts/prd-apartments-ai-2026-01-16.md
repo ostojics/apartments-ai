@@ -28,6 +28,11 @@ Apartments AI is a multi-tenant platform enabling users to interact with an AI a
    - The form is mobile responsive, localized, and includes a loading spinner during submission.
    - No backend is required initially; a mock endpoint is used for testing.
 
+5. **Visual apartment guide/manual in app**
+   - Users can access a dedicated tab to see the apartment guide or manual
+   - Guide is markdown content that is rendered inside the app, can include links, tables and other markdown related things.
+   - Markdown content is fully responsive as all other app content.
+
 ---
 
 ## Non-Functional Requirements

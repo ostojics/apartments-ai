@@ -5,10 +5,8 @@ import {
   BUILDING_INFORMATION_REPOSITORY,
   IBuildingInformationRepository,
 } from 'src/modules/building-information/domain/repositories/building-information.repository.interface';
-import {
-  BUILDING_REPOSITORY,
-  IBuildingRepository,
-} from 'src/modules/buildings/domain/repositories/building.repository.interface';
+import {BUILDING_REPOSITORY} from 'src/modules/buildings/domain/repositories/building.repository.interface';
+import {IBuildingInformationBuildingsRepositoryPort} from '../ports/building-information.buildings.repository.port';
 
 export interface BuildingInformationResult {
   content: string;
@@ -20,7 +18,7 @@ export class BuildingInformationHandler implements IQueryHandler<
   BuildingInformationResult | null
 > {
   constructor(
-    @Inject(BUILDING_REPOSITORY) private readonly buildingRepository: IBuildingRepository,
+    @Inject(BUILDING_REPOSITORY) private readonly buildingRepository: IBuildingInformationBuildingsRepositoryPort,
     @Inject(BUILDING_INFORMATION_REPOSITORY)
     private readonly buildingInformationRepository: IBuildingInformationRepository,
   ) {}
