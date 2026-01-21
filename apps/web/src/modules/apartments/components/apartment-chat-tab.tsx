@@ -48,7 +48,7 @@ export default function ApartmentChatTab() {
   );
 
   return (
-    <Card className="bg-background rounded-none sm:rounded-2xl border-0 sm:border py-2">
+    <Card className="bg-background rounded-none sm:rounded-2xl border-0 sm:border py-2 flex min-h-full flex-col">
       <CardHeader className="gap-4 pb-2 pt-4 border-b-2 border-b-border/40">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
           <span className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -60,8 +60,8 @@ export default function ApartmentChatTab() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4 p-4">
-        <div className="flex flex-col gap-5 rounded-2xl p-0 mb-5 max-h-[30rem] overflow-y-auto">
+      <CardContent className="flex flex-1 min-h-0 flex-col gap-4 p-4">
+        <div className="flex flex-1 min-h-0 flex-col gap-5 rounded-2xl p-0 mb-5 overflow-y-auto">
           {messages.map((message) => {
             const isUser = message.role === 'user';
             const roleLabel = isUser ? t('apartment.chat.roles.user') : t('apartment.chat.roles.assistant');
