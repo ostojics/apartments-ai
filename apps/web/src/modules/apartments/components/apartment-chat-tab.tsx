@@ -48,7 +48,7 @@ export default function ApartmentChatTab() {
   );
 
   return (
-    <Card className="bg-background rounded-none sm:rounded-2xl border-0 sm:border py-2 flex min-h-full flex-col">
+    <Card className="bg-background rounded-none sm:rounded-2xl border-0 sm:border py-2 flex flex-1 min-h-0 flex-col">
       <CardHeader className="gap-4 pb-2 pt-4 border-b-2 border-b-border/40">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
           <span className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
