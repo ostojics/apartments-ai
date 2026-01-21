@@ -8,7 +8,6 @@ export class KnowledgeBaseMapper {
       buildingId: ormEntity.buildingId,
       tenantId: ormEntity.tenantId,
       knowledge: ormEntity.knowledge,
-      information: ormEntity.information,
       metadata: ormEntity.metadata,
       createdAt: ormEntity.createdAt.toISOString(),
     });
@@ -20,7 +19,6 @@ export class KnowledgeBaseMapper {
     ormEntity.buildingId = domainEntity.buildingId;
     ormEntity.tenantId = domainEntity.tenantId;
     ormEntity.knowledge = domainEntity.knowledge;
-    ormEntity.information = domainEntity.information;
     ormEntity.metadata = domainEntity.metadata;
     ormEntity.createdAt = new Date(domainEntity.createdAt);
 

@@ -9,7 +9,6 @@ describe('KnowledgeBaseMapper', () => {
       buildingId: 'building-456',
       tenantId: 'tenant-789',
       knowledge: 'Policy details',
-      information: 'More information',
       metadata: {category: 'policy'},
       createdAt: '2025-09-09T03:30:00.000Z',
     });
@@ -21,7 +20,6 @@ describe('KnowledgeBaseMapper', () => {
     expect(ormEntity.buildingId).toBe('building-456');
     expect(ormEntity.tenantId).toBe('tenant-789');
     expect(ormEntity.knowledge).toBe('Policy details');
-    expect(ormEntity.information).toBe('More information');
     expect(ormEntity.metadata).toEqual({category: 'policy'});
     expect(ormEntity.createdAt.toISOString()).toBe('2025-09-09T03:30:00.000Z');
   });
@@ -32,7 +30,6 @@ describe('KnowledgeBaseMapper', () => {
     ormEntity.buildingId = 'building-000';
     ormEntity.tenantId = 'tenant-111';
     ormEntity.knowledge = 'FAQ content';
-    ormEntity.information = 'Updated info';
     ormEntity.metadata = {category: 'faq'};
     ormEntity.createdAt = new Date('2025-10-10T10:00:00.000Z');
 
@@ -42,7 +39,6 @@ describe('KnowledgeBaseMapper', () => {
     expect(knowledgeBase.buildingId).toBe('building-000');
     expect(knowledgeBase.tenantId).toBe('tenant-111');
     expect(knowledgeBase.knowledge).toBe('FAQ content');
-    expect(knowledgeBase.information).toBe('Updated info');
     expect(knowledgeBase.metadata).toEqual({category: 'faq'});
     expect(knowledgeBase.createdAt).toBe('2025-10-10T10:00:00.000Z');
   });

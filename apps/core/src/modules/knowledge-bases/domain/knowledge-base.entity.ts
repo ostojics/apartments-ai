@@ -6,7 +6,6 @@ export class KnowledgeBaseEntity extends BaseEntity {
   #buildingId: string;
   #tenantId: string;
   #knowledge: string;
-  #information: string;
   #metadata: Record<string, unknown>;
 
   private constructor(
@@ -14,7 +13,6 @@ export class KnowledgeBaseEntity extends BaseEntity {
     buildingId: string,
     tenantId: string,
     knowledge: string,
-    information: string,
     metadata: Record<string, unknown>,
     createdAt?: string,
     updatedAt?: string,
@@ -24,7 +22,6 @@ export class KnowledgeBaseEntity extends BaseEntity {
     this.#buildingId = buildingId;
     this.#tenantId = tenantId;
     this.#knowledge = knowledge;
-    this.#information = information;
     this.#metadata = metadata;
   }
 
@@ -33,7 +30,6 @@ export class KnowledgeBaseEntity extends BaseEntity {
     buildingId: string;
     tenantId: string;
     knowledge: string;
-    information: string;
     metadata?: Record<string, unknown>;
     createdAt?: string;
     updatedAt?: string;
@@ -43,7 +39,6 @@ export class KnowledgeBaseEntity extends BaseEntity {
       data.buildingId,
       data.tenantId,
       data.knowledge,
-      data.information,
       data.metadata ?? {},
       data.createdAt,
       data.updatedAt,
@@ -68,21 +63,13 @@ export class KnowledgeBaseEntity extends BaseEntity {
     return this.#knowledge;
   }
 
-  public get information(): string {
-    return this.#information;
-  }
-
   public get metadata(): Record<string, unknown> {
     return this.#metadata;
   }
 
-  public update(data: {knowledge?: string; information?: string; metadata?: Record<string, unknown>}): void {
+  public update(data: {knowledge?: string; metadata?: Record<string, unknown>}): void {
     if (data.knowledge !== undefined) {
       this.#knowledge = data.knowledge;
-    }
-
-    if (data.information !== undefined) {
-      this.#information = data.information;
     }
 
     if (data.metadata !== undefined) {
@@ -92,7 +79,6 @@ export class KnowledgeBaseEntity extends BaseEntity {
     this.addEvent(
       new KnowledgeBaseUpdatedEvent(this.id, {
         knowledge: data.knowledge,
-        information: data.information,
         metadata: data.metadata,
       }),
     );

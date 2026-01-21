@@ -8,7 +8,6 @@ export class CreateKnowledgeBases1758657000400 implements MigrationInterface {
         "building_id" uuid NOT NULL,
         "tenant_id" uuid NOT NULL,
         "knowledge" text NOT NULL,
-        "information" text NOT NULL,
         "metadata" jsonb NOT NULL DEFAULT '{}'::jsonb,
         "created_at" timestamp with time zone NOT NULL DEFAULT now(),
         CONSTRAINT "PK_knowledge_bases_id" PRIMARY KEY ("id"),

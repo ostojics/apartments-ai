@@ -29,7 +29,6 @@ describe('KnowledgeBaseHandler', () => {
       buildingId: 'building-2',
       tenantId: 'tenant-2',
       knowledge: 'Knowledge text',
-      information: 'Info text',
       metadata: {source: 'import'},
     });
 
@@ -43,7 +42,6 @@ describe('KnowledgeBaseHandler', () => {
       buildingId: 'building-2',
       tenantId: 'tenant-2',
       knowledge: 'Knowledge text',
-      information: 'Info text',
       metadata: {source: 'import'},
     });
   });
