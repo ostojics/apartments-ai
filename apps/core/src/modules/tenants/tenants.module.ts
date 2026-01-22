@@ -1,5 +1,4 @@
 import {Module} from '@nestjs/common';
-import {CqrsModule} from '@nestjs/cqrs';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {TenantsController} from './presentation/controllers/tenants.controller';
 import {TenantCheckHandler} from './application/handlers/tenant-check.query.handler';
@@ -11,24 +10,18 @@ import {TenantLicenseRepositoryAdapter} from './infrastructure/adapters/tenant-l
 import {LICENSE_REPOSITORY} from '../licenses/domain/repositories/license.repository.interface';
 import {TypeOrmLicenseRepository} from '../licenses/infrastructure/persistence/typeorm-license.repository';
 import {LicenseOrmEntity} from '../licenses/infrastructure/persistence/license.entity';
-import {BuildingsHandler} from '../buildings/application/handlers/buildings.query.handler';
-import {BUILDING_REPOSITORY} from '../buildings/domain/repositories/building.repository.interface';
-import {TypeOrmBuildingRepository} from '../buildings/infrastructure/persistence/typeorm-building.repository';
 import {BuildingOrmEntity} from '../buildings/infrastructure/persistence/building.entity';
 
+const handlers = [TenantCheckHandler];
+
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([TenantOrmEntity, LicenseOrmEntity, BuildingOrmEntity])],
+  imports: [TypeOrmModule.forFeature([TenantOrmEntity, LicenseOrmEntity, BuildingOrmEntity])],
   controllers: [TenantsController],
   providers: [
-    TenantCheckHandler,
-    BuildingsHandler,
+    ...handlers,
     {
       provide: TENANT_REPOSITORY,
       useClass: TypeOrmTenantRepository,
-    },
-    {
-      provide: LICENSE_REPOSITORY,
-      useClass: TypeOrmLicenseRepository,
     },
     {
       provide: TENANT_LICENSE_REPOSITORY_PORT,
@@ -36,10 +29,6 @@ import {BuildingOrmEntity} from '../buildings/infrastructure/persistence/buildin
         return new TenantLicenseRepositoryAdapter(licenseRepository);
       },
       inject: [LICENSE_REPOSITORY],
-    },
-    {
-      provide: BUILDING_REPOSITORY,
-      useClass: TypeOrmBuildingRepository,
     },
   ],
   exports: [TENANT_REPOSITORY],

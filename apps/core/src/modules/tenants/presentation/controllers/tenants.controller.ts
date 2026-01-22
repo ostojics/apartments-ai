@@ -3,11 +3,12 @@ import {ApiTags, ApiOperation, ApiResponse, ApiBearerAuth} from '@nestjs/swagger
 import {QueryBus} from '@nestjs/cqrs';
 import {TenantGuard, TenantRequest} from 'src/common/guards/tenant.guard';
 import {TenantCheckQuery} from '../../application/queries/tenant-check.query';
-import {TenantCheckHandler, TenantCheckResult} from '../../application/handlers/tenant-check.query.handler';
+import {TenantCheckResult} from '../../application/handlers/tenant-check.query.handler';
 import {TenantCheckResponseSwaggerDTO} from '../dtos/tenant-check-response.swagger.dto';
 import {BuildingsResponseSwaggerDTO} from '../dtos/buildings-response.swagger.dto';
 import {BuildingsQuery} from 'src/modules/buildings/application/queries/buildings.query';
-import {BuildingsHandler, BuildingSummary} from 'src/modules/buildings/application/handlers/buildings.query.handler';
+import {BuildingSummary} from 'src/modules/buildings/application/handlers/buildings.query.handler';
+import {buildingsResponseSchema, tenantCheckResponseSchema} from '@acme/contracts';
 
 @ApiTags('Tenants')
 @Controller({path: 'tenants', version: '1'})
@@ -26,7 +27,8 @@ export class TenantsController {
   async checkTenant(@Req() req: TenantRequest): Promise<{data: TenantCheckResult}> {
     const query = new TenantCheckQuery({slug: req.tenant.slug});
     const result = await this.queryBus.execute<TenantCheckQuery, TenantCheckResult>(query);
-    return {data: result};
+
+    return tenantCheckResponseSchema.parse({data: result});
   }
 
   @Get('buildings')
@@ -39,6 +41,7 @@ export class TenantsController {
   async getBuildings(@Req() req: TenantRequest): Promise<{data: BuildingSummary[]}> {
     const query = new BuildingsQuery({tenantId: req.tenant.id});
     const result = await this.queryBus.execute<BuildingsQuery, BuildingSummary[]>(query);
-    return {data: result};
+
+    return buildingsResponseSchema.parse({data: result});
   }
 }

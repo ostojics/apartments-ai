@@ -2,12 +2,11 @@ import {Controller, Get, Param, UseGuards, Req, NotFoundException} from '@nestjs
 import {ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam} from '@nestjs/swagger';
 import {QueryBus} from '@nestjs/cqrs';
 import {TenantGuard, TenantRequest} from 'src/common/guards/tenant.guard';
-import {BuildingInformationQuery} from '../../application/queries/building-information.query';
-import {
-  BuildingInformationHandler,
-  BuildingInformationResult,
-} from '../../application/handlers/building-information.query.handler';
+
 import {BuildingInformationResponseSwaggerDTO} from '../dtos/building-information-response.swagger.dto';
+import {BuildingInformationQuery} from 'src/modules/building-information/application/queries/building-information.query';
+import {BuildingInformationResult} from 'src/modules/building-information/application/handlers/building-information.query.handler';
+import {buildingInformationResponseSchema} from '@acme/contracts';
 
 @ApiTags('Buildings')
 @Controller({path: 'buildings', version: '1'})
@@ -41,12 +40,12 @@ export class BuildingsController {
       tenantId: req.tenant.id,
       locale: req.userContext.locale,
     });
-    const result = await this.queryBus.execute<BuildingInformationQuery, BuildingInformationResult | null>(query);
 
+    const result = await this.queryBus.execute<BuildingInformationQuery, BuildingInformationResult | null>(query);
     if (!result) {
       throw new NotFoundException('Building not found or no information available for this locale');
     }
 
-    return {data: result};
+    return buildingInformationResponseSchema.parse({data: result});
   }
 }

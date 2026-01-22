@@ -8,7 +8,6 @@ export class BuildingInformationBuildingsRepositoryAdapter implements IBuildingI
   constructor(private readonly buildingRepository: IBuildingRepository) {}
 
   async findBySlug(tenantId: string, buildingSlug: string): Promise<BuildingEntity | null> {
-    const buildings = await this.buildingRepository.findByTenantId(tenantId);
-    return buildings.find((b) => b.slug === buildingSlug) ?? null;
+    return await this.buildingRepository.findBySlug(tenantId, buildingSlug);
   }
 }

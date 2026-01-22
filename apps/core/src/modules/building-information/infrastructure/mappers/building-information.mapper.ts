@@ -1,5 +1,5 @@
 import {BuildingInformationEntity} from '../../domain/building-information.entity';
-import {BuildingInformationOrmEntity} from './building-information.entity';
+import {BuildingInformationOrmEntity} from '../persistence/building-information.entity';
 
 export class BuildingInformationMapper {
   static toPersistence(entity: BuildingInformationEntity): BuildingInformationOrmEntity {
