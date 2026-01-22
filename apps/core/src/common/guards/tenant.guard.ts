@@ -20,8 +20,13 @@ export interface TenantInfo {
   slug: string;
 }
 
+export interface UserContext {
+  locale: string;
+}
+
 export interface TenantRequest extends Request {
   tenant: TenantInfo;
+  userContext: UserContext;
 }
 
 @Injectable()
@@ -36,6 +41,7 @@ export class TenantGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<TenantRequest>();
     const tenantSlug = this.extractTenantSlug(request.headers.host);
+    const locale = request.headers['accept-language'] ?? 'en-US';
 
     if (!tenantSlug) {
       this.logger.debug('TenantGuard: No tenant slug found in host header', request.headers);
@@ -69,6 +75,7 @@ export class TenantGuard implements CanActivate {
     }
 
     request.tenant = {id: tenant.id, slug: tenant.slug};
+    request.userContext = {locale};
 
     return true;
   }
