@@ -1,6 +1,6 @@
 import {API_URL} from '@/common/constants/constants';
-import {isPublicRoute} from '@/lib/utils/is-public-route';
 import ky from 'ky';
+import {getCurrentLanguage} from '../i18n/utils/get-current-language';
 
 const httpClient = ky.create({
   prefixUrl: API_URL,
@@ -9,17 +9,10 @@ const httpClient = ky.create({
 
 const extended = httpClient.extend({
   hooks: {
-    afterResponse: [
-      (_request, _options, response) => {
-        if (isPublicRoute(window.location.pathname)) return response;
-
-        const {status} = response;
-
-        if (status === 401 || status === 403) {
-          window.location.href = '/login';
-        }
-
-        return response;
+    beforeRequest: [
+      (request) => {
+        const language = getCurrentLanguage();
+        request.headers.set('Accept-Language', language);
       },
     ],
   },
