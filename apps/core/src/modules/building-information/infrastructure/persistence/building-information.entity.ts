@@ -1,4 +1,4 @@
-import {Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn} from 'typeorm';
+import {Column, CreateDateColumn, Entity, PrimaryColumn} from 'typeorm';
 
 @Entity('building_information')
 export class BuildingInformationOrmEntity {
@@ -22,7 +22,4 @@ export class BuildingInformationOrmEntity {
 
   @CreateDateColumn({name: 'created_at', type: 'timestamp with time zone'})
   createdAt: Date;
-
-  @UpdateDateColumn({name: 'updated_at', type: 'timestamp with time zone'})
-  updatedAt: Date;
 }

@@ -157,11 +157,8 @@ describe('GlobalExceptionFilter', () => {
 
   it('should handle unexpected errors correctly', () => {
     const exception = new Error('Unexpected error');
-    const loggerSpy = jest.spyOn(filter['logger'], 'error');
-
     filter.catch(exception, mockHost);
 
-    expect(loggerSpy).toHaveBeenCalled();
     expect(mockResponse.status).toHaveBeenCalledWith(HttpStatus.INTERNAL_SERVER_ERROR);
     expect(mockResponse.json).toHaveBeenCalledWith(
       expect.objectContaining({

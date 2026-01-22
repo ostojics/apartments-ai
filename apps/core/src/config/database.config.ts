@@ -8,6 +8,11 @@ import {CreateBuildings1758657000300} from 'src/migrations/1758657000300-CreateB
 import {CreateKnowledgeBases1758657000400} from 'src/migrations/1758657000400-CreateKnowledgeBases';
 import {CreateBuildingInformation1758657000450} from 'src/migrations/1758657000450-CreateBuildingInformation';
 import {CreateContacts1758657000500} from 'src/migrations/1758657000500-CreateContacts';
+import {TenantOrmEntity} from 'src/modules/tenants/infrastructure/persistence/tenant.entity';
+import {BuildingOrmEntity} from 'src/modules/buildings/infrastructure/persistence/building.entity';
+import {KnowledgeBaseOrmEntity} from 'src/modules/knowledge-bases/infrastructure/persistence/knowledge-base.entity';
+import {BuildingInformationOrmEntity} from 'src/modules/building-information/infrastructure/persistence/building-information.entity';
+import {ContactOrmEntity} from 'src/modules/contacts/infrastructure/persistence/contact.entity';
 
 export const DatabaseConfigName = 'database';
 
@@ -25,14 +30,11 @@ export function getConfig(): DatabaseConfig {
     database: process.env.DB_DATABASE ?? 'nestwise_dev',
     ssl: process.env.DB_USE_SSL === 'true',
     entities: [
-      // Account,
-      // Category,
-      // Transaction,
-      // CategoryBudget,
-      // PrivateTransaction,
-      // License,
-      // ScheduledTransactionRule,
-      // ScheduledTransactionExecution,
+      TenantOrmEntity,
+      BuildingOrmEntity,
+      KnowledgeBaseOrmEntity,
+      BuildingInformationOrmEntity,
+      ContactOrmEntity,
     ],
     useUTC: true,
     migrations: [

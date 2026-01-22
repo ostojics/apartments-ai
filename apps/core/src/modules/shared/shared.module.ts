@@ -60,6 +60,7 @@ import {EventEmitterModule} from '@nestjs/event-emitter';
         const config = configService.getOrThrow<DatabaseConfig>(DatabaseConfigName);
         return {
           ...config,
+          autoLoadEntities: true,
         };
       },
     }),

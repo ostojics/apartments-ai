@@ -10,6 +10,7 @@ import {BUILDING_INFORMATION_BUILDINGS_REPOSITORY_PORT} from '../ports/di-tokens
 
 export interface BuildingInformationResult {
   content: string;
+  name: string;
 }
 
 @QueryHandler(BuildingInformationQuery)
@@ -35,6 +36,6 @@ export class BuildingInformationHandler implements IQueryHandler<
       return null;
     }
 
-    return {content: information.content};
+    return {content: information.content, name: building.name};
   }
 }
