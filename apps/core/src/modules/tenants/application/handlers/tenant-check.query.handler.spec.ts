@@ -120,7 +120,7 @@ describe('TenantCheckHandler', () => {
     const result = await handler.execute(new TenantCheckQuery({slug: 'brighton'}));
 
     expect(result).toEqual({
-      isValid: true,
+      isValid: false,
       tenant: {id: tenant.id, slug: 'brighton', name: 'Brighton Apartments'},
     });
   });

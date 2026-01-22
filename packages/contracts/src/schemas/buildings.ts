@@ -4,6 +4,7 @@ import {z} from 'zod/v4';
 export const buildingInformationResponseSchema = z.object({
   data: z.object({
     content: z.string(),
+    name: z.string(),
   }),
 });
 

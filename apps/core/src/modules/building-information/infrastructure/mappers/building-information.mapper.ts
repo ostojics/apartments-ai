@@ -11,7 +11,6 @@ export class BuildingInformationMapper {
     ormEntity.locale = entity.locale;
     ormEntity.content = entity.content;
     ormEntity.createdAt = new Date(entity.createdAt);
-    ormEntity.updatedAt = new Date(entity.updatedAt);
     return ormEntity;
   }
 
@@ -24,7 +23,6 @@ export class BuildingInformationMapper {
       locale: ormEntity.locale,
       content: ormEntity.content,
       createdAt: ormEntity.createdAt.toISOString(),
-      updatedAt: ormEntity.updatedAt.toISOString(),
     });
   }
 }

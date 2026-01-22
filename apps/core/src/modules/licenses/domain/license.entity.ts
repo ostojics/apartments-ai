@@ -89,7 +89,7 @@ export class LicenseEntity extends BaseEntity {
   }
 
   public isValid(): boolean {
-    return !this.isUsed && !this.isExpired;
+    return this.isUsed && !this.isExpired;
   }
 
   public markAsUsed(): void {

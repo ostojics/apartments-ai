@@ -9,3 +9,8 @@ export abstract class DomainException extends Error {
     this.code = code;
   }
 }
+
+export class NotFoundDomainException extends DomainException {}
+export class ConflictDomainException extends DomainException {}
+export class BadRequestDomainException extends DomainException {}
+export class UnauthorizedDomainException extends DomainException {}
