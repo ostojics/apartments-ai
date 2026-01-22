@@ -12,6 +12,7 @@ import {throttlerConfig, throttlerFactory} from './config/throttler.config';
 import {ThrottlerModule} from '@nestjs/throttler';
 import {EventEmitterModule} from '@nestjs/event-emitter';
 import {SharedModule} from './modules/shared/shared.module';
+import {BuildingInformationModule} from './modules/building-information/building-information.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import {SharedModule} from './modules/shared/shared.module';
     }),
     EventEmitterModule.forRoot(),
     SharedModule,
+    BuildingInformationModule,
     // BullModule.forRootAsync({
     //   imports: [ConfigModule],
     //   inject: [ConfigService],
