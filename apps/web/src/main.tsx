@@ -20,7 +20,7 @@ declare module '@tanstack/react-router' {
 }
 
 function AppRouter() {
-  return <RouterProvider router={router} context={{isAuthenticated: true}} />;
+  return <RouterProvider router={router} />;
 }
 
 const rootElement = document.getElementById('root');
