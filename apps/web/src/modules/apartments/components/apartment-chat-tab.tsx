@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import {useState} from 'react';
 import {MessageCircle, SendHorizonal} from 'lucide-react';
 import {useTranslation} from 'react-i18next';
 
@@ -6,46 +6,22 @@ import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {Textarea} from '@/components/ui/textarea';
 import {cn} from '@/lib/utils/cn';
-
-interface ChatMessage {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-}
-
-type ChatRole = ChatMessage['role'];
-
-const CHAT_MESSAGE_DATA: {id: string; role: ChatRole; content: string}[] = [
-  {
-    id: 'welcome',
-    role: 'assistant',
-    content: 'Zdravo! Ja sam vaš AI asistent za apartmane. Kako mogu da pomognem?',
-  },
-  {
-    id: 'user-question',
-    role: 'user',
-    content: 'Koji su tihi sati i da li postoji parking za goste?',
-  },
-  {
-    id: 'assistant-response',
-    role: 'assistant',
-    content: 'Tišina počinje u 22:00, a parking za goste je dostupan vikendom.',
-  },
-];
+import {useApartmentChat} from '../hooks/use-apartment-chat';
 
 export default function ApartmentChatTab() {
   const {t} = useTranslation();
   const [messageInput, setMessageInput] = useState('');
 
-  const messages = useMemo<ChatMessage[]>(
-    () =>
-      CHAT_MESSAGE_DATA.map((message) => ({
-        id: message.id,
-        role: message.role,
-        content: message.content,
-      })),
-    [],
-  );
+  const {messages, sendMessage, isLoading} = useApartmentChat();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (messageInput.trim() && !isLoading) {
+      await sendMessage(messageInput);
+      setMessageInput('');
+    }
+  };
 
   return (
     <Card className="bg-background rounded-none sm:rounded-2xl border-0 sm:border py-2">
@@ -80,13 +56,34 @@ export default function ApartmentChatTab() {
                       : 'bg-background text-foreground border border-border/60',
                   )}
                 >
-                  <span>{message.content}</span>
+                  {message.parts.map((part, index) => {
+                    if (part.type === 'thinking') {
+                      return (
+                        <div key={index} className="mb-2 text-xs italic text-muted-foreground">
+                          💭{' '}
+                          <span>
+                            {t('apartment.chat.thinking', {defaultValue: 'Thinking'})}: {part.content}
+                          </span>
+                        </div>
+                      );
+                    }
+
+                    if (part.type === 'text') {
+                      return (
+                        <div key={index}>
+                          <span>{part.content}</span>
+                        </div>
+                      );
+                    }
+
+                    return null;
+                  })}
                 </div>
               </div>
             );
           })}
         </div>
-        <form className="rounded-2xl border bg-background p-3 shadow-sm">
+        <form onSubmit={handleSubmit} className="rounded-2xl border bg-background p-3 shadow-sm">
           <div className="flex flex-col gap-3 items-end">
             <Textarea
               style={{backgroundColor: 'transparent'}}
@@ -95,11 +92,12 @@ export default function ApartmentChatTab() {
               placeholder={t('apartment.chat.inputPlaceholder')}
               className="min-h-20 resize-none border-0 p-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
               aria-label={t('apartment.chat.inputLabel')}
+              disabled={isLoading}
             />
             <Button
-              type="button"
+              type="submit"
               className="w-12 rounded-lg"
-              disabled={!messageInput.trim()}
+              disabled={!messageInput.trim() || isLoading}
               aria-label={t('apartment.chat.send')}
             >
               <SendHorizonal className="size-4" />
