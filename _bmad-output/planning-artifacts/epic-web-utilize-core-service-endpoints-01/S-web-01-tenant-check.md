@@ -54,7 +54,7 @@ Integrate the tenant check endpoint into the web application to validate the use
 
 ### File List
 
-- apps/web/src/hooks/use-tenant-check.ts (expected)
+- apps/web/src/modules/tenants/hooks/use-tenant-check.ts (expected)
 - apps/web/src/router.tsx (expected)
 
 ### Change Log

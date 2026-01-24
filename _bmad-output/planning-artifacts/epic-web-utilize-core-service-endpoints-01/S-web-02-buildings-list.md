@@ -49,7 +49,7 @@ Integrate the buildings list endpoint to fetch and display a list of available b
 
 ### File List
 
-- apps/web/src/hooks/use-buildings-list.ts (expected)
+- apps/web/src/modules/apartments/hooks/use-apartments-list.ts (expected)
 - apps/web/src/modules/apartments/components/ (expected)
 
 ### Change Log

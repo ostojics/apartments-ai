@@ -49,7 +49,7 @@ Integrate the get building info by ID endpoint to fetch and display detailed inf
 
 ### File List
 
-- apps/web/src/hooks/use-building-info.ts (expected)
+- apps/web/src/modules/apartments/hooks/use-apartment-info.ts (expected)
 - apps/web/src/modules/apartments/components/ (expected)
 
 ### Change Log
