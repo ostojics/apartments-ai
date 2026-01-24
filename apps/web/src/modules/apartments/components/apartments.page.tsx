@@ -1,43 +1,16 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useNavigate} from '@tanstack/react-router';
 import {useTranslation} from 'react-i18next';
 
-import {AspectRatio} from '@/components/ui/aspect-ratio';
-import {Button} from '@/components/ui/button';
-import {Card} from '@/components/ui/card';
-import {cn} from '@/lib/utils/cn';
-
-interface ApartmentSummary {
-  id: string;
-  name: string;
-  address: string;
-  imageUrl?: string;
-}
-
-const apartments: ApartmentSummary[] = [
-  {
-    id: 'north-point',
-    name: 'North Point Residences',
-    address: '123 Harbor Lane, Seattle, WA',
-    imageUrl: 'https://placehold.co/640x360?text=North+Point',
-  },
-  {
-    id: 'garden-view',
-    name: 'Garden View Lofts',
-    address: '456 Meadow Avenue, Portland, OR',
-    imageUrl: 'https://placehold.co/640x360?text=Garden+View',
-  },
-  {
-    id: 'skyline-heights',
-    name: 'Skyline Heights',
-    address: '789 Skyline Blvd, San Francisco, CA',
-  },
-];
+import {useBuildings} from '@/modules/apartments/hooks/use-buildings';
+import {ApartmentsListView} from './apartments-list-view';
 
 export function ApartmentsPage() {
   const {t} = useTranslation();
   const navigate = useNavigate();
   const [selectedApartmentId, setSelectedApartmentId] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const {data: buildingsData, isLoading, isSuccess} = useBuildings();
 
   const handleContinue = () => {
     if (!selectedApartmentId) {
@@ -50,80 +23,54 @@ export function ApartmentsPage() {
     });
   };
 
-  useEffect(() => {
-    const [singleApartment] = apartments;
+  if (isLoading) {
+    return (
+      <section className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-6 py-10">
+        <header className="flex flex-col gap-3 text-center">
+          <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+            {t('apartments.subtitle')}
+          </p>
+          <h1 className="text-3xl font-semibold text-foreground sm:text-4xl">{t('apartments.title')}</h1>
+          <p className="text-base text-muted-foreground">{t('apartments.description')}</p>
+        </header>
+        <div className="flex items-center justify-center py-12">
+          <p className="text-muted-foreground">{t('common.loading', 'Loading...')}</p>
+        </div>
+      </section>
+    );
+  }
 
-    if (apartments.length === 1 && singleApartment) {
-      void navigate({
-        to: '/apartments/$apartmentId',
-        params: {apartmentId: singleApartment.id},
-        replace: true,
-      });
-    }
-  }, [navigate]);
+  if (!isSuccess) {
+    return (
+      <section className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-6 py-10">
+        <header className="flex flex-col gap-3 text-center">
+          <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+            {t('apartments.subtitle')}
+          </p>
+          <h1 className="text-3xl font-semibold text-foreground sm:text-4xl">{t('apartments.title')}</h1>
+          <p className="text-base text-muted-foreground">{t('apartments.description')}</p>
+        </header>
+        <div className="flex items-center justify-center py-12">
+          <p className="text-destructive">{t('common.error', 'Failed to load buildings. Please try again.')}</p>
+        </div>
+      </section>
+    );
+  }
+
+  // Type narrowing with isSuccess: at this point buildingsData is guaranteed to be defined
+  // TypeScript's type narrowing with isSuccess doesn't fully work here, so we explicitly type the data
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+  const apartments = buildingsData.data;
 
   return (
-    <section className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-6 py-10">
-      <header className="flex flex-col gap-3 text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-          {t('apartments.subtitle')}
-        </p>
-        <h1 className="text-3xl font-semibold text-foreground sm:text-4xl">{t('apartments.title')}</h1>
-        <p className="text-base text-muted-foreground">{t('apartments.description')}</p>
-      </header>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        {apartments.map((apartment) => {
-          const isSelected = selectedApartmentId === apartment.id;
-
-          return (
-            <Card
-              key={apartment.id}
-              role="button"
-              tabIndex={0}
-              onClick={() => setSelectedApartmentId(apartment.id)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  setSelectedApartmentId(apartment.id);
-                }
-              }}
-              className={cn(
-                'group flex cursor-pointer flex-col gap-0 overflow-hidden border border-border/70 p-0 text-left transition hover:-translate-y-1 hover:border-primary/60 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
-                isSelected && 'border-primary ring-2 ring-primary/30',
-              )}
-            >
-              <div className="w-full overflow-hidden">
-                <AspectRatio ratio={16 / 9}>
-                  {apartment.imageUrl ? (
-                    <img
-                      src={apartment.imageUrl}
-                      alt={apartment.name}
-                      className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-muted text-sm text-muted-foreground">
-                      {t('apartments.imagePlaceholder')}
-                    </div>
-                  )}
-                </AspectRatio>
-              </div>
-              <div className="flex flex-col gap-2 px-5 py-4">
-                <h2 className="text-lg font-semibold text-foreground">{apartment.name}</h2>
-                <p className="text-sm text-muted-foreground">{apartment.address}</p>
-              </div>
-            </Card>
-          );
-        })}
-      </div>
-
-      <div className="flex flex-col items-center gap-3 mt-4">
-        <Button size="lg" disabled={!selectedApartmentId} onClick={handleContinue}>
-          {t('apartments.continue')}
-        </Button>
-        <p className="text-sm text-muted-foreground">{t('apartments.helper')}</p>
-      </div>
-    </section>
+    <ApartmentsListView
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      apartments={apartments}
+      selectedApartmentId={selectedApartmentId}
+      setSelectedApartmentId={setSelectedApartmentId}
+      handleContinue={handleContinue}
+      t={t}
+      navigate={navigate}
+    />
   );
 }
