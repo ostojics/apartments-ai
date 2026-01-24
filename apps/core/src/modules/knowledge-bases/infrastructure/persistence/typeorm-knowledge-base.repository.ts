@@ -39,6 +39,13 @@ export class TypeOrmKnowledgeBaseRepository implements IKnowledgeBaseRepository 
     return KnowledgeBaseMapper.toDomain(record);
   }
 
+  async findByBuildingIdAndTenantId(buildingId: string, tenantId: string): Promise<KnowledgeBaseEntity | null> {
+    const record = await this.repository.findOne({where: {buildingId, tenantId}});
+    if (!record) return null;
+
+    return KnowledgeBaseMapper.toDomain(record);
+  }
+
   async findByTenantId(tenantId: string): Promise<KnowledgeBaseEntity | null> {
     const record = await this.repository.findOne({where: {tenantId}});
     if (!record) return null;

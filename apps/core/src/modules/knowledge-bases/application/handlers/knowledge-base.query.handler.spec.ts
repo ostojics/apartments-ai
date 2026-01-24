@@ -8,6 +8,7 @@ describe('KnowledgeBaseHandler', () => {
     save: jest.fn(),
     findById: jest.fn(),
     findByBuildingId: jest.fn(),
+    findByBuildingIdAndTenantId: jest.fn(),
     findByTenantId: jest.fn(),
     delete: jest.fn(),
     exists: jest.fn(),
