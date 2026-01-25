@@ -1,18 +1,8 @@
 import {Command, CommandProps} from 'src/libs/domain/commands/command.base';
-import {ConstrainedModelMessage} from '@tanstack/ai';
-import {OpenAIMessageMetadataByModality} from '@tanstack/ai-openai';
-
-export interface AIChatMessage {
-  role: 'user' | 'assistant' | 'system';
-  content: string;
-}
 
 export interface ChatCommandProps extends CommandProps {
   conversationId: string;
-  messages: ConstrainedModelMessage<{
-    inputModalities: ['text', 'image'];
-    messageMetadataByModality: OpenAIMessageMetadataByModality;
-  }>[];
+  messages: any[];
   locale: string;
   apartmentSlug: string;
   tenantId: string;
@@ -20,10 +10,8 @@ export interface ChatCommandProps extends CommandProps {
 
 export class ChatCommand extends Command {
   public readonly conversationId: string;
-  public readonly messages: ConstrainedModelMessage<{
-    inputModalities: ['text', 'image'];
-    messageMetadataByModality: OpenAIMessageMetadataByModality;
-  }>[];
+  // tanstack ai message types are kinda weird :(
+  public readonly messages: any[];
   public readonly locale: string;
   public readonly apartmentSlug: string;
   public readonly tenantId: string;

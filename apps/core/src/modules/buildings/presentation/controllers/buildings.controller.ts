@@ -1,19 +1,25 @@
-import {Controller, Get, Param, UseGuards, Req, NotFoundException} from '@nestjs/common';
-import {ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam} from '@nestjs/swagger';
-import {QueryBus} from '@nestjs/cqrs';
+import {Controller, Get, Param, UseGuards, Req, NotFoundException, Post, Body} from '@nestjs/common';
+import {ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiBody} from '@nestjs/swagger';
+import {CommandBus, QueryBus} from '@nestjs/cqrs';
 import {TenantGuard, TenantRequest} from 'src/common/guards/tenant.guard';
 
 import {BuildingInformationResponseSwaggerDTO} from '../dtos/building-information-response.swagger.dto';
 import {BuildingInformationQuery} from 'src/modules/building-information/application/queries/building-information.query';
 import {BuildingInformationResult} from 'src/modules/building-information/application/handlers/building-information.query.handler';
 import {buildingInformationResponseSchema} from '@acme/contracts';
+import {BuildingChatRequestDataSwaggerDTO} from '../dtos/building.chat.swagger.dto';
+import {ChatCommand} from '../../application/commands/chat.command';
+import {StreamChunk, toServerSentEventsResponse} from '@tanstack/ai';
 
 @ApiTags('Buildings')
 @Controller({path: 'buildings', version: '1'})
 @UseGuards(TenantGuard)
 @ApiBearerAuth()
 export class BuildingsController {
-  constructor(private readonly queryBus: QueryBus) {}
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+  ) {}
 
   @Get(':slug')
   @ApiOperation({summary: 'Get building information by slug (must belong to tenant)'})
@@ -47,5 +53,36 @@ export class BuildingsController {
     }
 
     return buildingInformationResponseSchema.parse({data: result});
+  }
+
+  @Post(':slug/chat')
+  @ApiOperation({summary: 'Chat with apartment assistant for a specific building'})
+  @ApiParam({
+    name: 'slug',
+    description: 'Building slug',
+    example: 'sunset-apartments',
+  })
+  @ApiBody({type: BuildingChatRequestDataSwaggerDTO, description: 'Chat request data'})
+  async chatWithBuildingAssistant(
+    @Param('slug') slug: string,
+    @Req() req: TenantRequest,
+    @Body() body: BuildingChatRequestDataSwaggerDTO,
+  ): Promise<any> {
+    // eslint-disable-next-line no-console
+    console.log('Received chat request body:', body);
+    const chatCommand = new ChatCommand({
+      tenantId: req.tenant.id,
+      apartmentSlug: slug,
+      conversationId: body.conversationId,
+      messages: body.messages,
+      locale: req.userContext.locale,
+    });
+
+    const stream: AsyncIterable<StreamChunk> | null = await this.commandBus.execute(chatCommand);
+    if (!stream) {
+      throw new NotFoundException('Building or knowledge base not found');
+    }
+
+    return toServerSentEventsResponse(stream);
   }
 }
