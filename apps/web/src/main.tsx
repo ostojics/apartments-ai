@@ -12,6 +12,7 @@ import {MSW_ENABLED} from './common/constants/constants';
 import {queryClient} from './modules/api/query-client';
 import {AppErrorBoundary} from './components/error-boundary/error-boundary';
 import {ThemeProvider} from './modules/theme/theme-context';
+import {useTenantCheck} from './modules/tenants/hooks/use-tenant-check';
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -20,7 +21,12 @@ declare module '@tanstack/react-router' {
 }
 
 function AppRouter() {
-  return <RouterProvider router={router} />;
+  const {data, isLoading, isError} = useTenantCheck();
+  if (isLoading) {
+    return null;
+  }
+
+  return <RouterProvider router={router} context={{isValid: Boolean(data) && data?.data.isValid && !isError}} />;
 }
 
 const rootElement = document.getElementById('root');

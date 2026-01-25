@@ -1,6 +1,5 @@
-import {DEFAULT_LANGUAGE} from '../constants/i18n';
-import i18n from '../i18n';
+import {DEFAULT_LANGUAGE, I18N_LANGUAGE_KEY} from '../constants/i18n';
 
 export const getCurrentLanguage = () => {
-  return i18n.resolvedLanguage ?? DEFAULT_LANGUAGE;
+  return localStorage.getItem(I18N_LANGUAGE_KEY) ?? DEFAULT_LANGUAGE;
 };

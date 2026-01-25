@@ -6,7 +6,5 @@ export const useTenantCheck = () => {
   return useQuery({
     queryKey: queryKeys.tenantCheck(),
     queryFn: checkTenant,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: false,
   });
 };
