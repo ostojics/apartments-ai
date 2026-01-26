@@ -14,6 +14,13 @@ export default function ApartmentChatTab() {
   const [messageInput, setMessageInput] = useState('');
 
   const {messages, sendMessage, isLoading} = useApartmentChat();
+  const assistantMessages = messages.filter((message) => message.role !== 'user');
+  const lastAssistantMessage = assistantMessages.at(-1);
+  const lastAssistantHasText =
+    lastAssistantMessage?.parts.some(
+      (part) => part.type === 'text' && typeof part.content === 'string' && part.content.trim().length > 0,
+    ) ?? false;
+  const shouldShowLoadingIndicator = isLoading && !lastAssistantHasText;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -38,7 +45,7 @@ export default function ApartmentChatTab() {
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 p-4">
-        <div className="flex flex-col gap-5 rounded-2xl p-0 mb-5 max-h-[30rem] overflow-y-auto">
+        <div className="flex flex-col gap-5 rounded-2xl p-0 mb-5 min-h-[30rem] max-h-[30rem] overflow-y-auto">
           {messages.map((message) => {
             const isUser = message.role === 'user';
             const isAssistant = !isUser;
@@ -73,7 +80,7 @@ export default function ApartmentChatTab() {
               </div>
             );
           })}
-          {isLoading && (
+          {shouldShowLoadingIndicator && (
             <div className="flex flex-col gap-2 items-start text-left">
               <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 {t('apartment.chat.roles.assistant')}
