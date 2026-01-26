@@ -7,6 +7,7 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/compo
 import {Textarea} from '@/components/ui/textarea';
 import {cn} from '@/lib/utils/cn';
 import {useApartmentChat} from '../hooks/use-apartment-chat';
+import {Spinner} from '@/components/ui/spinner';
 
 export default function ApartmentChatTab() {
   const {t} = useTranslation();
@@ -60,10 +61,7 @@ export default function ApartmentChatTab() {
                     if (part.type === 'thinking') {
                       return (
                         <div key={index} className="mb-2 text-xs italic text-muted-foreground">
-                          💭{' '}
-                          <span>
-                            {t('apartment.chat.thinking', {defaultValue: 'Thinking'})}: {part.content}
-                          </span>
+                          <Spinner className="size-4 animate-spin" />
                         </div>
                       );
                     }

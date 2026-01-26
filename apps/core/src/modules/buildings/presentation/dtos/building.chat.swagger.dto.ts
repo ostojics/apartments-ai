@@ -1,15 +1,29 @@
-import {ApiProperty} from '@nestjs/swagger';
+import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger';
+
+class BuildingChatRequestDataPayloadSwaggerDTO {
+  @ApiPropertyOptional({
+    description: 'Conversation ID (optional when provided in root)',
+    example: '123e4567-e89b-12d3-a456-426614174000',
+  })
+  conversationId?: string;
+}
 
 export class BuildingChatRequestDataSwaggerDTO {
   @ApiProperty({
     description: 'Conversation ID',
     example: '123e4567-e89b-12d3-a456-426614174000',
   })
-  conversationId: string;
+  conversationId?: string;
+
+  @ApiPropertyOptional({
+    description: 'TanStack AI data payload (contains conversationId)',
+    type: BuildingChatRequestDataPayloadSwaggerDTO,
+  })
+  data?: BuildingChatRequestDataPayloadSwaggerDTO;
 
   @ApiProperty({
     description: 'Messages exchanged in the chat',
-    example: ['Hello, is the apartment available?', 'Yes, it is available.'],
+    example: [{role: 'user', content: 'Hello, is the apartment available?'}],
   })
-  messages: string[];
+  messages: {role: string; content: string}[];
 }

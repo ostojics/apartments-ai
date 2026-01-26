@@ -8,10 +8,10 @@ import {IBuildingsKnowledgeBaseRepositoryPort} from '../ports/buildings.knowledg
 import {LLM_SERVICE} from 'src/modules/shared/application/llm/di-tokens';
 import {ILLMService} from 'src/modules/shared/application/llm/llm.interface';
 import {apartmentAssistantPrompt} from '../prompts/apartmentAssistantPrompt';
-import {StreamChunk} from '@tanstack/ai';
+import type {StreamChunk} from '@tanstack/ai';
 
 @CommandHandler(ChatCommand)
-export class ChatHandler implements ICommandHandler<ChatCommand> {
+export class ChatCommandHandler implements ICommandHandler<ChatCommand> {
   constructor(
     @Inject(BUILDING_REPOSITORY)
     private readonly buildingRepository: IBuildingRepository,
@@ -33,6 +33,7 @@ export class ChatHandler implements ICommandHandler<ChatCommand> {
     }
 
     const systemPrompts = [apartmentAssistantPrompt({locale: command.locale}), knowledgeBase.knowledge];
+
     const stream = this.llmService.chat({
       messages: command.messages,
       conversationId: command.conversationId,

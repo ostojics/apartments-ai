@@ -15,8 +15,9 @@ import {KNOWLEDGE_BASE_REPOSITORY} from '../knowledge-bases/domain/repositories/
 import {TypeOrmKnowledgeBaseRepository} from '../knowledge-bases/infrastructure/persistence/typeorm-knowledge-base.repository';
 import {BUILDINGS_KNOWLEDGE_BASE_REPOSITORY_PORT} from './application/ports/di-tokens';
 import {BuildingsKnowledgeBaseRepositoryAdapter} from '../knowledge-bases/infrastructure/adapters/buildings.knowledge-base.repository.adapter';
+import {ChatCommandHandler} from './application/handlers/chat.command.handler';
 
-const handlers = [BuildingsHandler, BuildingInformationHandler];
+const handlers = [BuildingsHandler, BuildingInformationHandler, ChatCommandHandler];
 
 @Module({
   imports: [TypeOrmModule.forFeature([BuildingOrmEntity, BuildingInformationOrmEntity])],

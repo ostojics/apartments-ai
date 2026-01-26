@@ -114,6 +114,15 @@ import {TanstackLLMService} from './infrastructure/llm/tanstack.llm.service';
     {provide: DOMAIN_EVENT_DISPATCHER, useClass: NestEventEmitterDomainEventDispatcher},
     {provide: LLM_SERVICE, useClass: TanstackLLMService},
   ],
-  exports: [ANALYTICS_SERVICE, JWT_SERVICE, UNIT_OF_WORK, HASHING_SERVICE, LOGGER, DOMAIN_EVENT_DISPATCHER, CqrsModule],
+  exports: [
+    ANALYTICS_SERVICE,
+    JWT_SERVICE,
+    UNIT_OF_WORK,
+    HASHING_SERVICE,
+    LOGGER,
+    DOMAIN_EVENT_DISPATCHER,
+    LLM_SERVICE,
+    CqrsModule,
+  ],
 })
 export class SharedModule {}
