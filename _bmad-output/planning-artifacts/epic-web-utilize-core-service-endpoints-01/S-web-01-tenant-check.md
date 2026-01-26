@@ -68,10 +68,10 @@ Integrate the tenant check endpoint into the web application to validate the use
 - apps/web/src/modules/api/tenants-api.ts (created)
 - apps/web/src/modules/api/query-keys.ts (modified)
 - apps/web/src/modules/tenants/hooks/use-tenant-check.ts (created)
-- apps/web/src/routes/__root.tsx (modified)
+- apps/web/src/routes/\_\_root.tsx (modified)
 - apps/web/src/router.tsx (modified)
 - apps/web/src/main.tsx (modified)
-- apps/web/src/routes/_public/apartments/route.tsx (modified)
+- apps/web/src/routes/\_public/apartments/route.tsx (modified)
 - apps/web/src/mocks/handlers/tenants-handlers.ts (created)
 - apps/web/src/mocks/handlers/handlers.ts (modified)
 
