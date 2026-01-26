@@ -75,7 +75,7 @@ describe('TenantGuard', () => {
     findById.mockResolvedValue(license);
 
     const guard = new TenantGuard(tenantRepository, licenseRepository, createAnalyticsService(), createLogger());
-    const request = {headers: {host: 'acme.example.com'}} as TenantRequest;
+    const request = {headers: {origin: 'acme.example.com'}} as TenantRequest;
 
     await expect(guard.canActivate(buildContext(request))).resolves.toBe(true);
     expect(request.tenant).toEqual({id: tenant.id, slug: tenant.slug});
@@ -90,7 +90,7 @@ describe('TenantGuard', () => {
     findBySlug.mockResolvedValue(null);
 
     const guard = new TenantGuard(tenantRepository, licenseRepository, createAnalyticsService(), createLogger());
-    const request = {headers: {host: 'missing.example.com'}} as TenantRequest;
+    const request = {headers: {origin: 'missing.example.com'}} as TenantRequest;
 
     await expect(guard.canActivate(buildContext(request))).rejects.toBeInstanceOf(TenantNotFoundException);
     expect(findById).not.toHaveBeenCalled();
@@ -109,7 +109,7 @@ describe('TenantGuard', () => {
     findById.mockResolvedValue(null);
 
     const guard = new TenantGuard(tenantRepository, licenseRepository, createAnalyticsService(), createLogger());
-    const request = {headers: {host: 'acme.example.com'}} as TenantRequest;
+    const request = {headers: {origin: 'acme.example.com'}} as TenantRequest;
 
     await expect(guard.canActivate(buildContext(request))).rejects.toBeInstanceOf(LicenseNotFoundException);
   });
@@ -132,7 +132,7 @@ describe('TenantGuard', () => {
     findById.mockResolvedValue(license);
 
     const guard = new TenantGuard(tenantRepository, licenseRepository, createAnalyticsService(), createLogger());
-    const request = {headers: {host: 'acme.example.com'}} as TenantRequest;
+    const request = {headers: {origin: 'acme.example.com'}} as TenantRequest;
 
     await expect(guard.canActivate(buildContext(request))).rejects.toBeInstanceOf(LicenseExpiredException);
   });

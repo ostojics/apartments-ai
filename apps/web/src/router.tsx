@@ -3,5 +3,5 @@ import {routeTree} from './routeTree.gen';
 
 export const router = createRouter({
   routeTree,
-  context: {isAuthenticated: true},
+  context: {isValid: false},
 });

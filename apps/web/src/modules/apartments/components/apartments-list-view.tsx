@@ -1,44 +1,32 @@
-import {useEffect} from 'react';
-import type {useNavigate} from '@tanstack/react-router';
-import type {TFunction} from 'i18next';
+import {useState} from 'react';
+import {useNavigate} from '@tanstack/react-router';
 import type {BuildingSummaryDTO} from '@acme/contracts';
 
 import {AspectRatio} from '@/components/ui/aspect-ratio';
 import {Button} from '@/components/ui/button';
 import {Card} from '@/components/ui/card';
 import {cn} from '@/lib/utils/cn';
+import {useTranslation} from 'react-i18next';
 
 interface ApartmentsListViewProps {
   apartments: BuildingSummaryDTO[];
-  selectedApartmentId: string | null;
-  setSelectedApartmentId: (id: string | null) => void;
-  handleContinue: () => void;
-  t: TFunction;
-  navigate: ReturnType<typeof useNavigate>;
 }
 
-export function ApartmentsListView({
-  apartments,
-  selectedApartmentId,
-  setSelectedApartmentId,
-  handleContinue,
-  t,
-  navigate,
-}: ApartmentsListViewProps) {
-  useEffect(() => {
-    if (apartments.length === 1) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const singleApartment = apartments[0];
-      if (singleApartment) {
-        void navigate({
-          to: '/apartments/$apartmentId',
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-          params: {apartmentId: singleApartment.id},
-          replace: true,
-        });
-      }
+export function ApartmentsListView({apartments}: ApartmentsListViewProps) {
+  const navigate = useNavigate();
+  const [selectedApartmentId, setSelectedApartmentId] = useState<string | null>(null);
+  const {t} = useTranslation();
+
+  const handleContinue = () => {
+    if (!selectedApartmentId) {
+      return;
     }
-  }, [apartments, navigate]);
+
+    void navigate({
+      to: '/apartments/$apartmentId',
+      params: {apartmentId: selectedApartmentId},
+    });
+  };
 
   return (
     <section className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-6 py-10">
@@ -52,22 +40,18 @@ export function ApartmentsListView({
 
       <div className="grid gap-6 md:grid-cols-2">
         {apartments.map((apartment) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          const isSelected = selectedApartmentId === apartment.id;
+          const isSelected = selectedApartmentId === apartment.slug;
 
           return (
             <Card
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
               key={apartment.id}
               role="button"
               tabIndex={0}
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-              onClick={() => setSelectedApartmentId(apartment.id)}
+              onClick={() => setSelectedApartmentId(apartment.slug)}
               onKeyDown={(event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                   event.preventDefault();
-                  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-                  setSelectedApartmentId(apartment.id);
+                  setSelectedApartmentId(apartment.slug);
                 }
               }}
               className={cn(
@@ -77,12 +61,9 @@ export function ApartmentsListView({
             >
               <div className="w-full overflow-hidden">
                 <AspectRatio ratio={16 / 9}>
-                  {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
                   {apartment.imageUrl ? (
                     <img
-                      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
                       src={apartment.imageUrl}
-                      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
                       alt={apartment.name}
                       className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                       loading="lazy"
@@ -95,15 +76,8 @@ export function ApartmentsListView({
                 </AspectRatio>
               </div>
               <div className="flex flex-col gap-2 px-5 py-4">
-                {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
                 <h2 className="text-lg font-semibold text-foreground">{apartment.name}</h2>
-                {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
-                {apartment.address && (
-                  <p className="text-sm text-muted-foreground">
-                    {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
-                    {apartment.address}
-                  </p>
-                )}
+                {apartment.address && <p className="text-sm text-muted-foreground">{apartment.address}</p>}
               </div>
             </Card>
           );
