@@ -37,24 +37,35 @@ Integrate the get building info by ID endpoint to fetch and display detailed inf
 
 ### Agent Model Used
 
-- GPT-4.1 (placeholder)
+- Claude 3.7 Sonnet
 
 ### Debug Log References
 
-- Lint: `pnpm -C apps/web lint` (pending)
+- Lint: `pnpm -C apps/web lint` (passed)
+- Build: `pnpm -C apps/web build` (passed)
 
 ### Completion Notes List
 
-- Placeholder: Implementation pending.
+- Successfully implemented building info API integration with custom React hook
+- Added error and loading state handling in UI components
+- Updated apartment page to display building name from API
+- Updated manual tab to display building content from API instead of hardcoded markdown
+- Added MSW mock handler for development/testing
+- All acceptance criteria met and verified
 
 ### File List
 
-- apps/web/src/modules/apartments/hooks/use-apartment-info.ts (expected)
-- apps/web/src/modules/apartments/components/ (expected)
+- apps/web/src/modules/api/buildings-api.ts (created)
+- apps/web/src/modules/apartments/hooks/use-building-info.ts (created)
+- apps/web/src/modules/apartments/components/apartment.page.tsx (modified)
+- apps/web/src/modules/apartments/components/apartment-manual-tab.tsx (modified)
+- apps/web/src/modules/api/query-keys.ts (modified)
+- apps/web/src/mocks/handlers/apartments-handlers.ts (modified)
 
 ### Change Log
 
 - 2026-01-24: Story created for building info by ID endpoint integration.
+- 2026-01-24: Implementation completed - API integration, custom hook, UI updates, error handling, and mock data added.
 
 ---
 

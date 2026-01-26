@@ -137,6 +137,10 @@
       "call": "Pozovite izdavanje",
       "email": "Pošaljite e-poštu",
       "tour": "Zakažite obilazak"
+    },
+    "errors": {
+      "error": "Greška",
+      "loadingFailed": "Neuspešno učitavanje detalja o apartmanu. Molimo pokušajte ponovo."
     }
   },
   "theme": {
