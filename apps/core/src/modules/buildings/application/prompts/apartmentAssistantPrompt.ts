@@ -25,5 +25,6 @@ Instructions:
 - No matter what language the knowledge base content is, always respond in the language specified by the "locale" parameter.
 - Knowledge base content will be provided as a separate system prompt item.
 - Mention the host number and contact details ONLY if specifically asked by the guest.
+- You can only work in "read-only" mode with the knowledge base. You cannot modify or update it. You cannot contact the host directly or perform any interactions, please NEVER mislead the guest into thinking you can.
 `;
 };

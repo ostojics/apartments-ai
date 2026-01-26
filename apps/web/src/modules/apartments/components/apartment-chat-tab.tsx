@@ -41,7 +41,14 @@ export default function ApartmentChatTab() {
         <div className="flex flex-col gap-5 rounded-2xl p-0 mb-5 max-h-[30rem] overflow-y-auto">
           {messages.map((message) => {
             const isUser = message.role === 'user';
+            const isAssistant = !isUser;
             const roleLabel = isUser ? t('apartment.chat.roles.user') : t('apartment.chat.roles.assistant');
+            const textParts = message.parts.filter((part) => part.type === 'text');
+            const shouldHideAssistantBubble = isAssistant && isLoading && textParts.length === 0;
+
+            if (shouldHideAssistantBubble) {
+              return null;
+            }
 
             return (
               <div
@@ -57,29 +64,27 @@ export default function ApartmentChatTab() {
                       : 'bg-background text-foreground border border-border/60',
                   )}
                 >
-                  {message.parts.map((part, index) => {
-                    if (part.type === 'thinking') {
-                      return (
-                        <div key={index} className="mb-2 text-xs italic text-muted-foreground">
-                          <Spinner className="size-4 animate-spin" />
-                        </div>
-                      );
-                    }
-
-                    if (part.type === 'text') {
-                      return (
-                        <div key={index}>
-                          <span>{part.content}</span>
-                        </div>
-                      );
-                    }
-
-                    return null;
-                  })}
+                  {textParts.map((part, index) => (
+                    <div key={index}>
+                      <span className="whitespace-pre-wrap">{part.content}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             );
           })}
+          {isLoading && (
+            <div className="flex flex-col gap-2 items-start text-left">
+              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                {t('apartment.chat.roles.assistant')}
+              </span>
+              <div className="max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed text-left shadow-sm bg-background text-foreground border border-border/60">
+                <div className="text-xs italic text-muted-foreground">
+                  <Spinner className="size-4 animate-spin" />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         <form onSubmit={handleSubmit} className="rounded-2xl border bg-background p-3 shadow-sm">
           <div className="flex flex-col gap-3 items-end">
