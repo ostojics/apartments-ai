@@ -137,6 +137,10 @@
       "call": "Call leasing",
       "email": "Email office",
       "tour": "Schedule a tour"
+    },
+    "errors": {
+      "error": "Error",
+      "loadingFailed": "Failed to load apartment details. Please try again."
     }
   },
   "theme": {

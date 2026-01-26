@@ -5,10 +5,12 @@ import {apartmentMarkdownComponents} from './markdown/markdown-components';
 import {useBuildingInfo} from '../hooks/use-building-info';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
 import {AlertCircle, Loader2} from 'lucide-react';
+import {useTranslation} from 'react-i18next';
 
 export default function ApartmentManualTab() {
   const {apartmentId} = useParams({from: '/_public/apartments/$apartmentId'});
   const {data, isLoading, isError} = useBuildingInfo(apartmentId);
+  const {t} = useTranslation();
 
   if (isLoading) {
     return (
@@ -22,8 +24,8 @@ export default function ApartmentManualTab() {
     return (
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>Failed to load building information. Please try again later.</AlertDescription>
+        <AlertTitle>{t('apartment.errors.error')}</AlertTitle>
+        <AlertDescription>{t('apartment.errors.loadingFailed')}</AlertDescription>
       </Alert>
     );
   }
