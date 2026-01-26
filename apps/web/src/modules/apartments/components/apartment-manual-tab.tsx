@@ -8,7 +8,7 @@ import {AlertCircle, Loader2} from 'lucide-react';
 
 export default function ApartmentManualTab() {
   const {apartmentId} = useParams({from: '/_public/apartments/$apartmentId'});
-  const {data: buildingInfo, isLoading, error} = useBuildingInfo(apartmentId);
+  const {data, isLoading, isError} = useBuildingInfo(apartmentId);
 
   if (isLoading) {
     return (
@@ -18,7 +18,7 @@ export default function ApartmentManualTab() {
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
@@ -30,7 +30,7 @@ export default function ApartmentManualTab() {
 
   return (
     <Markdown remarkPlugins={[remarkGfm]} components={apartmentMarkdownComponents}>
-      {buildingInfo?.data.content ?? ''}
+      {data?.data.content ?? ''}
     </Markdown>
   );
 }
