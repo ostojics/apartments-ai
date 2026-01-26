@@ -16,7 +16,7 @@ export function ApartmentsPageLoading() {
       </header>
       <div className="flex flex-col gap-6 py-6">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({length: 6}).map((_, i) => (
+          {Array.from({length: 4}).map((_, i) => (
             <div key={i} className="flex flex-col gap-4 rounded-lg border p-4">
               <Skeleton className="h-48 w-full rounded-md" />
               <div className="flex flex-col gap-2">

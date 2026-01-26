@@ -13,7 +13,7 @@ export function ApartmentsPageError() {
         <p className="text-base text-muted-foreground">{t('apartments.description')}</p>
       </header>
       <div className="flex items-center justify-center py-12">
-        <p className="text-destructive">{t('common.error', 'Failed to load buildings. Please try again.')}</p>
+        <p className="text-destructive">{t('apartments.errors.loadingFailed')}</p>
       </div>
     </section>
   );
