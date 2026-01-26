@@ -1,5 +1,6 @@
 import {CanActivate, ExecutionContext, Inject, Injectable} from '@nestjs/common';
 import {Request} from 'express';
+import {IncomingHttpHeaders} from 'http';
 import {LOGGER} from 'src/libs/application/ports/di-tokens';
 import {ILoggerPort} from 'src/libs/application/ports/logger.port';
 import {LicenseExpiredException, LicenseNotFoundException} from 'src/libs/domain/exceptions/license.exception';
@@ -14,6 +15,7 @@ import {
   ITenantRepository,
   TENANT_REPOSITORY,
 } from 'src/modules/tenants/domain/repositories/tenant.repository.interface';
+import {CustomHeaders} from '../enums/custom-headers';
 
 export interface TenantInfo {
   id: string;
@@ -40,7 +42,7 @@ export class TenantGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<TenantRequest>();
-    const tenantSlug = this.extractTenantSlug(request.headers.host);
+    const tenantSlug = this.extractTenantSlug(request.headers);
     const locale = request.headers['accept-language'] ?? 'en-US';
 
     if (!tenantSlug) {
@@ -80,23 +82,29 @@ export class TenantGuard implements CanActivate {
     return true;
   }
 
-  private extractTenantSlug(host?: string): string | null {
-    if (!host) {
-      return null;
+  private extractTenantSlug(headers: IncomingHttpHeaders): string | null {
+    const customHeaderSlug = headers[CustomHeaders.TenantSlug];
+
+    if (customHeaderSlug) {
+      return String(customHeaderSlug);
     }
 
-    const hostname = host.split(':')[0]?.trim();
-
-    if (!hostname) {
-      return null;
+    if (headers.origin) {
+      return this.slugFromUrl(headers.origin);
     }
 
-    const parts = hostname.split('.').filter(Boolean);
+    return null;
+  }
 
-    if (parts.length < 2) {
+  private slugFromUrl(rawUrl: string): string | null {
+    try {
+      // Add protocol if missing so URL class doesn't throw
+      const normalized = rawUrl.includes('://') ? rawUrl : `http://${rawUrl}`;
+      const url = new URL(normalized);
+      const parts = url.hostname.split('.');
+      return parts.length >= 2 ? parts[0] : null;
+    } catch {
       return null;
     }
-
-    return parts[0];
   }
 }

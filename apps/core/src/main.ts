@@ -14,7 +14,7 @@ import {GlobalExceptionFilter} from './common/filters/global-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {bufferLogs: true});
   const configService = app.get(ConfigService<GlobalConfig>);
-  const {webAppUrl} = configService.getOrThrow<AppConfig>(AppConfigName);
+  // const {webAppUrl} = configService.getOrThrow<AppConfig>(AppConfigName);
 
   app.useLogger(app.get(Logger));
   app.enableShutdownHooks();
@@ -28,7 +28,7 @@ async function bootstrap() {
   app.useGlobalFilters(new GlobalExceptionFilter());
   setupSwagger(app);
   app.enableCors({
-    origin: webAppUrl,
+    origin: true, // Reflects the request origin, making the browser happy
     credentials: true,
   });
 

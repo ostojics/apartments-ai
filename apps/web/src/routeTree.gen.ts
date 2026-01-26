@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import {Route as rootRouteImport} from './routes/__root';
+import {Route as InvalidRouteImport} from './routes/invalid';
 import {Route as PublicRouteRouteImport} from './routes/_public/route';
 import {Route as _pathlessLayoutRouteRouteImport} from './routes/__pathlessLayout/route';
 import {Route as PublicIndexRouteImport} from './routes/_public/index';
@@ -17,6 +18,11 @@ import {Route as PublicApartmentsRouteRouteImport} from './routes/_public/apartm
 import {Route as PublicApartmentsIndexRouteImport} from './routes/_public/apartments/index';
 import {Route as PublicApartmentsApartmentIdRouteImport} from './routes/_public/apartments/$apartmentId';
 
+const InvalidRoute = InvalidRouteImport.update({
+  id: '/invalid',
+  path: '/invalid',
+  getParentRoute: () => rootRouteImport,
+} as any);
 const PublicRouteRoute = PublicRouteRouteImport.update({
   id: '/_public',
   getParentRoute: () => rootRouteImport,
@@ -52,6 +58,7 @@ const PublicApartmentsApartmentIdRoute = PublicApartmentsApartmentIdRouteImport.
 } as any);
 
 export interface FileRoutesByFullPath {
+  '/invalid': typeof InvalidRoute;
   '/apartments': typeof PublicApartmentsRouteRouteWithChildren;
   '/settings': typeof _pathlessLayoutSettingsRoute;
   '/': typeof PublicIndexRoute;
@@ -59,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/apartments/': typeof PublicApartmentsIndexRoute;
 }
 export interface FileRoutesByTo {
+  '/invalid': typeof InvalidRoute;
   '/settings': typeof _pathlessLayoutSettingsRoute;
   '/': typeof PublicIndexRoute;
   '/apartments/$apartmentId': typeof PublicApartmentsApartmentIdRoute;
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   '/__pathlessLayout': typeof _pathlessLayoutRouteRouteWithChildren;
   '/_public': typeof PublicRouteRouteWithChildren;
+  '/invalid': typeof InvalidRoute;
   '/_public/apartments': typeof PublicApartmentsRouteRouteWithChildren;
   '/__pathlessLayout/settings': typeof _pathlessLayoutSettingsRoute;
   '/_public/': typeof PublicIndexRoute;
@@ -76,13 +85,14 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/apartments' | '/settings' | '/' | '/apartments/$apartmentId' | '/apartments/';
+  fullPaths: '/invalid' | '/apartments' | '/settings' | '/' | '/apartments/$apartmentId' | '/apartments/';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/settings' | '/' | '/apartments/$apartmentId' | '/apartments';
+  to: '/invalid' | '/settings' | '/' | '/apartments/$apartmentId' | '/apartments';
   id:
     | '__root__'
     | '/__pathlessLayout'
     | '/_public'
+    | '/invalid'
     | '/_public/apartments'
     | '/__pathlessLayout/settings'
     | '/_public/'
@@ -93,10 +103,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   _pathlessLayoutRouteRoute: typeof _pathlessLayoutRouteRouteWithChildren;
   PublicRouteRoute: typeof PublicRouteRouteWithChildren;
+  InvalidRoute: typeof InvalidRoute;
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/invalid': {
+      id: '/invalid';
+      path: '/invalid';
+      fullPath: '/invalid';
+      preLoaderRoute: typeof InvalidRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_public': {
       id: '/_public';
       path: '';
@@ -190,5 +208,6 @@ const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(PublicRou
 const rootRouteChildren: RootRouteChildren = {
   _pathlessLayoutRouteRoute: _pathlessLayoutRouteRouteWithChildren,
   PublicRouteRoute: PublicRouteRouteWithChildren,
+  InvalidRoute: InvalidRoute,
 };
 export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
