@@ -29,8 +29,10 @@ export default function ApartmentManualTab() {
   }
 
   return (
-    <Markdown remarkPlugins={[remarkGfm]} components={apartmentMarkdownComponents}>
-      {data?.data.content ?? ''}
-    </Markdown>
+    <section className="px-2">
+      <Markdown remarkPlugins={[remarkGfm]} components={apartmentMarkdownComponents}>
+        {data?.data.content ?? ''}
+      </Markdown>
+    </section>
   );
 }
