@@ -42,24 +42,43 @@ Integrate the tenant check endpoint into the web application to validate the use
 
 ### Agent Model Used
 
-- GPT-4.1 (placeholder)
+- Claude 3.5 Sonnet
 
 ### Debug Log References
 
-- Lint: `pnpm -C apps/web lint` (pending)
+- Lint: `pnpm -C apps/web lint` (not run per instructions)
+- TypeScript check: Would require dependencies installation
 
 ### Completion Notes List
 
-- Placeholder: Implementation pending.
+- ✅ Created `tenants-api.ts` module following existing API patterns (e.g., `auth-api.ts`, `promotions-api.ts`)
+- ✅ Implemented `useTenantCheck` custom React hook using TanStack Query, matching codebase patterns
+- ✅ Added `isValid` property to global router context in `__root.tsx`
+- ✅ Updated router initialization in `router.tsx` to include `queryClient` and `isValid` in context
+- ✅ Implemented route protection in `/apartments` route using `beforeLoad` and `loader` hooks
+- ✅ Tenant check is performed automatically when accessing apartment features via route loader
+- ✅ Invalid tenant redirects to home page with error query parameter
+- ✅ Added MSW mock handlers for tenant check endpoint for development/testing
+- ✅ Properly integrated with existing query client and caching strategy (5-minute stale time)
+- ✅ Loading and error states handled by TanStack Query and route loader
+- ✅ All changes follow existing codebase patterns and naming conventions
 
 ### File List
 
-- apps/web/src/modules/tenants/hooks/use-tenant-check.ts (expected)
-- apps/web/src/router.tsx (expected)
+- apps/web/src/modules/api/tenants-api.ts (created)
+- apps/web/src/modules/api/query-keys.ts (modified)
+- apps/web/src/modules/tenants/hooks/use-tenant-check.ts (created)
+- apps/web/src/routes/__root.tsx (modified)
+- apps/web/src/router.tsx (modified)
+- apps/web/src/main.tsx (modified)
+- apps/web/src/routes/_public/apartments/route.tsx (modified)
+- apps/web/src/mocks/handlers/tenants-handlers.ts (created)
+- apps/web/src/mocks/handlers/handlers.ts (modified)
 
 ### Change Log
 
 - 2026-01-24: Story created for tenant check endpoint integration.
+- 2026-01-24: Implementation completed by Dev Agent (Claude 3.5 Sonnet)
 
 ---
 
