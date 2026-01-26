@@ -26,7 +26,10 @@
     "imagePlaceholder": "Apartment image",
     "detailTitle": "Apartment details",
     "detailSubtitle": "Apartment overview",
-    "detailDescription": "Details for apartment {{id}} will be available soon."
+    "detailDescription": "Details for apartment {{id}} will be available soon.",
+    "errors": {
+      "loadingFailed": "Failed to load buildings. Please try again."
+    }
   },
   "apartment": {
     "badge": "Apartment profile",

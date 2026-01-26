@@ -6,7 +6,10 @@ import {TenantGuard, TenantRequest} from 'src/common/guards/tenant.guard';
 import {BuildingInformationResponseSwaggerDTO} from '../dtos/building-information-response.swagger.dto';
 import {BuildingInformationQuery} from 'src/modules/building-information/application/queries/building-information.query';
 import {BuildingInformationResult} from 'src/modules/building-information/application/handlers/building-information.query.handler';
-import {buildingInformationResponseSchema} from '@acme/contracts';
+import {buildingInformationResponseSchema, buildingsResponseSchema} from '@acme/contracts';
+import {BuildingsResponseSwaggerDTO} from 'src/modules/buildings/presentation/dtos/buildings-response.swagger.dto';
+import {BuildingsQuery} from '../../application/queries/buildings.query';
+import {BuildingSummary} from '../../application/handlers/buildings.query.handler';
 
 @ApiTags('Buildings')
 @Controller({path: 'buildings', version: '1'})
@@ -14,6 +17,20 @@ import {buildingInformationResponseSchema} from '@acme/contracts';
 @ApiBearerAuth()
 export class BuildingsController {
   constructor(private readonly queryBus: QueryBus) {}
+
+  @Get('')
+  @ApiOperation({summary: 'Get a list of buildings for the tenant'})
+  @ApiResponse({
+    status: 200,
+    description: 'List of buildings',
+    type: BuildingsResponseSwaggerDTO,
+  })
+  async getBuildings(@Req() req: TenantRequest): Promise<{data: BuildingSummary[]}> {
+    const query = new BuildingsQuery({tenantId: req.tenant.id});
+    const result = await this.queryBus.execute<BuildingsQuery, BuildingSummary[]>(query);
+
+    return buildingsResponseSchema.parse({data: result});
+  }
 
   @Get(':slug')
   @ApiOperation({summary: 'Get building information by slug (must belong to tenant)'})
