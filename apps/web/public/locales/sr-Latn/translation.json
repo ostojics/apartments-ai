@@ -26,7 +26,10 @@
     "imagePlaceholder": "Slika apartmana",
     "detailTitle": "Detalji apartmana",
     "detailSubtitle": "Pregled apartmana",
-    "detailDescription": "Detalji za apartman {{id}} biće dostupni uskoro."
+    "detailDescription": "Detalji za apartman {{id}} biće dostupni uskoro.",
+    "errors": {
+      "loadingFailed": "Neuspešno učitavanje apartmana. Molimo pokušajte ponovo."
+    }
   },
   "apartment": {
     "badge": "Profil apartmana",
@@ -134,6 +137,10 @@
       "call": "Pozovite izdavanje",
       "email": "Pošaljite e-poštu",
       "tour": "Zakažite obilazak"
+    },
+    "errors": {
+      "error": "Greška",
+      "loadingFailed": "Neuspešno učitavanje detalja o apartmanu. Molimo pokušajte ponovo."
     }
   },
   "theme": {

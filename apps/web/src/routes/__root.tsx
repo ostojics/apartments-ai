@@ -2,7 +2,7 @@ import {createRootRouteWithContext, Outlet} from '@tanstack/react-router';
 import {TanStackRouterDevtools} from '@tanstack/react-router-devtools';
 
 export interface RouterContext {
-  isAuthenticated: boolean;
+  isValid: boolean;
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({

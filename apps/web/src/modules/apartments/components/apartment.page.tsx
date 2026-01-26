@@ -1,15 +1,17 @@
 import {lazy, Suspense} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
-import {useParams} from '@tanstack/react-router';
 import {TabLoadingState} from './tab-loading';
+import {useParams} from '@tanstack/react-router';
+import {useBuildingInfo} from '../hooks/use-building-info';
 const ApartmentChatTab = lazy(() => import('./apartment-chat-tab'));
 const ApartmentManualTab = lazy(() => import('./apartment-manual-tab'));
 const ApartmentsPromotionsTab = lazy(() => import('./promotions-tab'));
 
 export function ApartmentPage() {
   const {t} = useTranslation();
-  const {apartmentId} = useParams({from: '/_public/apartments/$apartmentId'});
+  const params = useParams({from: '/_public/apartments/$apartmentId'});
+  const {data} = useBuildingInfo(params.apartmentId);
   const chatTabLabel = t('apartment.tabs.chat');
   const manualTabLabel = t('apartment.tabs.manual');
   const loadingLabel = t('apartment.loading.label');
@@ -26,7 +28,7 @@ export function ApartmentPage() {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-0 pt-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-2 text-center sm:text-left">
-            <h1 className="text-3xl font-semibold tracking-tight">{t('apartment.title', {id: apartmentId})}</h1>
+            <h1 className="text-3xl font-semibold tracking-tight">{data?.data.name ?? ''}</h1>
           </div>
         </div>
 

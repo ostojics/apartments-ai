@@ -14,6 +14,7 @@ import {AppErrorBoundary} from './components/error-boundary/error-boundary';
 import {ThemeProvider} from './modules/theme/theme-context';
 import {TanStackDevtools} from '@tanstack/react-devtools';
 import {aiDevtoolsPlugin} from '@tanstack/react-ai-devtools';
+import {useTenantCheck} from './modules/tenants/hooks/use-tenant-check';
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -22,7 +23,12 @@ declare module '@tanstack/react-router' {
 }
 
 function AppRouter() {
-  return <RouterProvider router={router} context={{isAuthenticated: true}} />;
+  const {data, isLoading, isError} = useTenantCheck();
+  if (isLoading) {
+    return null;
+  }
+
+  return <RouterProvider router={router} context={{isValid: Boolean(data) && data?.data.isValid && !isError}} />;
 }
 
 const rootElement = document.getElementById('root');
