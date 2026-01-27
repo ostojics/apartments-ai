@@ -14,8 +14,6 @@ export class TanstackGeminiLLMService implements ILLMService {
 
     this.logger.info('Using Tanstack Gemini LLM Service to process chat request.', {
       conversationId: props.conversationId,
-      messages: props.messages,
-      systemPrompts: props.systemPrompts,
     });
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
