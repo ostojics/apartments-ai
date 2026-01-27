@@ -32,7 +32,9 @@ export class ChatCommandHandler implements ICommandHandler<ChatCommand> {
       return null;
     }
 
-    const systemPrompts = [apartmentAssistantPrompt({locale: command.locale}), knowledgeBase.knowledge];
+    const systemPrompts = [
+      apartmentAssistantPrompt({locale: command.locale, knowledgeBaseContent: knowledgeBase.knowledge}),
+    ];
 
     const stream = this.llmService.chat({
       messages: command.messages,

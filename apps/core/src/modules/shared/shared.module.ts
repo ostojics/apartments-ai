@@ -29,7 +29,7 @@ import {posthogConfig} from 'src/config/posthog.config';
 import {throttlerConfig, throttlerFactory} from 'src/config/throttler.config';
 import {EventEmitterModule} from '@nestjs/event-emitter';
 import {LLM_SERVICE} from './application/llm/di-tokens';
-import {TanstackLLMService} from './infrastructure/llm/tanstack.llm.service';
+import {TanstackGeminiLLMService} from './infrastructure/llm/tanstack.gemini.llm.service';
 
 @Global()
 @Module({
@@ -112,7 +112,7 @@ import {TanstackLLMService} from './infrastructure/llm/tanstack.llm.service';
     {provide: LOGGER, useClass: PinoLoggerAdapter},
     {provide: EMAIL_SERVICE, useClass: ResendEmailService},
     {provide: DOMAIN_EVENT_DISPATCHER, useClass: NestEventEmitterDomainEventDispatcher},
-    {provide: LLM_SERVICE, useClass: TanstackLLMService},
+    {provide: LLM_SERVICE, useClass: TanstackGeminiLLMService},
   ],
   exports: [
     ANALYTICS_SERVICE,

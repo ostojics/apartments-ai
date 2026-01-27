@@ -25,10 +25,8 @@ export default function ApartmentChatTab() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (messageInput.trim() && !isLoading) {
-      console.log('Submitting message:', new Date().toISOString());
+    if (messageInput.trim()) {
       await sendMessage(messageInput);
-      console.log('Message sent:', new Date().toISOString());
       setMessageInput('');
     }
   };
