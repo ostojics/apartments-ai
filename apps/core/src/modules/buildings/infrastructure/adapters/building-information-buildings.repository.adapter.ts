@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common';
-import {IBuildingInformationBuildingsRepositoryPort} from '../../application/ports/building-information.buildings.repository.port';
+import {IBuildingInformationBuildingsRepositoryPort} from '../../../building-information/application/ports/building-information.buildings.repository.port';
 import {BuildingEntity} from 'src/modules/buildings/domain/building.entity';
 import {IBuildingRepository} from 'src/modules/buildings/domain/repositories/building.repository.interface';
 

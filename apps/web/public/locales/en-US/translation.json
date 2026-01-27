@@ -42,7 +42,7 @@
     },
     "promotions": {
       "title": "Promotions & discounts",
-      "description": "Share your details to receive latest discounts and promotions for {{provider}}.",
+      "description": "Share your details to receive latest discounts and promotions for our apartments.",
       "helper": "You can opt out anytime.",
       "form": {
         "nameLabel": "Full name",

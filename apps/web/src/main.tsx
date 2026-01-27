@@ -12,6 +12,8 @@ import {MSW_ENABLED} from './common/constants/constants';
 import {queryClient} from './modules/api/query-client';
 import {AppErrorBoundary} from './components/error-boundary/error-boundary';
 import {ThemeProvider} from './modules/theme/theme-context';
+import {TanStackDevtools} from '@tanstack/react-devtools';
+import {aiDevtoolsPlugin} from '@tanstack/react-ai-devtools';
 import {useTenantCheck} from './modules/tenants/hooks/use-tenant-check';
 
 declare module '@tanstack/react-router' {
@@ -57,7 +59,17 @@ void enableMocking().then(() => {
           <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
             <AppRouter />
             <Toaster position="bottom-right" />
-            {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+            {import.meta.env.DEV && (
+              <>
+                <ReactQueryDevtools initialIsOpen={false} />
+                <TanStackDevtools
+                  plugins={[aiDevtoolsPlugin()]}
+                  eventBusConfig={{
+                    connectToServerBus: true,
+                  }}
+                />
+              </>
+            )}
           </ThemeProvider>
         </QueryClientProvider>
       </AppErrorBoundary>
