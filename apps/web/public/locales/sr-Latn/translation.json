@@ -42,7 +42,7 @@
     },
     "promotions": {
       "title": "Promocije i popusti",
-      "description": "Podelite podatke za najnovije popuste i promocije od {{provider}}.",
+      "description": "Podelite podatke kako bi dobili najnovije popuste i promocije za naše apartmane.",
       "helper": "Prijem poruka možete da otkažete u svakom trenutku.",
       "form": {
         "nameLabel": "Puno ime",

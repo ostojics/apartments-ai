@@ -34,7 +34,7 @@ export default function PromotionsTab() {
     <Card className="bg-background rounded-none sm:rounded-2xl border-0 sm:border">
       <CardHeader>
         <CardTitle className="text-xl">{t('apartment.promotions.title')}</CardTitle>
-        <CardDescription>{t('apartment.promotions.description', {provider: 'Demo'})}</CardDescription>
+        <CardDescription>{t('apartment.promotions.description')}</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -93,7 +93,6 @@ export default function PromotionsTab() {
               )}
             />
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-muted-foreground">{t('apartment.promotions.helper')}</p>
               <Button className="w-full sm:w-auto" type="submit" disabled={promotionsMutation.isPending}>
                 {promotionsMutation.isPending && <Spinner className="mr-2" />}
                 {t('apartment.promotions.form.submit')}

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {MessageCircle, SendHorizonal} from 'lucide-react';
 import {useTranslation} from 'react-i18next';
 
@@ -12,8 +12,9 @@ import {Spinner} from '@/components/ui/spinner';
 export default function ApartmentChatTab() {
   const {t} = useTranslation();
   const [messageInput, setMessageInput] = useState('');
-
   const {messages, sendMessage, isLoading} = useApartmentChat();
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+
   const assistantMessages = messages.filter((message) => message.role !== 'user');
   const lastAssistantMessage = assistantMessages.at(-1);
   const lastAssistantHasText =
@@ -25,11 +26,18 @@ export default function ApartmentChatTab() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (messageInput.trim()) {
-      await sendMessage(messageInput);
-      setMessageInput('');
-    }
+    await sendMessage(messageInput);
+    setMessageInput('');
   };
+
+  useEffect(() => {
+    const container = messagesContainerRef.current;
+    if (!container) {
+      return;
+    }
+
+    container.scrollTop = container.scrollHeight;
+  }, [messages]);
 
   return (
     <Card className="bg-background rounded-none sm:rounded-2xl border-0 sm:border py-2 flex h-full min-h-0 flex-col">
@@ -45,7 +53,10 @@ export default function ApartmentChatTab() {
         </div>
       </CardHeader>
       <CardContent className="flex flex-1 min-h-0 flex-col gap-4 p-4">
-        <div className="flex flex-1 min-h-0 flex-col gap-5 rounded-2xl max-h-[30rem] p-0 overflow-y-auto pr-2">
+        <div
+          ref={messagesContainerRef}
+          className="flex flex-1 min-h-0 flex-col gap-5 rounded-2xl max-h-[30rem] p-0 overflow-y-auto pr-2"
+        >
           {messages.map((message) => {
             const isUser = message.role === 'user';
             const isAssistant = !isUser;
@@ -102,8 +113,8 @@ export default function ApartmentChatTab() {
               placeholder={t('apartment.chat.inputPlaceholder')}
               className="resize-none border-0 p-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
               aria-label={t('apartment.chat.inputLabel')}
-              rows={3}
               disabled={isLoading}
+              required
             />
             <Button
               type="submit"
