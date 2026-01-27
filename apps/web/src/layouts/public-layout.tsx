@@ -15,7 +15,7 @@ export function PublicLayout({children}: PublicLayoutProps) {
       <header className="p-4 flex justify-end gap-2 items-center">
         <ThemeSwitcher />
       </header>
-      <main className="flex-1">{children}</main>
+      <main className="flex flex-1 min-h-0 flex-col">{children}</main>
       <footer className="mt-auto p-4 text-sm text-muted-foreground">
         <p className="text-center">
           {t('public.poweredBy')} <strong>Apartments AI</strong>

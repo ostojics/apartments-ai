@@ -26,13 +26,15 @@ export default function ApartmentChatTab() {
     event.preventDefault();
 
     if (messageInput.trim() && !isLoading) {
+      console.log('Submitting message:', new Date().toISOString());
       await sendMessage(messageInput);
+      console.log('Message sent:', new Date().toISOString());
       setMessageInput('');
     }
   };
 
   return (
-    <Card className="bg-background rounded-none sm:rounded-2xl border-0 sm:border py-2">
+    <Card className="bg-background rounded-none sm:rounded-2xl border-0 sm:border py-2 flex h-full min-h-0 flex-col">
       <CardHeader className="gap-4 pb-2 pt-4 border-b-2 border-b-border/40">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
           <span className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -44,8 +46,8 @@ export default function ApartmentChatTab() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4 p-4">
-        <div className="flex flex-col gap-5 rounded-2xl p-0 mb-5 min-h-[30rem] max-h-[30rem] overflow-y-auto">
+      <CardContent className="flex flex-1 min-h-0 flex-col gap-4 p-4">
+        <div className="flex flex-1 min-h-0 flex-col gap-5 rounded-2xl max-h-[30rem] p-0 overflow-y-auto pr-2">
           {messages.map((message) => {
             const isUser = message.role === 'user';
             const isAssistant = !isUser;
@@ -100,8 +102,9 @@ export default function ApartmentChatTab() {
               value={messageInput}
               onChange={(e) => setMessageInput(e.target.value)}
               placeholder={t('apartment.chat.inputPlaceholder')}
-              className="min-h-20 resize-none border-0 p-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="resize-none border-0 p-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
               aria-label={t('apartment.chat.inputLabel')}
+              rows={3}
               disabled={isLoading}
             />
             <Button

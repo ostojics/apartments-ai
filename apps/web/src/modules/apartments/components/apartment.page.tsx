@@ -24,22 +24,22 @@ export function ApartmentPage() {
   const promotionsLoadingDescription = t('apartment.loading.description', {tab: promotionsTabLabel});
 
   return (
-    <section className="bg-secondary/40">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-0 pt-10 sm:px-6 lg:px-8">
+    <section className="bg-secondary/40 flex flex-1">
+      <div className="mx-auto flex w-full max-w-6xl flex-1 min-h-0 flex-col gap-8 px-0 pt-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-2 text-center sm:text-left">
             <h1 className="text-3xl font-semibold tracking-tight">{data?.data.name ?? ''}</h1>
           </div>
         </div>
 
-        <Tabs defaultValue="chat" className="gap-6">
+        <Tabs defaultValue="chat" className="gap-6 flex-1 min-h-0">
           <TabsList className="h-auto w-full flex-wrap justify-start gap-2 sm:h-9 sm:w-fit sm:flex-nowrap">
             <TabsTrigger value="chat">{t('apartment.tabs.chat')}</TabsTrigger>
             <TabsTrigger value="manual">{t('apartment.tabs.manual')}</TabsTrigger>
             <TabsTrigger value="promotions">{t('apartment.tabs.promotions')}</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="chat">
+          <TabsContent value="chat" className="flex flex-1 min-h-0 flex-col">
             <Suspense
               fallback={
                 <TabLoadingState
