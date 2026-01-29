@@ -3,6 +3,7 @@ import {ConfigService} from '@nestjs/config';
 import {Request} from 'express';
 import {AppConfig, AppConfigName} from 'src/config/app.config';
 import {GlobalConfig} from 'src/config/config.interface';
+import {CustomHeaders} from '../enums/custom-headers';
 
 /**
  * API Key Guard
@@ -25,22 +26,19 @@ export class ApiKeyGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const appConfig = this.configService.getOrThrow<AppConfig>(AppConfigName);
 
-    // If guard is disabled, allow all requests
     if (!appConfig.enableApiKeyGuard) {
       return true;
     }
 
     const request = context.switchToHttp().getRequest<Request>();
-    const apiKeyHeader = request.headers['x-api-key'];
+    const apiKeyHeader = request.headers[CustomHeaders.APIKey];
 
-    // API key must be present
     if (!apiKeyHeader) {
       throw new UnauthorizedException('API key is required');
     }
 
     const providedKey = Array.isArray(apiKeyHeader) ? apiKeyHeader[0] : apiKeyHeader;
 
-    // Validate against configured API key
     if (providedKey !== appConfig.apiKey) {
       throw new UnauthorizedException('Invalid API key');
     }

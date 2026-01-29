@@ -28,48 +28,29 @@ async function bootstrap() {
   app.useGlobalFilters(new GlobalExceptionFilter());
   setupSwagger(app);
 
-  // Configure CORS with domain-based origin validation
   app.enableCors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, Postman)
       if (!origin) {
         return callback(null, true);
       }
 
-      const {corsAllowedOrigins, appDomain, environment} = appConfig;
+      const {appDomain} = appConfig;
 
-      // In development, allow all origins if no specific config is set
-      if (environment === 'development' && corsAllowedOrigins.length === 0 && !appDomain) {
-        return callback(null, true);
-      }
+      try {
+        const originUrl = new URL(origin);
+        const originHost = originUrl.hostname;
 
-      // Check if origin is in the explicitly allowed list
-      if (corsAllowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      // Check if origin matches the app domain or any subdomain
-      if (appDomain) {
-        try {
-          const originUrl = new URL(origin);
-          const originHost = originUrl.hostname;
-
-          // Exact match
-          if (originHost === appDomain) {
-            return callback(null, true);
-          }
-
-          // Subdomain match (e.g., *.apartments.ai)
-          if (originHost.endsWith(`.${appDomain}`)) {
-            return callback(null, true);
-          }
-        } catch {
-          // Invalid origin URL
-          return callback(new Error('Invalid origin'), false);
+        if (originHost === appDomain) {
+          return callback(null, true);
         }
+
+        if (originHost.endsWith(`.${appDomain}`)) {
+          return callback(null, true);
+        }
+      } catch {
+        return callback(new Error('Invalid origin'), false);
       }
 
-      // Origin not allowed
       callback(new Error('Not allowed by CORS'), false);
     },
     credentials: true,

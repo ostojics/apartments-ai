@@ -4,10 +4,17 @@ import {TenantsModule} from './modules/tenants/tenants.module';
 import {BuildingsModule} from './modules/buildings/buildings.module';
 import {ContactsModule} from './modules/contacts/contacts.module';
 import {TenantContextModule} from './modules/tenant-context/tenant-context.module';
+import {ApiKeyGuard} from './common/guards/api-key.guard';
+import {APP_GUARD} from '@nestjs/core';
 
 @Module({
   imports: [SharedModule, TenantContextModule, TenantsModule, BuildingsModule, ContactsModule],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ApiKeyGuard,
+    },
+  ],
 })
 export class AppModule {}

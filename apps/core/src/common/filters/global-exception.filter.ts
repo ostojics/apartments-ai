@@ -61,6 +61,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       timestamp: new Date().toISOString(),
     };
 
+    this.logger.debug(`Exception Response: ${JSON.stringify(exceptionResponse)}`);
+
     response.status(status).json(exceptionResponse);
   }
 
