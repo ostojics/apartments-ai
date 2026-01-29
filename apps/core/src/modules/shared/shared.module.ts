@@ -123,6 +123,7 @@ import {TanstackGeminiLLMService} from './infrastructure/llm/tanstack.gemini.llm
     DOMAIN_EVENT_DISPATCHER,
     LLM_SERVICE,
     CqrsModule,
+    ConfigModule,
   ],
 })
 export class SharedModule {}
