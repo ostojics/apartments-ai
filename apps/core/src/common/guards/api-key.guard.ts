@@ -11,10 +11,6 @@ import {CustomHeaders} from '../enums/custom-headers';
  * Validates the x-api-key header against the configured API_KEY from environment.
  * Can be enabled/disabled via ENABLE_API_KEY_GUARD environment variable.
  *
- * Usage:
- * - Apply to controllers: @UseGuards(ApiKeyGuard)
- * - Apply to specific routes: @UseGuards(ApiKeyGuard) above route handler
- *
  * Environment Variables:
  * - API_KEY: The secret key to validate against
  * - ENABLE_API_KEY_GUARD: Set to "true" to enable guard, defaults to false
