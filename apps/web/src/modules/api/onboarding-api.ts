@@ -1,4 +1,4 @@
-import type {OnboardingDTO} from '@acme/contracts';
+import type {OnboardingDTO} from '@apartments-ai/contracts';
 import httpClient from './http-client';
 
 export interface CreateAccountResponse {

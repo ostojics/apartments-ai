@@ -6,7 +6,7 @@ import {
   ConflictDomainException,
   UnauthorizedDomainException,
 } from 'src/libs/domain/exceptions/exception.base';
-import {ExceptionResponse} from '@acme/contracts';
+import {ExceptionResponse} from '@apartments-ai/contracts';
 import {ZodException} from 'src/libs/exceptions/zod.exception';
 
 @Catch()

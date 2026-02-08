@@ -158,9 +158,9 @@ Clean, centered error message with destructive styling
 
 ```bash
 $ pnpm build
-✓ @acme/contracts built successfully
-✓ @acme/core built successfully
-✓ @acme/web built successfully
+✓ @apartments-ai/contracts built successfully
+✓ @apartments-ai/core built successfully
+✓ @apartments-ai/web built successfully
 
 Tasks:    3 successful, 3 total
 Time:     16.585s

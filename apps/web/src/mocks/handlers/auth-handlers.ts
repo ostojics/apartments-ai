@@ -1,6 +1,6 @@
 import {http, HttpResponse} from 'msw';
 import {buildMockRoute} from '../utils/build-mock-route';
-import {MeResponseDTO} from '@acme/contracts';
+import {MeResponseDTO} from '@apartments-ai/contracts';
 
 const mockUser: MeResponseDTO = {
   userId: '1',

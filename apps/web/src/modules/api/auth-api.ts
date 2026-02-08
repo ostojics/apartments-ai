@@ -1,4 +1,4 @@
-import type {LoginDTO, MeResponseDTO} from '@acme/contracts';
+import type {LoginDTO, MeResponseDTO} from '@apartments-ai/contracts';
 import httpClient from './http-client';
 
 export interface LoginResponse {

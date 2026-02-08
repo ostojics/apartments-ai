@@ -21,7 +21,6 @@ function setupSwagger(app: INestApplication): OpenAPIObject {
     .setDescription(APP_DESCRIPTION)
     .setVersion(APP_VERSION)
     .addBearerAuth()
-    .addApiKey({type: 'apiKey', name: 'Api-Key', in: 'header'}, 'Api-Key')
     .addServer(url)
     .build();
 

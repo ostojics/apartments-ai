@@ -1,5 +1,5 @@
 import {createZodResolver} from '@/lib/utils/zod-resolver';
-import {PromotionsRequestDTO, promotionsRequestSchema} from '@acme/contracts';
+import {PromotionsRequestDTO, promotionsRequestSchema} from '@apartments-ai/contracts';
 import {useForm} from 'react-hook-form';
 
 interface usePromotionsFormProps {

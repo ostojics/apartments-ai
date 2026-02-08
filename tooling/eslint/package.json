@@ -1,5 +1,5 @@
 {
-  "name": "@acme/linting",
+  "name": "@apartments-ai/linting",
   "private": true,
   "version": "0.3.0",
   "type": "module",
@@ -23,7 +23,7 @@
     "typescript-eslint": "^8.33.1"
   },
   "devDependencies": {
-    "@acme/tsconfig": "workspace:*",
+    "@apartments-ai/tsconfig": "workspace:*",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"

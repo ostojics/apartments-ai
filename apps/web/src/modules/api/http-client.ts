@@ -1,4 +1,4 @@
-import {API_URL} from '@/common/constants/constants';
+import {API_URL, TENANT_SLUG} from '@/common/constants/constants';
 import ky from 'ky';
 import {getCurrentLanguage} from '../i18n/utils/get-current-language';
 
@@ -13,6 +13,10 @@ const extended = httpClient.extend({
       (request) => {
         const language = getCurrentLanguage();
         request.headers.set('Accept-Language', language);
+
+        if (TENANT_SLUG) {
+          request.headers.set('X-Tenant-Slug', TENANT_SLUG);
+        }
       },
     ],
   },
