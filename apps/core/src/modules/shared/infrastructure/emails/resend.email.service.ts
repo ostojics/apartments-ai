@@ -20,7 +20,7 @@ export class ResendEmailService implements IEmailService {
   ) {
     const config = this.configService.getOrThrow<AppConfig>(AppConfigName);
     this.resendClient = new Resend(config.resendApiKey);
-    this.fromEmail = 'info@no-reply.nestwise.finance';
+    this.fromEmail = 'info@no-reply.apartments.ai';
   }
 
   async sendEmail(options: IEmailSendOptions): Promise<void> {

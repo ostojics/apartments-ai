@@ -1,20 +1,20 @@
-FROM node:22-alpine AS base
+FROM node:24-alpine AS base
 
 FROM base AS builder
 RUN apk update
 
 WORKDIR /app
 
-RUN npm i pnpm@10.11.1 -g
+RUN npm i pnpm@10.26.2 -g
 COPY . .
 
-RUN pnpm dlx turbo@^2.5.3 prune @nest-wise/core-api --docker
+RUN pnpm dlx turbo@^2.5.3 prune @apartments-ai/core --docker
 
 FROM base AS installer
 
 WORKDIR /app
 
-RUN npm i pnpm@10.11.1 -g
+RUN npm i pnpm@10.26.2 -g
 
 # First install the dependencies (as they change less often)
 COPY --from=builder /app/out/json/ .
@@ -28,10 +28,10 @@ FROM base AS runner
 WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nestwise
+RUN adduser --system --uid 1001 apartments-ai
 
-USER nestwise
+USER apartments-ai
 
-COPY --from=installer --chown=nestwise:nodejs /app .
+COPY --from=installer --chown=apartments-ai:nodejs /app .
 
-CMD ["node", "apps/core-api/dist/main.js"]
+CMD ["node", "apps/core/dist/main.js"]

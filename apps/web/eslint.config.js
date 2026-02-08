@@ -1,5 +1,5 @@
-import reactConfig from '@acme/linting/react';
-import baseConfig from '@acme/linting/base';
+import reactConfig from '@apartments-ai/linting/react';
+import baseConfig from '@apartments-ai/linting/base';
 
 /** @type {import("eslint").Linter.Config} */
 export default [

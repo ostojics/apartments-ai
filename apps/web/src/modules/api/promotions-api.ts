@@ -1,4 +1,4 @@
-import type {PromotionsRequestDTO} from '@acme/contracts';
+import type {PromotionsRequestDTO} from '@apartments-ai/contracts';
 import httpClient from './http-client';
 
 export interface PromotionsRequestResponse {

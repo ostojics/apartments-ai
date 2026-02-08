@@ -53,7 +53,7 @@ Successfully implemented the integration of the building information endpoint in
 **Purpose:** Centralized API functions for building-related operations
 
 ```typescript
-import type {BuildingInformationResponseDTO} from '@acme/contracts';
+import type {BuildingInformationResponseDTO} from '@apartments-ai/contracts';
 import httpClient from './http-client';
 
 export const getBuildingInfo = (slug: string) => {
@@ -254,7 +254,7 @@ $ pnpm -C apps/web build
 
 - Full TypeScript coverage
 - No `any` types used
-- Contract-based DTOs from `@acme/contracts`
+- Contract-based DTOs from `@apartments-ai/contracts`
 - Type inference throughout
 
 ### 🎨 Code Quality
@@ -312,14 +312,14 @@ modules/apartments/hooks/
 
 ## Dependencies
 
-| Package                 | Purpose                 | Version   |
-| ----------------------- | ----------------------- | --------- |
-| `@tanstack/react-query` | Data fetching & caching | ^5.90.15  |
-| `@acme/contracts`       | Type definitions        | workspace |
-| `ky`                    | HTTP client             | ^1.14.2   |
-| `lucide-react`          | Icons                   | ^0.562.0  |
-| `react-markdown`        | Markdown rendering      | ^10.1.0   |
-| `msw`                   | Mock Service Worker     | ^2.12.7   |
+| Package                    | Purpose                 | Version   |
+| -------------------------- | ----------------------- | --------- |
+| `@tanstack/react-query`    | Data fetching & caching | ^5.90.15  |
+| `@apartments-ai/contracts` | Type definitions        | workspace |
+| `ky`                       | HTTP client             | ^1.14.2   |
+| `lucide-react`             | Icons                   | ^0.562.0  |
+| `react-markdown`           | Markdown rendering      | ^10.1.0   |
+| `msw`                      | Mock Service Worker     | ^2.12.7   |
 
 ---
 
@@ -403,7 +403,7 @@ modules/apartments/hooks/
 ### Upstream Dependencies
 
 - ✅ `S-core-service-01-presentation-endpoints` - Backend API must be implemented
-- ✅ `@acme/contracts` - BuildingInformationResponseDTO type exists
+- ✅ `@apartments-ai/contracts` - BuildingInformationResponseDTO type exists
 
 ### Sibling Stories
 

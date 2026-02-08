@@ -5,7 +5,7 @@ import {TenantGuard, TenantRequest} from 'src/common/guards/tenant.guard';
 import {PromotionOptInCommand} from '../../application/commands/promotion-opt-in.command';
 import {PromotionSubmissionSwaggerDTO} from '../dtos/promotion-submission.swagger.dto';
 import {ZodValidationPipe} from 'src/libs/pipes/zod.validation.pipe';
-import {promotionSubmissionSchema} from '@acme/contracts';
+import {promotionSubmissionSchema} from '@apartments-ai/contracts';
 
 @ApiTags('Promotions')
 @Controller({path: 'promotions', version: '1'})

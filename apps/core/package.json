@@ -1,5 +1,5 @@
 {
-  "name": "@acme/core",
+  "name": "@apartments-ai/core",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -24,7 +24,7 @@
     "typeorm": "typeorm-ts-node-esm"
   },
   "dependencies": {
-    "@acme/contracts": "workspace:*",
+    "@apartments-ai/contracts": "workspace:*",
     "@date-fns/utc": "^2.1.1",
     "@nestjs/bullmq": "^11.0.3",
     "@nestjs/common": "catalog:",
@@ -58,7 +58,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@acme/linting": "workspace:*",
+    "@apartments-ai/linting": "workspace:*",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "catalog:",
     "@nestjs/cli": "^11.0.0",

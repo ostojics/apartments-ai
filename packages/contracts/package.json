@@ -1,5 +1,5 @@
 {
-  "name": "@acme/contracts",
+  "name": "@apartments-ai/contracts",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -22,9 +22,9 @@
   "devDependencies": {
     "tsup": "catalog:",
     "typescript": "catalog:",
-    "@acme/linting": "workspace:*",
+    "@apartments-ai/linting": "workspace:*",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "@acme/tsconfig": "workspace:*"
+    "@apartments-ai/tsconfig": "workspace:*"
   }
 }

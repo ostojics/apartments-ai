@@ -91,7 +91,7 @@ importers:
 
   apps/core:
     dependencies:
-      '@acme/contracts':
+      '@apartments-ai/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
       '@date-fns/utc':
@@ -188,7 +188,7 @@ importers:
         specifier: 'catalog:'
         version: 3.25.76
     devDependencies:
-      '@acme/linting':
+      '@apartments-ai/linting':
         specifier: workspace:*
         version: link:../../tooling/eslint
       '@eslint/eslintrc':
@@ -281,7 +281,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@acme/contracts':
+      '@apartments-ai/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
       '@hookform/resolvers':
@@ -465,10 +465,10 @@ importers:
         specifier: ^4.3.5
         version: 4.3.5
     devDependencies:
-      '@acme/linting':
+      '@apartments-ai/linting':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@acme/tsconfig':
+      '@apartments-ai/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@nabla/vite-plugin-eslint':
@@ -517,10 +517,10 @@ importers:
         specifier: ^4.2.1
         version: 4.3.5
     devDependencies:
-      '@acme/linting':
+      '@apartments-ai/linting':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@acme/tsconfig':
+      '@apartments-ai/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       eslint:
@@ -563,7 +563,7 @@ importers:
         specifier: ^8.33.1
         version: 8.33.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
     devDependencies:
-      '@acme/tsconfig':
+      '@apartments-ai/tsconfig':
         specifier: workspace:*
         version: link:../typescript
       eslint:

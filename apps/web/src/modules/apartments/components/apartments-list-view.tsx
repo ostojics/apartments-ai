@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {useNavigate} from '@tanstack/react-router';
-import type {BuildingSummaryDTO} from '@acme/contracts';
+import type {BuildingSummaryDTO} from '@apartments-ai/contracts';
 
 import {AspectRatio} from '@/components/ui/aspect-ratio';
 import {Button} from '@/components/ui/button';

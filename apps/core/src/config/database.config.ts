@@ -27,7 +27,7 @@ export function getConfig(): DatabaseConfig {
     port: +(process.env.DB_PORT ?? 5432),
     username: process.env.DB_USERNAME ?? 'root',
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE ?? 'nestwise_dev',
+    database: process.env.DB_DATABASE ?? 'apartmentsai_dev',
     ssl: process.env.DB_USE_SSL === 'true',
     entities: [
       TenantOrmEntity,

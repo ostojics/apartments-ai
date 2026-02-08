@@ -16,7 +16,7 @@ Successfully implemented the integration of the building information endpoint (`
 - Created new API module for building-related endpoints
 - Implements `getBuildingInfo(slug: string)` function
 - Uses the existing `httpClient` with proper TypeScript typing
-- Returns `BuildingInformationResponseDTO` from `@acme/contracts`
+- Returns `BuildingInformationResponseDTO` from `@apartments-ai/contracts`
 
 ```typescript
 export const getBuildingInfo = (slug: string) => {
@@ -223,7 +223,7 @@ pnpm -C apps/web build
 
 - `@tanstack/react-query` - Data fetching and caching
 - `ky` - HTTP client (via httpClient)
-- `@acme/contracts` - Type definitions
+- `@apartments-ai/contracts` - Type definitions
 - `lucide-react` - Icons (AlertCircle, Loader2)
 - `react-markdown` - Markdown rendering
 - `msw` - Mock Service Worker
