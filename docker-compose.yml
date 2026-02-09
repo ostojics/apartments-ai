@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:15-alpine
+    image: postgres:17-alpine
     container_name: apartments-ai-postgres-dev
     restart: always
     environment:
@@ -32,40 +32,6 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
 
-  redis:
-    image: redis:latest
-    container_name: apartments-ai-redis-dev
-    restart: always
-    command: redis-server --requirepass pass
-    ports:
-      - '6379:6379'
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ['CMD', 'redis-cli', '-a', 'pass', 'ping']
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  redisinsight:
-    image: redis/redisinsight:latest
-    container_name: apartments-ai-redisinsight-dev
-    restart: always
-    environment:
-      - RI_REDIS_HOST=redis
-      - RI_REDIS_PORT=6379
-      - RI_REDIS_ALIAS=Local Redis
-      - RI_REDIS_PASSWORD=pass
-    ports:
-      - '5540:5540'
-    depends_on:
-      redis:
-        condition: service_healthy
-    volumes:
-      - redisinsight_data:/data
-
 volumes:
   postgres_data:
   pgadmin_data:
-  redis_data:
-  redisinsight_data:

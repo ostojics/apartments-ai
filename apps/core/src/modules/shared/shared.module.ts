@@ -10,10 +10,7 @@ import {UNIT_OF_WORK} from 'src/libs/application/ports/unit-of-work.port';
 import {TypeOrmUnitOfWork} from 'src/libs/infrastructure/persistence/typeorm-unit-of-work';
 import {HASHING_SERVICE} from './application/hashing/hashing.interface';
 import {Argon2HashingService} from './infrastructure/hashing/argon2-hashing.service';
-import {BullModule} from '@nestjs/bullmq';
 import {GlobalConfig} from 'src/config/config.interface';
-import {queuesConfig, QueuesConfig, QueuesConfigName} from 'src/config/queues.config';
-import {Queues} from 'src/common/enums/queues.enum';
 import {LOGGER} from 'src/libs/application/ports/di-tokens';
 import {PinoLoggerAdapter} from 'src/libs/infrastructure/logger/nestjs-logger.adapter';
 import {EMAIL_SERVICE} from './application/emails/di-tokens';
@@ -36,7 +33,7 @@ import {TanstackGeminiLLMService} from './infrastructure/llm/tanstack.gemini.llm
   imports: [
     ConfigModule.forRoot({
       cache: true,
-      load: [appConfig, throttlerConfig, databaseConfig, queuesConfig, posthogConfig],
+      load: [appConfig, throttlerConfig, databaseConfig, posthogConfig],
     }),
     LoggerModule.forRootAsync({
       imports: [ConfigModule],
@@ -82,27 +79,6 @@ import {TanstackGeminiLLMService} from './infrastructure/llm/tanstack.gemini.llm
       imports: [ConfigModule],
       inject: [ConfigService],
     }),
-    BullModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService<GlobalConfig>) => {
-        const config = configService.getOrThrow<QueuesConfig>(QueuesConfigName);
-
-        return {
-          connection: {
-            host: config.redisHost,
-            port: config.redisPort,
-
-            password: config.redisPassword ?? undefined,
-          },
-          defaultJobOptions: {
-            removeOnComplete: {age: 3600, count: 1000}, // Keep last 1000 or 1 hour
-            removeOnFail: {age: 172800}, // Keep failed jobs for 48 hours (172800 seconds)
-          },
-        };
-      },
-    }),
-    BullModule.registerQueue({name: Queues.EMAILS}),
   ],
   providers: [
     {provide: ANALYTICS_SERVICE, useClass: PostHogAnalyticsService},
