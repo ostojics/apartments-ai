@@ -30,7 +30,7 @@ export function PublicLayout({children}: PublicLayoutProps) {
       <main className="flex flex-1 min-h-0 flex-col">{children}</main>
       <footer className="mt-auto p-4 text-sm text-muted-foreground">
         <p className="text-center">
-          {t('public.poweredBy')} <strong>Apartments AI</strong>
+          {t('public.poweredBy')} <strong>HostElite</strong>
         </p>
       </footer>
     </section>

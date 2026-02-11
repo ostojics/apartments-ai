@@ -67,7 +67,6 @@
     },
     "chat": {
       "title": "Chat with AI assistant",
-      "description": "The AI assistant is ready to answer apartment-related questions anytime.",
       "inputLabel": "Chat message",
       "inputPlaceholder": "Type your question...",
       "send": "Send",
