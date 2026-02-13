@@ -51,7 +51,7 @@ export default function ApartmentChatTab() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex flex-1 min-h-0 flex-col gap-4 p-4">
+      <CardContent className="flex flex-1 flex-col max-h-[calc(100vh-15rem)] gap-4 p-4">
         <div ref={messagesContainerRef} className="flex flex-1 flex-col gap-5 rounded-2xl p-0 overflow-y-auto pr-2">
           {messages.map((message) => {
             const isUser = message.role === 'user';
