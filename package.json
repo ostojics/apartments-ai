@@ -9,7 +9,7 @@
     "precommit": "pretty-quick --staged",
     "prepare": "husky",
     "postinstall": "pnpm prepare",
-    "analyze:web": "pnpm --filter \"./packages/**\" build && pnpm --filter=@apartments-ai/web build:analyze",
+    "analyze:web": "pnpm --filter \"./packages/**\" build && pnpm --filter=@host-elite/web build:analyze",
     "create:package": "turbo gen init:package"
   },
   "devDependencies": {

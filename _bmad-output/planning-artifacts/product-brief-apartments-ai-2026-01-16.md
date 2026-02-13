@@ -5,7 +5,7 @@ date: 2026-01-16
 author: Slobodan
 ---
 
-# Product Brief: apartments-ai
+# Product Brief: host-elite
 
 <!-- Content will be appended sequentially through collaborative workflow steps -->
 

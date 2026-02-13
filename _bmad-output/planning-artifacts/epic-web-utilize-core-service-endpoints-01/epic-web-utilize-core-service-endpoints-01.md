@@ -44,7 +44,7 @@ Integrate the Apartments AI web application with the core backend service endpoi
 ## Related Artifacts
 
 - [ARCHITECTURE.md](../ARCHITECTURE.md)
-- [prd-apartments-ai-2026-01-16.md](../prd-apartments-ai-2026-01-16.md)
+- [prd-host-elite-2026-01-16.md](../prd-host-elite-2026-01-16.md)
 
 ---
 

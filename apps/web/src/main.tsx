@@ -15,6 +15,7 @@ import {ThemeProvider} from './modules/theme/theme-context';
 import {TanStackDevtools} from '@tanstack/react-devtools';
 import {aiDevtoolsPlugin} from '@tanstack/react-ai-devtools';
 import {useTenantCheck} from './modules/tenants/hooks/use-tenant-check';
+import {Loader2} from 'lucide-react';
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -25,7 +26,11 @@ declare module '@tanstack/react-router' {
 function AppRouter() {
   const {data, isLoading, isError} = useTenantCheck();
   if (isLoading) {
-    return null;
+    return (
+      <section className="flex flex-col justify-center items-center">
+        <Loader2 className="size-4 animate-spin text-primary" />
+      </section>
+    );
   }
 
   return <RouterProvider router={router} context={{isValid: Boolean(data) && data?.data.isValid && !isError}} />;

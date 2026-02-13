@@ -30,7 +30,7 @@ Align the domain layer of the core project with the Apartments AI product requir
 
 ### References
 
-- [prd-apartments-ai-2026-01-16.md](../prd-apartments-ai-2026-01-16.md)
+- [prd-host-elite-2026-01-16.md](../prd-host-elite-2026-01-16.md)
 - [naming-convention.md](../naming-convention.md)
 - Example domain files in `apps/core/src/modules/licenses/domain/`
 

@@ -3,7 +3,7 @@ import {MessageCircle, SendHorizonal} from 'lucide-react';
 import {useTranslation} from 'react-i18next';
 
 import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
+import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Textarea} from '@/components/ui/textarea';
 import {cn} from '@/lib/utils/cn';
 import {useApartmentChat} from '../hooks/use-apartment-chat';
@@ -47,16 +47,12 @@ export default function ApartmentChatTab() {
             <MessageCircle className="size-5" />
           </span>
           <div className="space-y-1">
-            <CardTitle className="text-xl">{t('apartment.chat.title')}</CardTitle>
-            <CardDescription>{t('apartment.chat.description')}</CardDescription>
+            <CardTitle className="text-lg">{t('apartment.chat.title')}</CardTitle>
           </div>
         </div>
       </CardHeader>
       <CardContent className="flex flex-1 min-h-0 flex-col gap-4 p-4">
-        <div
-          ref={messagesContainerRef}
-          className="flex flex-1 min-h-0 flex-col gap-5 rounded-2xl max-h-[30rem] p-0 overflow-y-auto pr-2"
-        >
+        <div ref={messagesContainerRef} className="flex flex-1 flex-col gap-5 rounded-2xl p-0 overflow-y-auto pr-2">
           {messages.map((message) => {
             const isUser = message.role === 'user';
             const isAssistant = !isUser;

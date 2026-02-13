@@ -19,15 +19,13 @@ export const DatabaseConfigName = 'database';
 export interface DatabaseConfig extends PostgresConnectionOptions {}
 
 export function getConfig(): DatabaseConfig {
-  const isDevelopment = process.env.NODE_ENV === 'development';
-
   return {
     type: 'postgres',
     host: process.env.DB_HOST ?? 'localhost',
     port: +(process.env.DB_PORT ?? 5432),
     username: process.env.DB_USERNAME ?? 'root',
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE ?? 'apartmentsai_dev',
+    database: process.env.DB_DATABASE ?? 'hostelite_dev',
     ssl: process.env.DB_USE_SSL === 'true',
     entities: [
       TenantOrmEntity,

@@ -8,9 +8,9 @@ export interface AppConfig {
   environment: string;
   openaiApiKey: string;
   resendApiKey: string;
-  cookieDomain: string | null;
   logLevel: string;
   appDomain: string;
+  appVersion: string;
 }
 
 export const AppConfigName = 'app';
@@ -26,11 +26,11 @@ export function getConfig(): AppConfig {
     environment: process.env.NODE_ENV || 'development',
     openaiApiKey: process.env.OPENAI_API_KEY || '',
     resendApiKey: process.env.RESEND_API_KEY || '',
-    cookieDomain: process.env.COOKIE_DOMAIN || null,
     logLevel: process.env.LOG_LEVEL || 'info',
     // APP_DOMAIN: Main domain for subdomain matching (e.g., "apartments.ai")
     // Supports wildcard subdomain matching (*.apartments.ai)
     appDomain: process.env.APP_DOMAIN || '',
+    appVersion: process.env.APP_VERSION || '1.0.0',
   };
 }
 

@@ -112,7 +112,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    @apartments-ai/contracts Package                           │
+│                    @host-elite/contracts Package                           │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                       │
 │  packages/contracts/src/schemas/buildings.ts                        │
@@ -133,7 +133,7 @@
 │                      Web Application                                 │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                       │
-│  import type {BuildingInformationResponseDTO} from '@apartments-ai/contracts'│
+│  import type {BuildingInformationResponseDTO} from '@host-elite/contracts'│
 │                                                                       │
 │  • Used in: buildings-api.ts                                        │
 │  • Provides: Full type safety                                       │

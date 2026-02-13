@@ -1,4 +1,4 @@
-import type {TenantCheckResponseDTO} from '@apartments-ai/contracts';
+import type {TenantCheckResponseDTO} from '@host-elite/contracts';
 import httpClient from './http-client';
 
 export const checkTenant = () => {

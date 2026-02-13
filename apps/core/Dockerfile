@@ -8,7 +8,7 @@ WORKDIR /app
 RUN npm i pnpm@10.26.2 -g
 COPY . .
 
-RUN pnpm dlx turbo@^2.5.3 prune @apartments-ai/core --docker
+RUN pnpm dlx turbo@^2.5.3 prune @host-elite/core --docker
 
 FROM base AS installer
 
@@ -28,10 +28,10 @@ FROM base AS runner
 WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 apartments-ai
+RUN adduser --system --uid 1001 host-elite
 
-USER apartments-ai
+USER host-elite
 
-COPY --from=installer --chown=apartments-ai:nodejs /app .
+COPY --from=installer --chown=host-elite:nodejs /app .
 
 CMD ["node", "apps/core/dist/main.js"]

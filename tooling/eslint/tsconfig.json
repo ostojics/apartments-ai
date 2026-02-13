@@ -1,5 +1,5 @@
 {
-  "extends": "@apartments-ai/tsconfig/base.json",
+  "extends": "@host-elite/tsconfig/base.json",
   "compilerOptions": {
     "module": "nodenext"
   },

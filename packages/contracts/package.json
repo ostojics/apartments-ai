@@ -1,5 +1,5 @@
 {
-  "name": "@apartments-ai/contracts",
+  "name": "@host-elite/contracts",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -22,9 +22,9 @@
   "devDependencies": {
     "tsup": "catalog:",
     "typescript": "catalog:",
-    "@apartments-ai/linting": "workspace:*",
+    "@host-elite/linting": "workspace:*",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "@apartments-ai/tsconfig": "workspace:*"
+    "@host-elite/tsconfig": "workspace:*"
   }
 }

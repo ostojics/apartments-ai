@@ -3,7 +3,7 @@
 # Version: 6.0.0-alpha.23
 # Date: 2026-01-16T09:27:02.776Z
 
-project_name: apartments-ai
+project_name: host-elite
 user_skill_level: intermediate
 planning_artifacts: '{project-root}/_bmad-output/planning-artifacts'
 implementation_artifacts: '{project-root}/_bmad-output/implementation-artifacts'

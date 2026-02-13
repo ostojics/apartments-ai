@@ -27,6 +27,7 @@ import {throttlerConfig, throttlerFactory} from 'src/config/throttler.config';
 import {EventEmitterModule} from '@nestjs/event-emitter';
 import {LLM_SERVICE} from './application/llm/di-tokens';
 import {TanstackGeminiLLMService} from './infrastructure/llm/tanstack.gemini.llm.service';
+import {HealthCheckController} from './presentation/healthcheck/healthcheck.controller';
 
 @Global()
 @Module({
@@ -80,6 +81,7 @@ import {TanstackGeminiLLMService} from './infrastructure/llm/tanstack.gemini.llm
       inject: [ConfigService],
     }),
   ],
+  controllers: [HealthCheckController],
   providers: [
     {provide: ANALYTICS_SERVICE, useClass: PostHogAnalyticsService},
     {provide: JWT_SERVICE, useClass: NestJsJwtService},

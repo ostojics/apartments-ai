@@ -1,6 +1,6 @@
 import {http, HttpResponse} from 'msw';
 import {buildMockRoute} from '../utils/build-mock-route';
-import {TenantCheckResponseDTO} from '@apartments-ai/contracts';
+import {TenantCheckResponseDTO} from '@host-elite/contracts';
 
 const mockTenantCheckResponse: TenantCheckResponseDTO = {
   data: {
