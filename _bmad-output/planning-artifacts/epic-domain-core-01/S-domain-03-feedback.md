@@ -4,7 +4,7 @@ Status: not-started
 
 ## Description
 
-Implement the feedback domain layer to match the Apartments AI product requirements and the CreateFeedback migration. Create the feedback entity, value objects (if needed), events, and repository interfaces following the conventions of the existing domain files.
+Implement the feedback domain layer to match the HostElite product requirements and the CreateFeedback migration. Create the feedback entity, value objects (if needed), events, and repository interfaces following the conventions of the existing domain files.
 
 ## Acceptance Criteria
 

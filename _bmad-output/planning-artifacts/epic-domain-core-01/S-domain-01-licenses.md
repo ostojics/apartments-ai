@@ -4,7 +4,7 @@ Status: not-started
 
 ## Description
 
-Refactor the licenses domain layer to match the Apartments AI product requirements and the CreateLicenses migration. Remove or adjust any fields, value objects, events, or repository interfaces that do not fit the product. Ensure all domain artifacts follow the conventions of the existing files.
+Refactor the licenses domain layer to match the HostElite product requirements and the CreateLicenses migration. Remove or adjust any fields, value objects, events, or repository interfaces that do not fit the product. Ensure all domain artifacts follow the conventions of the existing files.
 
 ## Acceptance Criteria
 

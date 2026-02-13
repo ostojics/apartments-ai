@@ -7,7 +7,7 @@
 
 ## Objective
 
-Integrate the Apartments AI web application with the core backend service endpoints to enable tenant validation, display a list of buildings, and fetch detailed building information on the apartment page. This will ensure the web frontend is fully powered by live backend data, improving accuracy, security, and user experience.
+Integrate the HostElite web application with the core backend service endpoints to enable tenant validation, display a list of buildings, and fetch detailed building information on the apartment page. This will ensure the web frontend is fully powered by live backend data, improving accuracy, security, and user experience.
 
 ## Scope
 

@@ -1,8 +1,8 @@
-# Apartments AI Architecture and Design Patterns
+# HostElite Architecture and Design Patterns
 
 ## Multi-Tenant Architecture Overview
 
-Apartments AI is designed as a multi-tenant SaaS platform. The architecture supports multiple tenants, each with isolated data and custom configurations, while sharing the same application codebase.
+HostElite is designed as a multi-tenant SaaS platform. The architecture supports multiple tenants, each with isolated data and custom configurations, while sharing the same application codebase.
 
 - **Tenant Isolation:**
   - Each tenant is identified by a unique subdomain (e.g., `tenant1.apartments.ai`).
@@ -220,7 +220,7 @@ modules/
 
 ## Internationalization (i18n)
 
-Apartments AI supports multilingual user experiences through a robust internationalization (i18n) setup, primarily in the frontend. The architecture ensures that all user-facing text can be easily translated and that language selection is seamless and persistent across sessions.
+HostElite supports multilingual user experiences through a robust internationalization (i18n) setup, primarily in the frontend. The architecture ensures that all user-facing text can be easily translated and that language selection is seamless and persistent across sessions.
 
 ### Libraries & Technologies
 
@@ -261,4 +261,4 @@ Apartments AI supports multilingual user experiences through a robust internatio
 
 ## Summary
 
-Apartments AI is architected for multi-tenant SaaS, with strict tenant isolation, subdomain-based routing, and tenant-aware data access. The backend leverages DDD and modular monolith patterns with NestJS, while the frontend is a modern, modular React application with strong separation of concerns, component-driven development, and robust multi-tenancy support.
+HostElite is architected for multi-tenant SaaS, with strict tenant isolation, subdomain-based routing, and tenant-aware data access. The backend leverages DDD and modular monolith patterns with NestJS, while the frontend is a modern, modular React application with strong separation of concerns, component-driven development, and robust multi-tenancy support.

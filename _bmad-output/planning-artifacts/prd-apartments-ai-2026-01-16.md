@@ -1,8 +1,8 @@
-# Product Requirements Document (PRD): Apartments AI
+# Product Requirements Document (PRD): HostElite
 
 ## Project Overview
 
-Apartments AI is a multi-tenant platform enabling users to interact with an AI agent via a chat interface for apartment-related needs. Each tenant (property owner) manages multiple apartments/buildings, and clients provide apartment data to enhance agent responses. The system is designed for secure, scalable, and context-aware interactions.
+HostElite is a multi-tenant platform enabling users to interact with an AI agent via a chat interface for apartment-related needs. Each tenant (property owner) manages multiple apartments/buildings, and clients provide apartment data to enhance agent responses. The system is designed for secure, scalable, and context-aware interactions.
 
 ---
 

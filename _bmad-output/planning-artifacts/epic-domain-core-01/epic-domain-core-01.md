@@ -4,7 +4,7 @@ Status: not-started
 
 ## Description
 
-Align the domain layer of the core project with the Apartments AI product requirements and database migrations. This includes entities, value objects, domain events, and repository interfaces for all relevant modules (licenses, tenants, feedback, buildings, knowledge bases). Remove or refactor any domain logic that does not fit the product.
+Align the domain layer of the core project with the HostElite product requirements and database migrations. This includes entities, value objects, domain events, and repository interfaces for all relevant modules (licenses, tenants, feedback, buildings, knowledge bases). Remove or refactor any domain logic that does not fit the product.
 
 ## Acceptance Criteria
 

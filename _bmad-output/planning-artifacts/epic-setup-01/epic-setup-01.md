@@ -2,7 +2,7 @@
 
 ## Description
 
-Initial setup for Apartments AI, covering foundational frontend and backend requirements to enable further development.
+Initial setup for HostElite, covering foundational frontend and backend requirements to enable further development.
 
 ---
 

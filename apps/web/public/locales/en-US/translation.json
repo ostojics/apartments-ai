@@ -1,4 +1,8 @@
 {
+  "notFound": {
+    "title": "Page not found",
+    "goToStart": "Go back to start"
+  },
   "language": {
     "english": "English",
     "serbian": "Serbian (Latin)",
@@ -6,14 +10,14 @@
   },
   "languageSelection": {
     "title": "Choose your language",
-    "description": "Select the language you want to use throughout Apartments AI.",
+    "description": "Select the language you want to use throughout HostElite.",
     "continue": "Continue",
     "errors": {
       "selectionFailed": "Failed to select language. Please try again."
     }
   },
   "public": {
-    "greeting": "Welcome to Apartments AI",
+    "greeting": "Welcome to HostElite",
     "poweredBy": "Powered by",
     "welcomeDescription": "You're ready for the next step."
   },

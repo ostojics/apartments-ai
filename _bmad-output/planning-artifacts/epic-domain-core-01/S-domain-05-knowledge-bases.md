@@ -4,7 +4,7 @@ Status: not-started
 
 ## Description
 
-Implement the knowledge bases domain layer to match the Apartments AI product requirements and the CreateKnowledgeBases migration. Create the knowledge base entity, value objects (if needed), events, and repository interfaces following the conventions of the existing domain files.
+Implement the knowledge bases domain layer to match the HostElite product requirements and the CreateKnowledgeBases migration. Create the knowledge base entity, value objects (if needed), events, and repository interfaces following the conventions of the existing domain files.
 
 ## Acceptance Criteria
 
