@@ -27,8 +27,8 @@ function AppRouter() {
   const {data, isLoading, isError} = useTenantCheck();
   if (isLoading) {
     return (
-      <section className="flex flex-col justify-center items-center">
-        <Loader2 className="size-4 animate-spin text-primary" />
+      <section className="flex flex-col h-screen justify-center items-center">
+        <Loader2 className="size-8 animate-spin text-primary" />
       </section>
     );
   }
