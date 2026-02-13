@@ -4,7 +4,7 @@ Status: not-started
 
 ## Description
 
-Introduce a new entity and table for building information in the Apartments AI core domain. The new `building_information` table will store localized content for knowledge bases, supporting multiple languages per knowledge base. The entity and table will be named `BuildingInformation`. Remove the `information` field from the knowledge bases entity and table as part of this migration.
+Introduce a new entity and table for building information in the HostElite core domain. The new `building_information` table will store localized content for knowledge bases, supporting multiple languages per knowledge base. The entity and table will be named `BuildingInformation`. Remove the `information` field from the knowledge bases entity and table as part of this migration.
 
 ## Acceptance Criteria
 

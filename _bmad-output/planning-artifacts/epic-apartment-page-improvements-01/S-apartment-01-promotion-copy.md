@@ -6,7 +6,7 @@ Status: not-started
 
 Update the promotion tab copy on the apartment page to clearly communicate:
 
-- Promotions and special discounts are provided by the apartment provider/owner, not the Apartments AI product itself
+- Promotions and special discounts are provided by the apartment provider/owner, not the HostElite product itself
 - Guests can opt out or cancel receiving offers at any time
 - Copy should be brief, clear, and not take excessive space, but must explain the feature's purpose and opt-out option
 

@@ -1,4 +1,8 @@
 {
+  "notFound": {
+    "title": "Stranica nije pronađena",
+    "goToStart": "Vratite se na početak"
+  },
   "language": {
     "english": "Engleski",
     "serbian": "Srpski",
@@ -6,14 +10,14 @@
   },
   "languageSelection": {
     "title": "Izaberite svoj jezik",
-    "description": "Izaberite jezik koji želite da koristite u Apartments AI.",
+    "description": "Izaberite jezik koji želite da koristite na HostElite platformi.",
     "continue": "Nastavite",
     "errors": {
       "selectionFailed": "Izbor jezika nije uspeo. Molimo pokušajte ponovo."
     }
   },
   "public": {
-    "greeting": "Dobrodošli u Apartments AI",
+    "greeting": "Dobrodošli u HostElite",
     "poweredBy": "Pokreće",
     "welcomeDescription": "Spremni ste za sledeći korak."
   },
@@ -72,7 +76,7 @@
       "send": "Pošaljite",
       "note": "Odgovore generiše AI asistent. Za hitne potrebe kontaktirajte izdavanje.",
       "roles": {
-        "assistant": "Apartments AI",
+        "assistant": "HostElite",
         "user": "Vi"
       },
       "messages": {

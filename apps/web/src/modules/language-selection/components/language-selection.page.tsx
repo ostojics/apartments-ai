@@ -38,7 +38,7 @@ export function LanguageSelectionPage() {
       <Card className="w-full max-w-3xl">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">{t('languageSelection.title')}</CardTitle>
-          <CardDescription>{t('languageSelection.description')}</CardDescription>
+          <CardDescription className="text-balance">{t('languageSelection.description')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-8">
           <div className="grid gap-4 sm:grid-cols-2">
