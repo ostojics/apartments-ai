@@ -2,7 +2,7 @@ import eslint from '@eslint/js';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import baseConfig from '@apartments-ai/linting/base';
+import baseConfig from '@host-elite/linting/base';
 
 const defaultConfig = tseslint.config(
   eslint.configs.recommended,

@@ -1,4 +1,4 @@
-# Apartments-AI MVP: Core Public User Flow
+# host-elite MVP: Core Public User Flow
 
 ## Overview
 

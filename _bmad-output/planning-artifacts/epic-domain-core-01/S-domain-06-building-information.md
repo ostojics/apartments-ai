@@ -37,7 +37,7 @@ Introduce a new entity and table for building information in the Apartments AI c
 
 ### References
 
-- [prd-apartments-ai-2026-01-16.md](../prd-apartments-ai-2026-01-16.md)
+- [prd-host-elite-2026-01-16.md](../prd-host-elite-2026-01-16.md)
 - [naming-convention.md](../naming-convention.md)
 - Example domain files in `apps/core/src/modules/`
 

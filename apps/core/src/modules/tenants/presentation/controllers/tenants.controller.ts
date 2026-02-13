@@ -5,7 +5,7 @@ import {TenantGuard, TenantRequest} from 'src/common/guards/tenant.guard';
 import {TenantCheckQuery} from '../../application/queries/tenant-check.query';
 import {TenantCheckResult} from '../../application/handlers/tenant-check.query.handler';
 import {TenantCheckResponseSwaggerDTO} from '../dtos/tenant-check-response.swagger.dto';
-import {tenantCheckResponseSchema} from '@apartments-ai/contracts';
+import {tenantCheckResponseSchema} from '@host-elite/contracts';
 
 @ApiTags('Tenants')
 @Controller({path: 'tenants', version: '1'})

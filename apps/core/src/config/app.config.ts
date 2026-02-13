@@ -10,6 +10,7 @@ export interface AppConfig {
   resendApiKey: string;
   logLevel: string;
   appDomain: string;
+  appVersion: string;
 }
 
 export const AppConfigName = 'app';
@@ -29,6 +30,7 @@ export function getConfig(): AppConfig {
     // APP_DOMAIN: Main domain for subdomain matching (e.g., "apartments.ai")
     // Supports wildcard subdomain matching (*.apartments.ai)
     appDomain: process.env.APP_DOMAIN || '',
+    appVersion: process.env.APP_VERSION || '1.0.0',
   };
 }
 

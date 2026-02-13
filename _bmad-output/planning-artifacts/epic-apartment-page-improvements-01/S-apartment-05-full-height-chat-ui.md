@@ -32,7 +32,7 @@ Update the AI assistant chat UI on the apartment page so that the messages displ
 
 ### References
 
-- [prd-apartments-ai-2026-01-16.md](../prd-apartments-ai-2026-01-16.md)
+- [prd-host-elite-2026-01-16.md](../prd-host-elite-2026-01-16.md)
 - [naming-convention.md](../naming-convention.md)
 - Example chat UI in `apps/web/src/modules/apartments/components/apartment-chat-tab.tsx`
 

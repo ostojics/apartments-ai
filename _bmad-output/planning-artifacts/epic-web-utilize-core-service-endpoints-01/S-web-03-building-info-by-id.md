@@ -30,7 +30,7 @@ Integrate the get building info by ID endpoint to fetch and display detailed inf
 ### References
 
 - [ARCHITECTURE.md](../../ARCHITECTURE.md)
-- [prd-apartments-ai-2026-01-16.md](../../prd-apartments-ai-2026-01-16.md)
+- [prd-host-elite-2026-01-16.md](../../prd-host-elite-2026-01-16.md)
 - [naming-convention.md](../../naming-convention.md)
 
 ## Dev Agent Record

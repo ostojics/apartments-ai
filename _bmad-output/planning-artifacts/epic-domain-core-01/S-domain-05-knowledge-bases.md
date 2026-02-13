@@ -28,7 +28,7 @@ Implement the knowledge bases domain layer to match the Apartments AI product re
 
 ### References
 
-- [prd-apartments-ai-2026-01-16.md](../prd-apartments-ai-2026-01-16.md)
+- [prd-host-elite-2026-01-16.md](../prd-host-elite-2026-01-16.md)
 - [naming-convention.md](../naming-convention.md)
 - Example domain files in `apps/core/src/modules/licenses/domain/`
 

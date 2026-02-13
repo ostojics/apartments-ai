@@ -1,4 +1,4 @@
-import baseConfig from '@apartments-ai/linting/base';
+import baseConfig from '@host-elite/linting/base';
 
 /** @type {import("eslint").Linter.Config} */
 export default [...baseConfig];

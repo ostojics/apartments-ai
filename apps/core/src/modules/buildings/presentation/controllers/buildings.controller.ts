@@ -21,7 +21,7 @@ import {BuildingInformationResult} from 'src/modules/building-information/applic
 import {BuildingChatRequestDataSwaggerDTO} from '../dtos/building.chat.swagger.dto';
 import {ChatCommand} from '../../application/commands/chat.command';
 import type {StreamChunk} from '@tanstack/ai';
-import {buildingInformationResponseSchema, buildingsResponseSchema} from '@apartments-ai/contracts';
+import {buildingInformationResponseSchema, buildingsResponseSchema} from '@host-elite/contracts';
 import {BuildingsResponseSwaggerDTO} from 'src/modules/buildings/presentation/dtos/buildings-response.swagger.dto';
 import {BuildingsQuery} from '../../application/queries/buildings.query';
 import {BuildingSummary} from '../../application/handlers/buildings.query.handler';

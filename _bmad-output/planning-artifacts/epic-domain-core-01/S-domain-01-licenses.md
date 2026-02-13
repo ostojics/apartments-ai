@@ -29,7 +29,7 @@ Refactor the licenses domain layer to match the Apartments AI product requiremen
 
 ### References
 
-- [prd-apartments-ai-2026-01-16.md](../prd-apartments-ai-2026-01-16.md)
+- [prd-host-elite-2026-01-16.md](../prd-host-elite-2026-01-16.md)
 - [naming-convention.md](../naming-convention.md)
 - Example domain files in `apps/core/src/modules/licenses/domain/`
 

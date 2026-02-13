@@ -5,21 +5,20 @@ import {AppConfigName} from 'src/config/app.config';
 import {GlobalConfig} from '../../config/config.interface';
 
 const SWAGGER_PATH = 'swagger';
-const APP_NAME = 'Apartments AI API';
-const APP_VERSION = '1.0.0';
-const APP_DESCRIPTION = 'Apartments AI API description';
+const APP_NAME = 'HostElite API';
+const APP_DESCRIPTION = 'HostElite API description';
 
 function setupSwagger(app: INestApplication): OpenAPIObject {
   const configService = app.get(ConfigService<GlobalConfig>);
 
-  const {url} = configService.getOrThrow(AppConfigName, {
+  const {url, appVersion} = configService.getOrThrow(AppConfigName, {
     infer: true,
   });
 
   const config = new DocumentBuilder()
     .setTitle(APP_NAME)
     .setDescription(APP_DESCRIPTION)
-    .setVersion(APP_VERSION)
+    .setVersion(appVersion)
     .addBearerAuth()
     .addServer(url)
     .build();

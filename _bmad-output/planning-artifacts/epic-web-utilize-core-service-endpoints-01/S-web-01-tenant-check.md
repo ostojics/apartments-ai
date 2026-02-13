@@ -35,7 +35,7 @@ Integrate the tenant check endpoint into the web application to validate the use
 ### References
 
 - [ARCHITECTURE.md](../../ARCHITECTURE.md)
-- [prd-apartments-ai-2026-01-16.md](../../prd-apartments-ai-2026-01-16.md)
+- [prd-host-elite-2026-01-16.md](../../prd-host-elite-2026-01-16.md)
 - [naming-convention.md](../../naming-convention.md)
 
 ## Dev Agent Record

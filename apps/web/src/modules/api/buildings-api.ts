@@ -1,4 +1,4 @@
-import type {BuildingInformationResponseDTO, BuildingsResponseDTO} from '@apartments-ai/contracts';
+import type {BuildingInformationResponseDTO, BuildingsResponseDTO} from '@host-elite/contracts';
 import httpClient from './http-client';
 
 export const getBuildingInfo = (slug: string) => {
