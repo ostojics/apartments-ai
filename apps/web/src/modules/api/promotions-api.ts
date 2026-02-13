@@ -6,5 +6,5 @@ export interface PromotionsRequestResponse {
 }
 
 export const submitPromotionsRequest = (dto: PromotionsRequestDTO) => {
-  return httpClient.post('v1/apartments/promotions', {json: dto}).json<PromotionsRequestResponse>();
+  return httpClient.post('v1/promotions', {json: dto}).json<PromotionsRequestResponse>();
 };
