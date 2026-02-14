@@ -76,7 +76,7 @@
       "send": "Pošaljite",
       "note": "Odgovore generiše AI asistent. Za hitne potrebe kontaktirajte izdavanje.",
       "roles": {
-        "assistant": "HostElite",
+        "assistant": "HostElite AI",
         "user": "Vi"
       },
       "messages": {
