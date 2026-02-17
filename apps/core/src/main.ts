@@ -9,7 +9,6 @@ import {AppConfig, AppConfigName} from './config/app.config';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import setupSwagger from './libs/swagger/setup.swagger';
-import {GlobalExceptionFilter} from './common/filters/global-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {bufferLogs: true});
@@ -25,7 +24,6 @@ async function bootstrap() {
   app.useBodyParser('json', {limit: '10mb'});
   app.use(helmet());
   app.use(cookieParser());
-  app.useGlobalFilters(new GlobalExceptionFilter());
   setupSwagger(app);
 
   app.enableCors({

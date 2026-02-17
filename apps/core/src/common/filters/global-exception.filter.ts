@@ -1,4 +1,4 @@
-import {ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus, Logger} from '@nestjs/common';
+import {ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus, Logger, Inject} from '@nestjs/common';
 import {Response, Request} from 'express';
 import {
   DomainException,
@@ -8,10 +8,17 @@ import {
 } from 'src/libs/domain/exceptions/exception.base';
 import {ExceptionResponse} from '@host-elite/contracts';
 import {ZodException} from 'src/libs/exceptions/zod.exception';
+import {IAnalyticsService} from 'src/modules/shared/application/analytics/analytics.interface';
+import {ANALYTICS_SERVICE} from 'src/modules/shared/application/analytics/di-tokens';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(GlobalExceptionFilter.name);
+
+  constructor(
+    @Inject(ANALYTICS_SERVICE)
+    private readonly analytics: IAnalyticsService,
+  ) {}
 
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
@@ -28,6 +35,15 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       code = exception.code;
       message = exception.message;
       metadata = exception.metadata ?? {};
+
+      this.analytics.captureException(exception, 'domain-exception', {
+        status,
+        code,
+        message,
+        ...metadata,
+        path: request.url,
+        method: request.method,
+      });
     } else if (exception instanceof ZodException) {
       status = HttpStatus.BAD_REQUEST;
       code = 'VALIDATION_ERROR';
@@ -35,6 +51,12 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       metadata = {
         errors: exception.errors.map((err) => ({path: err.path, message: err.message})),
       };
+
+      this.analytics.captureException(exception, 'validation-error', {
+        status,
+        message,
+        ...metadata,
+      });
     } else if (exception instanceof HttpException) {
       status = exception.getStatus();
       const nestResponse = exception.getResponse();
@@ -44,10 +66,26 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       } else if (typeof nestResponse === 'string') {
         message = nestResponse;
       }
+
+      this.analytics.captureException(exception, 'http-error', {
+        status,
+        message,
+        path: request.url,
+        method: request.method,
+      });
     }
     // 4. Log unexpected system errors
     else {
       const errorMessage = exception instanceof Error ? (exception.stack ?? exception.message) : String(exception);
+      this.analytics.captureException(
+        exception instanceof Error ? exception : new Error(errorMessage),
+        'global-exception-filter',
+        {
+          path: request.url,
+          method: request.method,
+          timestamp: new Date().toISOString(),
+        },
+      );
       this.logger.error(`Unhandled Exception: ${errorMessage}`);
     }
 
