@@ -23,4 +23,19 @@ export default defineConfig((env) => ({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes('node_modules')) {
+            return;
+          }
+
+          if (id.includes('posthog-js') || id.includes('@posthog/react')) {
+            return 'vendor-posthog';
+          }
+        },
+      },
+    },
+  },
 }));
