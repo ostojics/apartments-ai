@@ -16,6 +16,8 @@ import {TanStackDevtools} from '@tanstack/react-devtools';
 import {aiDevtoolsPlugin} from '@tanstack/react-ai-devtools';
 import {useTenantCheck} from './modules/tenants/hooks/use-tenant-check';
 import {Loader2} from 'lucide-react';
+import {PostHogProvider} from '@posthog/react';
+import {POSTHOG_API_KEY, posthogConfig} from './common/constants/posthog';
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -60,30 +62,32 @@ void enableMocking().then(() => {
   createRoot(rootElement).render(
     <StrictMode>
       <AppErrorBoundary>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
-            <AppRouter />
-            <Toaster
-              position="bottom-right"
-              toastOptions={{
-                classNames: {
-                  toast: 'app-toast',
-                },
-              }}
-            />
-            {import.meta.env.DEV && (
-              <>
-                <ReactQueryDevtools initialIsOpen={false} />
-                <TanStackDevtools
-                  plugins={[aiDevtoolsPlugin()]}
-                  eventBusConfig={{
-                    connectToServerBus: true,
-                  }}
-                />
-              </>
-            )}
-          </ThemeProvider>
-        </QueryClientProvider>
+        <PostHogProvider apiKey={POSTHOG_API_KEY} options={posthogConfig}>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
+              <AppRouter />
+              <Toaster
+                position="bottom-right"
+                toastOptions={{
+                  classNames: {
+                    toast: 'app-toast',
+                  },
+                }}
+              />
+              {import.meta.env.DEV && (
+                <>
+                  <ReactQueryDevtools initialIsOpen={false} />
+                  <TanStackDevtools
+                    plugins={[aiDevtoolsPlugin()]}
+                    eventBusConfig={{
+                      connectToServerBus: true,
+                    }}
+                  />
+                </>
+              )}
+            </ThemeProvider>
+          </QueryClientProvider>
+        </PostHogProvider>
       </AppErrorBoundary>
     </StrictMode>,
   );

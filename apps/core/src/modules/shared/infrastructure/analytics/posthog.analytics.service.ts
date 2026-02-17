@@ -34,7 +34,7 @@ export class PostHogAnalyticsService implements IAnalyticsService {
       this.client.capture({
         distinctId: params.distinctId,
         event: params.event,
-        properties: params.properties ?? {},
+        properties: {...params.properties, timestamp: new Date().toISOString()},
       });
     } catch (error) {
       this.logger.error('Failed to capture analytics event', error);
@@ -53,6 +53,7 @@ export class PostHogAnalyticsService implements IAnalyticsService {
           exception_type: error.name,
           exception_stack: error.stack,
           ...metadata,
+          timestamp: new Date().toISOString(),
         },
       });
     } catch (err) {
