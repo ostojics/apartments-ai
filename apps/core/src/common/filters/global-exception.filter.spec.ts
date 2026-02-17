@@ -7,6 +7,7 @@ import {
   UnauthorizedDomainException,
 } from 'src/libs/domain/exceptions/exception.base';
 import {ZodException} from 'src/libs/exceptions/zod.exception';
+import {IAnalyticsService} from 'src/modules/shared/application/analytics/analytics.interface';
 
 interface MockResponse {
   status: jest.Mock;
@@ -15,6 +16,7 @@ interface MockResponse {
 
 interface MockRequest {
   url: string;
+  method: string;
 }
 
 describe('GlobalExceptionFilter', () => {
@@ -22,15 +24,23 @@ describe('GlobalExceptionFilter', () => {
   let mockResponse: MockResponse;
   let mockRequest: MockRequest;
   let mockHost: ArgumentsHost;
+  let mockAnalytics: jest.Mocked<IAnalyticsService>;
 
   beforeEach(() => {
-    filter = new GlobalExceptionFilter();
+    mockAnalytics = {
+      captureEvent: jest.fn(),
+      captureException: jest.fn(),
+      shutdown: jest.fn().mockResolvedValue(undefined),
+    };
+
+    filter = new GlobalExceptionFilter(mockAnalytics);
     mockResponse = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn().mockReturnThis(),
     };
     mockRequest = {
       url: '/test-path',
+      method: 'GET',
     };
 
     mockHost = {
