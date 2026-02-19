@@ -18,7 +18,7 @@ export class TanstackOpenAILLMService implements ILLMService {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const stream: Promise<AsyncIterable<any>> = chat({
-      adapter: openaiText('gpt-5-nano'),
+      adapter: openaiText('gpt-4.1-nano'),
       messages: props.messages,
       conversationId: props.conversationId,
       systemPrompts: props.systemPrompts,
