@@ -26,8 +26,8 @@ import {posthogConfig} from 'src/config/posthog.config';
 import {throttlerConfig, throttlerFactory} from 'src/config/throttler.config';
 import {EventEmitterModule} from '@nestjs/event-emitter';
 import {LLM_SERVICE} from './application/llm/di-tokens';
-import {TanstackGeminiLLMService} from './infrastructure/llm/tanstack.gemini.llm.service';
 import {HealthCheckController} from './presentation/healthcheck/healthcheck.controller';
+import {TanstackOpenAILLMService} from './infrastructure/llm/tanstack.openai.llm.service';
 
 @Global()
 @Module({
@@ -90,7 +90,7 @@ import {HealthCheckController} from './presentation/healthcheck/healthcheck.cont
     {provide: LOGGER, useClass: PinoLoggerAdapter},
     {provide: EMAIL_SERVICE, useClass: ResendEmailService},
     {provide: DOMAIN_EVENT_DISPATCHER, useClass: NestEventEmitterDomainEventDispatcher},
-    {provide: LLM_SERVICE, useClass: TanstackGeminiLLMService},
+    {provide: LLM_SERVICE, useClass: TanstackOpenAILLMService},
   ],
   exports: [
     ANALYTICS_SERVICE,
