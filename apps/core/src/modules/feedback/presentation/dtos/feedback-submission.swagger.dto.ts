@@ -11,7 +11,7 @@ export class FeedbackSubmissionSwaggerDTO {
 
   @ApiProperty({
     description: 'Feedback message content',
-    example: 'The apartment details page is very helpful, thank you.',
+    example: 'The app is easy to use and fast.',
   })
   message: string;
 }

@@ -13,6 +13,7 @@ import {BuildingOrmEntity} from 'src/modules/buildings/infrastructure/persistenc
 import {KnowledgeBaseOrmEntity} from 'src/modules/knowledge-bases/infrastructure/persistence/knowledge-base.entity';
 import {BuildingInformationOrmEntity} from 'src/modules/building-information/infrastructure/persistence/building-information.entity';
 import {ContactOrmEntity} from 'src/modules/contacts/infrastructure/persistence/contact.entity';
+import {AddTenantIdToFeedback1758657000600} from 'src/migrations/1758657000600-AddTenantIdToFeedback';
 
 export const DatabaseConfigName = 'database';
 
@@ -44,6 +45,7 @@ export function getConfig(): DatabaseConfig {
       CreateKnowledgeBases1758657000400,
       CreateBuildingInformation1758657000450,
       CreateContacts1758657000500,
+      AddTenantIdToFeedback1758657000600,
     ],
     migrationsRun: true,
     extra: {

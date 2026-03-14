@@ -52,6 +52,7 @@ describe('FeedbackHandler', () => {
     expect(runInTransaction).toHaveBeenCalledTimes(1);
     expect(save).toHaveBeenCalledTimes(1);
     const [createdFeedback] = save.mock.calls[0] as [FeedbackEntity];
+    expect(createdFeedback.tenantId).toBe('tenant-123');
     expect(createdFeedback.content).toBe('Great experience!');
     expect(createdFeedback.metadata).toEqual({rating: 5, source: 'web'});
     expect(dispatch).toHaveBeenCalledWith(createdFeedback);

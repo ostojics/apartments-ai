@@ -27,7 +27,7 @@
   "feedback": {
     "button": "Feedback",
     "title": "Share feedback",
-    "description": "Tell us what we can improve.",
+    "description": "Tell us what would make HostElite better.",
     "form": {
       "emailLabel": "Email (optional)",
       "emailPlaceholder": "john@example.com",
@@ -44,9 +44,7 @@
     "errors": {
       "emailInvalid": "Enter a valid email address.",
       "messageRequired": "Feedback message is required.",
-      "messageTooLong": "Feedback message must be 5000 characters or fewer.",
-      "pageRequired": "Page path is required.",
-      "timestampInvalid": "Invalid timestamp. Please try again."
+      "messageTooLong": "Feedback message must be 1000 characters or fewer."
     }
   },
   "apartments": {

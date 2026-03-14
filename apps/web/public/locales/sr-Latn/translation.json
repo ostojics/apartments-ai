@@ -27,7 +27,7 @@
   "feedback": {
     "button": "Povratna informacija",
     "title": "Podelite utisak",
-    "description": "Recite nam šta možemo da unapredimo.",
+    "description": "Recite nam šta bi HostElite učinilo boljim.",
     "form": {
       "emailLabel": "E-pošta (opciono)",
       "emailPlaceholder": "marko@gmail.com",
@@ -44,9 +44,7 @@
     "errors": {
       "emailInvalid": "Unesite važeću adresu e-pošte.",
       "messageRequired": "Poruka je obavezna.",
-      "messageTooLong": "Poruka mora imati najviše 5000 karaktera.",
-      "pageRequired": "Putanja stranice je obavezna.",
-      "timestampInvalid": "Nevažeća vremenska oznaka. Pokušajte ponovo."
+      "messageTooLong": "Poruka može imati najviše 1000 karaktera."
     }
   },
   "apartments": {

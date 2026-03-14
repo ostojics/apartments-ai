@@ -18,6 +18,7 @@ import {FormError} from '@/components/form-error';
 
 import {useFeedbackForm} from '../hooks/use-feedback-form';
 import {useFeedbackMutation} from '../hooks/use-feedback-mutation';
+import {useEffect} from 'react';
 
 interface FeedbackDialogProps {
   open: boolean;
@@ -49,8 +50,13 @@ export function FeedbackDialog({open, onOpenChange}: FeedbackDialogProps) {
 
   const handleClose = () => {
     onOpenChange(false);
-    form.reset();
   };
+
+  useEffect(() => {
+    if (!open) {
+      form.reset();
+    }
+  }, [open, form]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

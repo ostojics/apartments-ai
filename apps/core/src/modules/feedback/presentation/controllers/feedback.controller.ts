@@ -46,7 +46,6 @@ export class FeedbackController {
       tenantId: req.tenant.id,
       feedbackMetadata: {
         email: body.email ?? null,
-        submittedAt: new Date().toISOString(),
         locale: req.userContext.locale,
       },
     });

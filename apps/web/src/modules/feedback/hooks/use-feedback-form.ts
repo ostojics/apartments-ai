@@ -8,7 +8,6 @@ export const useFeedbackForm = () => {
   return useForm<FeedbackSubmissionDTO>({
     resolver: createZodResolver<FeedbackSubmissionDTO>(feedbackSubmissionSchema),
     defaultValues: {
-      email: '',
       message: '',
     },
   });

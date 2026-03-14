@@ -24,6 +24,7 @@ export class FeedbackHandler implements ICommandHandler<FeedbackCommand> {
 
   async execute(command: FeedbackCommand): Promise<void> {
     const feedback = FeedbackEntity.create({
+      tenantId: command.tenantId,
       content: command.content,
       metadata: command.feedbackMetadata,
     });
