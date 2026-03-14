@@ -16,3 +16,24 @@ notes: |
     - Architecture file created in planning artifacts.
 
   Project is ready to proceed to detailed implementation planning and actionable artifacts for the public chat MVP and multi-tenant features.
+
+# Generated workflow-status metadata (created by workflow-init)
+generated: 2026-03-05
+project: host-elite
+project_type: product
+selected_track: bmad-method
+field_type: greenfield
+workflow_path: _bmad/bmm/workflows/workflow-status/paths/method-greenfield.yaml
+
+# Initial workflow_status: use the template semantics (required/optional/conditional)
+workflow_status:
+  brainstorm-project: optional
+  research: optional
+  product-brief: optional
+  prd: required
+  create-ux-design: conditional
+  create-architecture: required
+  create-epics-and-stories: required
+  test-design: optional
+  implementation-readiness: required
+  sprint-planning: required

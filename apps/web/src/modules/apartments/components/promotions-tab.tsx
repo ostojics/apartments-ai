@@ -8,9 +8,9 @@ import {Input} from '@/components/ui/input';
 import {Spinner} from '@/components/ui/spinner';
 import {usePromotionsMutation} from '@/modules/apartments/hooks/use-promotions-mutation';
 
-import {FormError} from './form-error';
 import {usePromotionsForm} from '../hooks/use-promotions.form';
 import {DEFAULT_LANGUAGE} from '@/modules/i18n/constants/i18n';
+import {FormError} from '@/components/form-error';
 
 export default function PromotionsTab() {
   const {t, i18n} = useTranslation();

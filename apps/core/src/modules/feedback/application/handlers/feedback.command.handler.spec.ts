@@ -43,6 +43,7 @@ describe('FeedbackHandler', () => {
 
     await handler.execute(
       new FeedbackCommand({
+        tenantId: 'tenant-123',
         content: 'Great experience!',
         feedbackMetadata: {rating: 5, source: 'web'},
       }),
