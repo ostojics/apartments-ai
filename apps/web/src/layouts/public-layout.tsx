@@ -21,7 +21,7 @@ export function PublicLayout({children}: PublicLayoutProps) {
 
   return (
     <section className="min-h-screen bg-secondary flex flex-col">
-      <header className="p-4 grid grid-cols-3 gap-2 items-center">
+      <header className="p-4 flex gap-10 items-center justify-center">
         <Button variant="outline" size="icon" className="rounded-lg justify-self-start" onClick={handleHomeClick}>
           <HomeIcon />
           <span className="sr-only">{t('layout.home')}</span>

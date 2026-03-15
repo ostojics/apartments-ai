@@ -27,7 +27,7 @@
   "feedback": {
     "button": "Povratna informacija",
     "title": "Podelite utisak",
-    "description": "Recite nam šta bi HostElite učinilo boljim.",
+    "description": "Recite nam šta bi HostElite učinilo boljim",
     "form": {
       "emailLabel": "E-pošta (opciono)",
       "emailPlaceholder": "marko@gmail.com",

@@ -27,7 +27,7 @@
   "feedback": {
     "button": "Feedback",
     "title": "Share feedback",
-    "description": "Tell us what would make HostElite better.",
+    "description": "Tell us what would make HostElite better",
     "form": {
       "emailLabel": "Email (optional)",
       "emailPlaceholder": "john@example.com",
