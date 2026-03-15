@@ -21,6 +21,32 @@
     "poweredBy": "Powered by",
     "welcomeDescription": "You're ready for the next step."
   },
+  "layout": {
+    "home": "Language selection"
+  },
+  "feedback": {
+    "button": "Feedback",
+    "title": "Share feedback",
+    "description": "Tell us what would make HostElite better",
+    "form": {
+      "emailLabel": "Email (optional)",
+      "emailPlaceholder": "john@example.com",
+      "messageLabel": "Your feedback",
+      "messagePlaceholder": "Write your feedback here...",
+      "characterCounter": "{{count}} / {{max}}",
+      "submit": "Send feedback",
+      "cancel": "Cancel"
+    },
+    "toasts": {
+      "success": "Thanks! Your feedback has been sent.",
+      "error": "We couldn't send your feedback. Please try again."
+    },
+    "errors": {
+      "emailInvalid": "Enter a valid email address.",
+      "messageRequired": "Feedback message is required.",
+      "messageTooLong": "Feedback message must be 1000 characters or fewer."
+    }
+  },
   "apartments": {
     "title": "Select your apartment",
     "subtitle": "Apartment selection",

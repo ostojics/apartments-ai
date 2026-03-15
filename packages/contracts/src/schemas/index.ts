@@ -4,4 +4,5 @@ export * from './apartments';
 export * from './tenants';
 export * from './buildings';
 export * from './promotions';
+export * from './feedback';
 export * from './exceptions';

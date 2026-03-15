@@ -123,13 +123,27 @@ describe('GlobalExceptionFilter', () => {
         code: 'invalid_type',
         expected: 'string',
         path: ['email'],
-        message: 'Expected string, received number',
+        message: 'feedback.errors.emailInvalid',
       },
     ]);
 
     filter.catch(zodError, mockHost);
 
     expect(mockResponse.status).toHaveBeenCalledWith(HttpStatus.BAD_REQUEST);
+    expect(mockResponse.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        code: 'VALIDATION_ERROR',
+        message: 'Request validation failed',
+        metadata: {
+          errors: [
+            {
+              path: ['email'],
+              message: 'feedback.errors.emailInvalid',
+            },
+          ],
+        },
+      }),
+    );
   });
 
   it('should handle HttpException correctly', () => {

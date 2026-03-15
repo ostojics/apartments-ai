@@ -21,6 +21,32 @@
     "poweredBy": "Pokreće",
     "welcomeDescription": "Spremni ste za sledeći korak."
   },
+  "layout": {
+    "home": "Izbor jezika"
+  },
+  "feedback": {
+    "button": "Povratna informacija",
+    "title": "Podelite utisak",
+    "description": "Recite nam šta bi HostElite učinilo boljim",
+    "form": {
+      "emailLabel": "E-pošta (opciono)",
+      "emailPlaceholder": "marko@gmail.com",
+      "messageLabel": "Vaša poruka",
+      "messagePlaceholder": "Napišite povratnu informaciju...",
+      "characterCounter": "{{count}} / {{max}}",
+      "submit": "Pošalji",
+      "cancel": "Otkaži"
+    },
+    "toasts": {
+      "success": "Hvala! Vaša poruka je poslata.",
+      "error": "Ne možemo da pošaljemo poruku. Molimo pokušajte ponovo."
+    },
+    "errors": {
+      "emailInvalid": "Unesite važeću adresu e-pošte.",
+      "messageRequired": "Poruka je obavezna.",
+      "messageTooLong": "Poruka može imati najviše 1000 karaktera."
+    }
+  },
   "apartments": {
     "title": "Izaberite svoj apartman",
     "subtitle": "Izbor apartmana",

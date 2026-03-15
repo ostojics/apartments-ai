@@ -5,6 +5,7 @@ export class FeedbackMapper {
   static toDomain(ormEntity: FeedbackOrmEntity): FeedbackEntity {
     return FeedbackEntity.create({
       id: ormEntity.id,
+      tenantId: ormEntity.tenantId,
       content: ormEntity.content,
       metadata: ormEntity.metadata,
       createdAt: ormEntity.createdAt.toISOString(),
@@ -14,6 +15,7 @@ export class FeedbackMapper {
   static toPersistence(domainEntity: FeedbackEntity): FeedbackOrmEntity {
     const ormEntity = new FeedbackOrmEntity();
     ormEntity.id = domainEntity.id;
+    ormEntity.tenantId = domainEntity.tenantId;
     ormEntity.content = domainEntity.content;
     ormEntity.metadata = domainEntity.metadata;
     ormEntity.createdAt = new Date(domainEntity.createdAt);
