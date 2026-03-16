@@ -1,14 +1,14 @@
-import {createZodResolver} from '@/lib/utils/zod-resolver';
+import {zodResolver} from '@hookform/resolvers/zod';
 import {PromotionsRequestDTO, promotionsRequestSchema} from '@host-elite/contracts';
 import {useForm} from 'react-hook-form';
 
-interface usePromotionsFormProps {
+interface UsePromotionsFormProps {
   preferredLanguage: string;
 }
 
-export const usePromotionsForm = ({preferredLanguage}: usePromotionsFormProps) => {
+export const usePromotionsForm = ({preferredLanguage}: UsePromotionsFormProps) => {
   return useForm<PromotionsRequestDTO>({
-    resolver: createZodResolver<PromotionsRequestDTO>(promotionsRequestSchema),
+    resolver: zodResolver(promotionsRequestSchema),
     defaultValues: {
       name: '',
       email: '',

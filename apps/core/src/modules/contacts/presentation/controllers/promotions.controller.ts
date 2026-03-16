@@ -5,7 +5,7 @@ import {TenantGuard, TenantRequest} from 'src/common/guards/tenant.guard';
 import {PromotionOptInCommand} from '../../application/commands/promotion-opt-in.command';
 import {PromotionSubmissionSwaggerDTO} from '../dtos/promotion-submission.swagger.dto';
 import {ZodValidationPipe} from 'src/libs/pipes/zod.validation.pipe';
-import {promotionSubmissionSchema} from '@host-elite/contracts';
+import {PromotionsRequestDTO, promotionsRequestSchema} from '@host-elite/contracts';
 
 @ApiTags('Promotions')
 @Controller({path: 'promotions', version: '1'})
@@ -29,12 +29,12 @@ export class PromotionsController {
     status: 400,
     description: 'Invalid request body',
   })
-  @UsePipes(new ZodValidationPipe(promotionSubmissionSchema))
-  async submitPromotion(@Body() body: PromotionSubmissionSwaggerDTO, @Req() req: TenantRequest): Promise<void> {
+  @UsePipes(new ZodValidationPipe(promotionsRequestSchema))
+  async submitPromotion(@Body() body: PromotionsRequestDTO, @Req() req: TenantRequest): Promise<void> {
     const command = new PromotionOptInCommand({
       name: body.name,
       email: body.email,
-      phoneNumber: body.phoneNumber,
+      phoneNumber: body.phone,
       preferredLanguage: body.preferredLanguage,
       tenantId: req.tenant.id,
     });
