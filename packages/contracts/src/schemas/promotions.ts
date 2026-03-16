@@ -1,11 +1,24 @@
 import {z} from 'zod/v4';
 
-// Promotion submission endpoint
-export const promotionSubmissionSchema = z.object({
-  name: z.string('Name is required').min(1, 'Name is required'),
-  email: z.email('Invalid email address'),
-  phoneNumber: z.string('Invalid phone number').optional().nullable(),
-  preferredLanguage: z.string().min(1, 'Preferred language is required'),
+const phoneRegex = /^[+]?[\d\s().-]{7,}$/;
+
+export const promotionsRequestSchema = z.object({
+  name: z.string('apartment.promotions.errors.nameRequired').trim().min(1, 'apartment.promotions.errors.nameRequired'),
+  email: z.email('apartment.promotions.errors.emailInvalid').trim().min(1, 'apartment.promotions.errors.emailRequired'),
+  phone: z
+    .string('apartment.promotions.errors.phoneInvalid')
+    .trim()
+    .optional()
+    .or(z.literal(''))
+    .refine((value) => !value || phoneRegex.test(value), {
+      message: 'apartment.promotions.errors.phoneInvalid',
+    }),
+  preferredLanguage: z
+    .string('apartment.promotions.errors.languageInvalid')
+    .trim()
+    .regex(/^[a-z]{2,3}(?:-[A-Z][a-z]{3})?(?:-[A-Z]{2}|-[0-9]{3})?$/, {
+      message: 'apartment.promotions.errors.languageInvalid',
+    }),
 });
 
-export type PromotionSubmissionDTO = z.infer<typeof promotionSubmissionSchema>;
+export type PromotionsRequestDTO = z.infer<typeof promotionsRequestSchema>;
