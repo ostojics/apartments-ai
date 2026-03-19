@@ -1,23 +1,16 @@
-import {Injectable} from '@nestjs/common';
-import {DataSource, Repository} from 'typeorm';
+import {Inject, Injectable} from '@nestjs/common';
+import {DataSource} from 'typeorm';
 import {ILicenseRepository} from '../../domain/repositories/license.repository.interface';
 import {LicenseEntity} from '../../domain/license.entity';
 import {LicenseOrmEntity} from './license.entity';
 import {LicenseMapper} from './license.mapper';
-import {TypeOrmUnitOfWork} from 'src/libs/infrastructure/persistence/typeorm-unit-of-work';
+import {TypeOrmBaseRepository} from 'src/libs/infrastructure/persistence/typeorm-base.repository';
+import {ITransactionContext, TRANSACTION_CONTEXT} from 'src/libs/application/ports/transaction-context.port';
 
 @Injectable()
-export class TypeOrmLicenseRepository implements ILicenseRepository {
-  constructor(private readonly dataSource: DataSource) {}
-
-  /**
-   * Gets the repository using the transaction manager from ALS if available,
-   * otherwise falls back to the base dataSource manager.
-   */
-  private get repository(): Repository<LicenseOrmEntity> {
-    const manager = TypeOrmUnitOfWork.getManager();
-    const target = manager ?? this.dataSource.manager;
-    return target.getRepository(LicenseOrmEntity);
+export class TypeOrmLicenseRepository extends TypeOrmBaseRepository<LicenseOrmEntity> implements ILicenseRepository {
+  constructor(dataSource: DataSource, @Inject(TRANSACTION_CONTEXT) transactionContext: ITransactionContext) {
+    super(dataSource, LicenseOrmEntity, transactionContext);
   }
 
   async save(license: LicenseEntity): Promise<void> {

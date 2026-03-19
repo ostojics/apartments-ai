@@ -12,10 +12,10 @@ export class EventEmitter2DomainEventDispatcher {
     private readonly logger: ILoggerPort,
   ) {}
 
-  dispatch(entity: BaseEntity): void {
+  async dispatch(entity: BaseEntity): Promise<void> {
     const events = entity.getEvents();
 
-    void Promise.all(
+    await Promise.all(
       events.map((event) => {
         const eventName = event.constructor.name;
         this.logger.info(`Dispatching domain event: ${eventName}`, {

@@ -7,7 +7,9 @@ import {ConfigModule, ConfigService} from '@nestjs/config';
 import {JwtModule} from '@nestjs/jwt';
 import {appConfig, AppConfig, AppConfigName} from 'src/config/app.config';
 import {UNIT_OF_WORK} from 'src/libs/application/ports/unit-of-work.port';
+import {TRANSACTION_CONTEXT} from 'src/libs/application/ports/transaction-context.port';
 import {TypeOrmUnitOfWork} from 'src/libs/infrastructure/persistence/typeorm-unit-of-work';
+import {TypeOrmTransactionContext} from 'src/libs/infrastructure/persistence/typeorm-transaction-context';
 import {HASHING_SERVICE} from './application/hashing/hashing.interface';
 import {Argon2HashingService} from './infrastructure/hashing/argon2-hashing.service';
 import {GlobalConfig} from 'src/config/config.interface';
@@ -85,6 +87,7 @@ import {TanstackOpenAILLMService} from './infrastructure/llm/tanstack.openai.llm
   providers: [
     {provide: ANALYTICS_SERVICE, useClass: PostHogAnalyticsService},
     {provide: JWT_SERVICE, useClass: NestJsJwtService},
+    {provide: TRANSACTION_CONTEXT, useClass: TypeOrmTransactionContext},
     {provide: UNIT_OF_WORK, useClass: TypeOrmUnitOfWork},
     {provide: HASHING_SERVICE, useClass: Argon2HashingService},
     {provide: LOGGER, useClass: PinoLoggerAdapter},
@@ -95,6 +98,7 @@ import {TanstackOpenAILLMService} from './infrastructure/llm/tanstack.openai.llm
   exports: [
     ANALYTICS_SERVICE,
     JWT_SERVICE,
+    TRANSACTION_CONTEXT,
     UNIT_OF_WORK,
     HASHING_SERVICE,
     LOGGER,

@@ -1,23 +1,16 @@
-import {Injectable} from '@nestjs/common';
-import {DataSource, Repository} from 'typeorm';
+import {Inject, Injectable} from '@nestjs/common';
+import {DataSource} from 'typeorm';
 import {IBuildingRepository} from '../../domain/repositories/building.repository.interface';
 import {BuildingEntity} from '../../domain/building.entity';
 import {BuildingOrmEntity} from './building.entity';
 import {BuildingMapper} from '../mappers/building.mapper';
-import {TypeOrmUnitOfWork} from 'src/libs/infrastructure/persistence/typeorm-unit-of-work';
+import {TypeOrmBaseRepository} from 'src/libs/infrastructure/persistence/typeorm-base.repository';
+import {ITransactionContext, TRANSACTION_CONTEXT} from 'src/libs/application/ports/transaction-context.port';
 
 @Injectable()
-export class TypeOrmBuildingRepository implements IBuildingRepository {
-  constructor(private readonly dataSource: DataSource) {}
-
-  /**
-   * Gets the repository using the transaction manager from ALS if available,
-   * otherwise falls back to the base dataSource manager.
-   */
-  private get repository(): Repository<BuildingOrmEntity> {
-    const manager = TypeOrmUnitOfWork.getManager();
-    const target = manager ?? this.dataSource.manager;
-    return target.getRepository(BuildingOrmEntity);
+export class TypeOrmBuildingRepository extends TypeOrmBaseRepository<BuildingOrmEntity> implements IBuildingRepository {
+  constructor(dataSource: DataSource, @Inject(TRANSACTION_CONTEXT) transactionContext: ITransactionContext) {
+    super(dataSource, BuildingOrmEntity, transactionContext);
   }
 
   async save(building: BuildingEntity): Promise<void> {

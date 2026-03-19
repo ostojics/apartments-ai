@@ -30,6 +30,6 @@ export class PromotionOptInHandler implements ICommandHandler<PromotionOptInComm
       await this.contactRepository.save(contact);
     });
 
-    this.eventDispatcher.dispatch(contact);
+    await this.eventDispatcher.dispatch(contact);
   }
 }

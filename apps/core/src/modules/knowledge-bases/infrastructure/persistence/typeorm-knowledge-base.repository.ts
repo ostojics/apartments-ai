@@ -1,23 +1,19 @@
-import {Injectable} from '@nestjs/common';
-import {DataSource, Repository} from 'typeorm';
+import {Inject, Injectable} from '@nestjs/common';
+import {DataSource} from 'typeorm';
 import {IKnowledgeBaseRepository} from '../../domain/repositories/knowledge-base.repository.interface';
 import {KnowledgeBaseEntity} from '../../domain/knowledge-base.entity';
 import {KnowledgeBaseOrmEntity} from './knowledge-base.entity';
 import {KnowledgeBaseMapper} from '../mappers/knowledge-base.mapper';
-import {TypeOrmUnitOfWork} from 'src/libs/infrastructure/persistence/typeorm-unit-of-work';
+import {TypeOrmBaseRepository} from 'src/libs/infrastructure/persistence/typeorm-base.repository';
+import {ITransactionContext, TRANSACTION_CONTEXT} from 'src/libs/application/ports/transaction-context.port';
 
 @Injectable()
-export class TypeOrmKnowledgeBaseRepository implements IKnowledgeBaseRepository {
-  constructor(private readonly dataSource: DataSource) {}
-
-  /**
-   * Gets the repository using the transaction manager from ALS if available,
-   * otherwise falls back to the base dataSource manager.
-   */
-  private get repository(): Repository<KnowledgeBaseOrmEntity> {
-    const manager = TypeOrmUnitOfWork.getManager();
-    const target = manager ?? this.dataSource.manager;
-    return target.getRepository(KnowledgeBaseOrmEntity);
+export class TypeOrmKnowledgeBaseRepository
+  extends TypeOrmBaseRepository<KnowledgeBaseOrmEntity>
+  implements IKnowledgeBaseRepository
+{
+  constructor(dataSource: DataSource, @Inject(TRANSACTION_CONTEXT) transactionContext: ITransactionContext) {
+    super(dataSource, KnowledgeBaseOrmEntity, transactionContext);
   }
 
   async save(knowledgeBase: KnowledgeBaseEntity): Promise<void> {

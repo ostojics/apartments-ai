@@ -1,23 +1,16 @@
-import {Injectable} from '@nestjs/common';
-import {DataSource, Repository} from 'typeorm';
+import {Inject, Injectable} from '@nestjs/common';
+import {DataSource} from 'typeorm';
 import {IContactRepository} from '../../domain/repositories/contact.repository.interface';
 import {ContactEntity} from '../../domain/contact.entity';
 import {ContactOrmEntity} from './contact.entity';
 import {ContactMapper} from '../mappers/contact.mapper';
-import {TypeOrmUnitOfWork} from 'src/libs/infrastructure/persistence/typeorm-unit-of-work';
+import {TypeOrmBaseRepository} from 'src/libs/infrastructure/persistence/typeorm-base.repository';
+import {ITransactionContext, TRANSACTION_CONTEXT} from 'src/libs/application/ports/transaction-context.port';
 
 @Injectable()
-export class TypeOrmContactRepository implements IContactRepository {
-  constructor(private readonly dataSource: DataSource) {}
-
-  /**
-   * Gets the repository using the transaction manager from ALS if available,
-   * otherwise falls back to the base dataSource manager.
-   */
-  private get repository(): Repository<ContactOrmEntity> {
-    const manager = TypeOrmUnitOfWork.getManager();
-    const target = manager ?? this.dataSource.manager;
-    return target.getRepository(ContactOrmEntity);
+export class TypeOrmContactRepository extends TypeOrmBaseRepository<ContactOrmEntity> implements IContactRepository {
+  constructor(dataSource: DataSource, @Inject(TRANSACTION_CONTEXT) transactionContext: ITransactionContext) {
+    super(dataSource, ContactOrmEntity, transactionContext);
   }
 
   async save(contact: ContactEntity): Promise<void> {
