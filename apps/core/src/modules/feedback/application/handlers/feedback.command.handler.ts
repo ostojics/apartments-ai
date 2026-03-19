@@ -33,6 +33,6 @@ export class FeedbackHandler implements ICommandHandler<FeedbackCommand> {
       await this.feedbackRepository.save(feedback);
     });
 
-    await this.eventDispatcher.dispatch(feedback);
+    this.eventDispatcher.dispatch(feedback);
   }
 }

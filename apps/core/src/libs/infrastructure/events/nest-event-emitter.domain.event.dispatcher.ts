@@ -13,10 +13,10 @@ export class NestEventEmitterDomainEventDispatcher implements IDomainEventDispat
     private readonly logger: ILoggerPort,
   ) {}
 
-  async dispatch(entity: BaseEntity): Promise<void> {
+  dispatch(entity: BaseEntity): void {
     const events = entity.getEvents();
 
-    await Promise.all(
+    void Promise.all(
       events.map((event) => {
         const eventName = event.constructor.name;
         this.logger.info(`Dispatching domain event: ${eventName}`, {
