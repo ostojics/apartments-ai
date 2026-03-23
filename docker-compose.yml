@@ -17,6 +17,16 @@ services:
       timeout: 5s
       retries: 5
 
+  valkey:
+    image: valkey/valkey:latest
+    container_name: host-elite-valkey-dev
+    restart: always
+    command: valkey-server --requirepass admin123
+    ports:
+      - '6379:6379'
+    volumes:
+      - valkey_data:/data
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: host-elite-pgadmin-dev
@@ -35,3 +45,4 @@ services:
 volumes:
   postgres_data:
   pgadmin_data:
+  valkey_data:

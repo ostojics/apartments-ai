@@ -9,7 +9,7 @@
     },
     "lint": {
       "dependsOn": ["^lint"],
-      "env": ["PORT", "VITE_MSW_ENABLED", "DEV", "MODE"]
+      "env": ["PORT", "VITE_MSW_ENABLED", "DEV", "MODE", "VALKEY_HOST", "VALKEY_PORT", "VALKEY_PASSWORD"]
     },
     "check-types": {
       "dependsOn": ["^check-types"]
