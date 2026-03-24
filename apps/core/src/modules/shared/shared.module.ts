@@ -40,6 +40,9 @@ import {BullMqAdapter} from './infrastructure/queue/bullmq.adapter';
 import {OutboxScannerService} from './infrastructure/outbox/outbox-scanner.service';
 import {VoucherEmailProcessor} from './infrastructure/queue/voucher-email.processor';
 import {Queues} from 'src/common/enums/queues.enum';
+import {DeadLetterOrmEntity} from './infrastructure/dead-letter/dead-letter.entity';
+import {DEAD_LETTER_REPOSITORY} from './domain/dead-letter/dead-letter.repository.interface';
+import {TypeOrmDeadLetterRepository} from './infrastructure/dead-letter/typeorm-dead-letter.repository';
 
 @Global()
 @Module({
@@ -79,7 +82,7 @@ import {Queues} from 'src/common/enums/queues.enum';
     }),
     CqrsModule.forRoot(),
     EventEmitterModule.forRoot(),
-    TypeOrmModule.forFeature([OutboxOrmEntity]),
+    TypeOrmModule.forFeature([OutboxOrmEntity, DeadLetterOrmEntity]),
     BullModule.forRoot({
       connection: {
         host: process.env.VALKEY_HOST,
@@ -124,6 +127,7 @@ import {Queues} from 'src/common/enums/queues.enum';
     {provide: DOMAIN_EVENT_DISPATCHER, useClass: NestEventEmitterDomainEventDispatcher},
     {provide: LLM_SERVICE, useClass: TanstackOpenAILLMService},
     {provide: OUTBOX_REPOSITORY, useClass: TypeOrmOutboxRepository},
+    {provide: DEAD_LETTER_REPOSITORY, useClass: TypeOrmDeadLetterRepository},
     {provide: QUEUE_SERVICE, useClass: BullMqAdapter},
     OutboxScannerService,
     VoucherEmailProcessor,
@@ -138,6 +142,7 @@ import {Queues} from 'src/common/enums/queues.enum';
     DOMAIN_EVENT_DISPATCHER,
     LLM_SERVICE,
     OUTBOX_REPOSITORY,
+    DEAD_LETTER_REPOSITORY,
     QUEUE_SERVICE,
     CqrsModule,
     ConfigModule,

@@ -36,4 +36,16 @@ export class TypeOrmOutboxRepository extends TypeOrmBaseRepository<OutboxOrmEnti
 
     return records.map((record) => OutboxMapper.toDomain(record));
   }
+
+  async deleteSentOlderThan(cutoff: Date): Promise<number> {
+    const result = await this.repository
+      .createQueryBuilder()
+      .delete()
+      .from(OutboxOrmEntity)
+      .where('status = :status', {status: 'sent'})
+      .andWhere('sent_at < :cutoff', {cutoff})
+      .execute();
+
+    return result.affected ?? 0;
+  }
 }

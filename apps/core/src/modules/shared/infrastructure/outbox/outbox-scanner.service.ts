@@ -1,5 +1,6 @@
 import {Inject, Injectable} from '@nestjs/common';
 import {Cron, CronExpression} from '@nestjs/schedule';
+import {subDays} from 'date-fns';
 import {Queues} from 'src/common/enums/queues.enum';
 import {IOutboxRepository, OUTBOX_REPOSITORY} from '../../domain/outbox/outbox.repository.interface';
 import {IQueueService, QUEUE_SERVICE} from '../../application/queue/queue.service.interface';
@@ -30,6 +31,16 @@ export class OutboxScannerService {
       await this.outboxRepository.save(outbox);
 
       this.logger.info('outbox.queued', {outboxId: outbox.id, jobId, jobType: outbox.jobType});
+    }
+  }
+
+  @Cron(CronExpression.EVERY_30_SECONDS)
+  async cleanupSentOutbox(): Promise<void> {
+    const cutoff = subDays(new Date(), 7);
+    const deletedCount = await this.outboxRepository.deleteSentOlderThan(cutoff);
+
+    if (deletedCount > 0) {
+      this.logger.info('outbox.cleanup.deleted', {deletedCount, cutoff: cutoff.toISOString()});
     }
   }
 }

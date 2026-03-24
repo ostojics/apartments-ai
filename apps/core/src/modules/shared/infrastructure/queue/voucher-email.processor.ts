@@ -9,6 +9,9 @@ import {IOutboxRepository, OUTBOX_REPOSITORY} from '../../domain/outbox/outbox.r
 import {LOGGER} from 'src/libs/application/ports/di-tokens';
 import {ILoggerPort} from 'src/libs/application/ports/logger.port';
 import {format} from 'date-fns';
+import {DEAD_LETTER_REPOSITORY, IDeadLetterRepository} from '../../domain/dead-letter/dead-letter.repository.interface';
+import {DeadLetterEntity} from '../../domain/dead-letter/dead-letter.entity';
+import {IUnitOfWork, UNIT_OF_WORK} from 'src/libs/application/ports/unit-of-work.port';
 
 interface SendVoucherEmailPayload {
   outboxId: string;
@@ -20,7 +23,9 @@ export class VoucherEmailProcessor extends WorkerHost {
   constructor(
     @Inject(EMAIL_SERVICE) private readonly emailService: IEmailService,
     @Inject(OUTBOX_REPOSITORY) private readonly outboxRepository: IOutboxRepository,
+    @Inject(DEAD_LETTER_REPOSITORY) private readonly deadLetterRepository: IDeadLetterRepository,
     @Inject(LOGGER) private readonly logger: ILoggerPort,
+    @Inject(UNIT_OF_WORK) private readonly unitOfWork: IUnitOfWork,
   ) {
     super();
   }
@@ -32,6 +37,7 @@ export class VoucherEmailProcessor extends WorkerHost {
 
     const outbox = await this.outboxRepository.findById(job.data.outboxId);
     if (!outbox) {
+      this.logger.error('Outbox message not found', {outboxId: job.data.outboxId});
       return;
     }
 
@@ -59,14 +65,34 @@ export class VoucherEmailProcessor extends WorkerHost {
       return;
     }
 
-    const outbox = await this.outboxRepository.findById(job.data.outboxId);
-    if (!outbox) {
-      return;
-    }
+    const outbox = await this.unitOfWork.runInTransaction(async () => {
+      const outbox = await this.outboxRepository.findById(job.data.outboxId);
+      if (!outbox) {
+        return null;
+      }
 
-    outbox.markFailed({error: error.message});
-    await this.outboxRepository.save(outbox);
+      outbox.markFailed({error: error.message});
+      await this.outboxRepository.save(outbox);
 
-    this.logger.error('Voucher email job failed', error, {outboxId: outbox.id, attemptsMade: job.attemptsMade});
+      if (job.attemptsMade >= 5) {
+        const deadLetter = DeadLetterEntity.create({
+          outboxId: outbox.id,
+          jobType: outbox.jobType,
+          payload: outbox.payload,
+          tenantId: outbox.tenantId,
+          error: error.message,
+          attempts: job.attemptsMade,
+        });
+
+        await this.deadLetterRepository.save(deadLetter);
+      }
+
+      return outbox;
+    });
+
+    this.logger.error('Voucher email job failed', error, {
+      outboxId: outbox?.id ?? 'unknown',
+      attemptsMade: job.attemptsMade,
+    });
   }
 }

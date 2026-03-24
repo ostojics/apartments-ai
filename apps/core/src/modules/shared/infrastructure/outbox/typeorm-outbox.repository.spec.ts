@@ -7,6 +7,25 @@ describe('TypeOrmOutboxRepository', () => {
     const save = jest.fn();
     const findOne = jest.fn();
     const find = jest.fn();
+    const createQueryBuilder = jest.fn();
+
+    const deleteFn = jest.fn();
+    const from = jest.fn();
+    const where = jest.fn();
+    const andWhere = jest.fn();
+    const execute = jest.fn();
+
+    createQueryBuilder.mockReturnValue({
+      delete: deleteFn,
+      from,
+      where,
+      andWhere,
+      execute,
+    });
+    deleteFn.mockReturnValue({from, where, andWhere, execute});
+    from.mockReturnValue({where, andWhere, execute});
+    where.mockReturnValue({andWhere, execute});
+    andWhere.mockReturnValue({execute});
 
     const dataSource = {
       manager: {
@@ -14,6 +33,7 @@ describe('TypeOrmOutboxRepository', () => {
           save,
           findOne,
           find,
+          createQueryBuilder,
         }),
       },
     };
@@ -25,7 +45,7 @@ describe('TypeOrmOutboxRepository', () => {
 
     const repository = new TypeOrmOutboxRepository(dataSource as never, transactionContext);
 
-    return {repository, save, findOne, find};
+    return {repository, save, findOne, find, execute, andWhere};
   };
 
   it('saves outbox row', async () => {
@@ -69,5 +89,15 @@ describe('TypeOrmOutboxRepository', () => {
     await repository.findPendingToQueue(50);
 
     expect(find).toHaveBeenCalledTimes(1);
+  });
+
+  it('deletes sent rows older than cutoff', async () => {
+    const {repository, execute, andWhere} = createRepository();
+    execute.mockResolvedValue({affected: 3});
+
+    const deleted = await repository.deleteSentOlderThan(new Date('2026-01-01T00:00:00.000Z'));
+
+    expect(andWhere).toHaveBeenCalledWith('sent_at < :cutoff', {cutoff: new Date('2026-01-01T00:00:00.000Z')});
+    expect(deleted).toBe(3);
   });
 });
