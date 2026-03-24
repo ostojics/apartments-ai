@@ -30,7 +30,7 @@ export class PromotionsController {
     description: 'Invalid request body',
   })
   @UsePipes(new ZodValidationPipe(promotionsRequestSchema))
-  async submitPromotion(@Body() body: PromotionsRequestDTO, @Req() req: TenantRequest): Promise<void> {
+  async submitPromotion(@Body() body: PromotionsRequestDTO, @Req() req: TenantRequest) {
     const command = new PromotionOptInCommand({
       name: body.name,
       email: body.email,
@@ -40,5 +40,7 @@ export class PromotionsController {
     });
 
     await this.commandBus.execute(command);
+
+    return {status: 'success'};
   }
 }

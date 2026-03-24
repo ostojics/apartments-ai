@@ -24,4 +24,13 @@ export class TypeOrmContactRepository extends TypeOrmBaseRepository<ContactOrmEn
 
     return ContactMapper.toDomain(record);
   }
+
+  async findByEmailAndTenantId(email: string, tenantId: string): Promise<ContactEntity | null> {
+    const record = await this.repository.findOne({where: {email, tenantId}});
+    if (!record) {
+      return null;
+    }
+
+    return ContactMapper.toDomain(record);
+  }
 }

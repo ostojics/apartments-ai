@@ -22,6 +22,8 @@ import {NestEventEmitterDomainEventDispatcher} from 'src/libs/infrastructure/eve
 import {CqrsModule} from '@nestjs/cqrs';
 import {ThrottlerModule} from '@nestjs/throttler';
 import {TypeOrmModule} from '@nestjs/typeorm';
+import {BullModule} from '@nestjs/bullmq';
+import {ScheduleModule} from '@nestjs/schedule';
 import {LoggerModule} from 'pino-nestjs';
 import {databaseConfig, DatabaseConfig, DatabaseConfigName} from 'src/config/database.config';
 import {posthogConfig} from 'src/config/posthog.config';
@@ -30,6 +32,17 @@ import {EventEmitterModule} from '@nestjs/event-emitter';
 import {LLM_SERVICE} from './application/llm/di-tokens';
 import {HealthCheckController} from './presentation/healthcheck/healthcheck.controller';
 import {TanstackOpenAILLMService} from './infrastructure/llm/tanstack.openai.llm.service';
+import {OUTBOX_REPOSITORY} from './domain/outbox/outbox.repository.interface';
+import {TypeOrmOutboxRepository} from './infrastructure/outbox/typeorm-outbox.repository';
+import {OutboxOrmEntity} from './infrastructure/outbox/outbox.entity';
+import {QUEUE_SERVICE} from './application/queue/queue.service.interface';
+import {BullMqAdapter} from './infrastructure/queue/bullmq.adapter';
+import {OutboxScannerService} from './infrastructure/outbox/outbox-scanner.service';
+import {VoucherEmailProcessor} from './infrastructure/queue/voucher-email.processor';
+import {Queues} from 'src/common/enums/queues.enum';
+import {DeadLetterOrmEntity} from './infrastructure/dead-letter/dead-letter.entity';
+import {DEAD_LETTER_REPOSITORY} from './domain/dead-letter/dead-letter.repository.interface';
+import {TypeOrmDeadLetterRepository} from './infrastructure/dead-letter/typeorm-dead-letter.repository';
 
 @Global()
 @Module({
@@ -55,6 +68,7 @@ import {TanstackOpenAILLMService} from './infrastructure/llm/tanstack.openai.llm
       inject: [ConfigService],
       useFactory: throttlerFactory(),
     }),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -68,6 +82,24 @@ import {TanstackOpenAILLMService} from './infrastructure/llm/tanstack.openai.llm
     }),
     CqrsModule.forRoot(),
     EventEmitterModule.forRoot(),
+    TypeOrmModule.forFeature([OutboxOrmEntity, DeadLetterOrmEntity]),
+    BullModule.forRoot({
+      connection: {
+        host: process.env.VALKEY_HOST,
+        port: +(process.env.VALKEY_PORT ?? 6379),
+        password: process.env.VALKEY_PASSWORD,
+      },
+    }),
+    BullModule.registerQueue({
+      name: Queues.EMAILS,
+      defaultJobOptions: {
+        attempts: 5,
+        backoff: {
+          type: 'exponential',
+          delay: 1000,
+        },
+      },
+    }),
     JwtModule.registerAsync({
       // @ts-expect-error -- @nestjs/jwt types are incorrect
       useFactory: (configService: ConfigService) => {
@@ -94,6 +126,11 @@ import {TanstackOpenAILLMService} from './infrastructure/llm/tanstack.openai.llm
     {provide: EMAIL_SERVICE, useClass: ResendEmailService},
     {provide: DOMAIN_EVENT_DISPATCHER, useClass: NestEventEmitterDomainEventDispatcher},
     {provide: LLM_SERVICE, useClass: TanstackOpenAILLMService},
+    {provide: OUTBOX_REPOSITORY, useClass: TypeOrmOutboxRepository},
+    {provide: DEAD_LETTER_REPOSITORY, useClass: TypeOrmDeadLetterRepository},
+    {provide: QUEUE_SERVICE, useClass: BullMqAdapter},
+    OutboxScannerService,
+    VoucherEmailProcessor,
   ],
   exports: [
     ANALYTICS_SERVICE,
@@ -104,6 +141,9 @@ import {TanstackOpenAILLMService} from './infrastructure/llm/tanstack.openai.llm
     LOGGER,
     DOMAIN_EVENT_DISPATCHER,
     LLM_SERVICE,
+    OUTBOX_REPOSITORY,
+    DEAD_LETTER_REPOSITORY,
+    QUEUE_SERVICE,
     CqrsModule,
     ConfigModule,
   ],
