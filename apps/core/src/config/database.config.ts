@@ -14,6 +14,10 @@ import {KnowledgeBaseOrmEntity} from 'src/modules/knowledge-bases/infrastructure
 import {BuildingInformationOrmEntity} from 'src/modules/building-information/infrastructure/persistence/building-information.entity';
 import {ContactOrmEntity} from 'src/modules/contacts/infrastructure/persistence/contact.entity';
 import {AddTenantIdToFeedback1758657000600} from 'src/migrations/1758657000600-AddTenantIdToFeedback';
+import {CreateVouchersAndOutbox1761000000000} from 'src/migrations/1761000000000-CreateVouchersAndOutbox';
+import {VoucherOrmEntity} from 'src/modules/vouchers/infrastructure/persistence/voucher.entity';
+import {OutboxOrmEntity} from 'src/modules/shared/infrastructure/outbox/outbox.entity';
+import {CreateDeadLetterQueue1762100000000} from 'src/migrations/1762100000000-CreateDeadLetterQueue';
 
 export const DatabaseConfigName = 'database';
 
@@ -34,6 +38,8 @@ export function getConfig(): DatabaseConfig {
       KnowledgeBaseOrmEntity,
       BuildingInformationOrmEntity,
       ContactOrmEntity,
+      VoucherOrmEntity,
+      OutboxOrmEntity,
     ],
     useUTC: true,
     migrations: [
@@ -46,6 +52,8 @@ export function getConfig(): DatabaseConfig {
       CreateBuildingInformation1758657000450,
       CreateContacts1758657000500,
       AddTenantIdToFeedback1758657000600,
+      CreateVouchersAndOutbox1761000000000,
+      CreateDeadLetterQueue1762100000000,
     ],
     migrationsRun: true,
     extra: {

@@ -7,9 +7,18 @@ import {FeedbackModule} from './modules/feedback/feedback.module';
 import {TenantContextModule} from './modules/tenant-context/tenant-context.module';
 import {APP_FILTER} from '@nestjs/core';
 import {GlobalExceptionFilter} from './common/filters/global-exception.filter';
+import {VouchersModule} from './modules/vouchers/vouchers.module';
 
 @Module({
-  imports: [SharedModule, TenantContextModule, TenantsModule, BuildingsModule, ContactsModule, FeedbackModule],
+  imports: [
+    SharedModule,
+    TenantContextModule,
+    TenantsModule,
+    BuildingsModule,
+    ContactsModule,
+    FeedbackModule,
+    VouchersModule,
+  ],
   controllers: [],
   providers: [
     {
