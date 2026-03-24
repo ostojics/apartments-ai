@@ -21,7 +21,7 @@ export class BullMqAdapter implements IQueueService {
       attempts: opts?.attempts,
       backoff: {
         type: 'exponential',
-        delay: 1000,
+        delay: 2000,
       },
       removeOnComplete: true,
       removeOnFail: false,

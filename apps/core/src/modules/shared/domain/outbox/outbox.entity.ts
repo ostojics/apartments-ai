@@ -96,7 +96,6 @@ export class OutboxEntity extends BaseEntity {
     this.#result = {...result};
     this.#sentAt = now;
     this.#lastError = null;
-    this.#attempts += 1;
     this.markUpdated();
   }
 
