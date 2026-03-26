@@ -8,7 +8,7 @@ import './index.css';
 import './modules/i18n/i18n';
 import {router} from './router';
 
-import {MSW_ENABLED} from './common/constants/constants';
+import {CLERK_PUBLISHABLE_KEY, MSW_ENABLED} from './common/constants/constants';
 import {queryClient} from './modules/api/query-client';
 import {AppErrorBoundary} from './components/error-boundary/error-boundary';
 import {ThemeProvider} from './modules/theme/theme-context';
@@ -16,6 +16,7 @@ import {TanStackDevtools} from '@tanstack/react-devtools';
 import {aiDevtoolsPlugin} from '@tanstack/react-ai-devtools';
 import {useTenantCheck} from './modules/tenants/hooks/use-tenant-check';
 import {Loader2} from 'lucide-react';
+import {ClerkProvider, useAuth} from '@clerk/react';
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -24,8 +25,10 @@ declare module '@tanstack/react-router' {
 }
 
 function AppRouter() {
-  const {data, isLoading, isError} = useTenantCheck();
-  if (isLoading) {
+  const {data: tenantData, isLoading, isError} = useTenantCheck();
+  const {isLoaded: isClerkLoaded, isSignedIn} = useAuth();
+
+  if (isLoading || !isClerkLoaded) {
     return (
       <section className="flex flex-col h-screen justify-center items-center">
         <Loader2 className="size-8 animate-spin text-primary" />
@@ -33,7 +36,12 @@ function AppRouter() {
     );
   }
 
-  return <RouterProvider router={router} context={{isValid: Boolean(data) && data?.data.isValid && !isError}} />;
+  return (
+    <RouterProvider
+      router={router}
+      context={{isValid: Boolean(tenantData) && tenantData?.data.isValid && !isError, isSignedIn}}
+    />
+  );
 }
 
 const rootElement = document.getElementById('root');
@@ -60,30 +68,36 @@ void enableMocking().then(() => {
   createRoot(rootElement).render(
     <StrictMode>
       <AppErrorBoundary>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
-            <AppRouter />
-            <Toaster
-              position="bottom-right"
-              toastOptions={{
-                classNames: {
-                  toast: 'app-toast',
-                },
-              }}
-            />
-            {import.meta.env.DEV && (
-              <>
-                <ReactQueryDevtools initialIsOpen={false} />
-                <TanStackDevtools
-                  plugins={[aiDevtoolsPlugin()]}
-                  eventBusConfig={{
-                    connectToServerBus: true,
-                  }}
-                />
-              </>
-            )}
-          </ThemeProvider>
-        </QueryClientProvider>
+        <ClerkProvider
+          afterSignOutUrl="/login"
+          publishableKey={CLERK_PUBLISHABLE_KEY}
+          signInFallbackRedirectUrl="/dashboard"
+        >
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
+              <AppRouter />
+              <Toaster
+                position="bottom-right"
+                toastOptions={{
+                  classNames: {
+                    toast: 'app-toast',
+                  },
+                }}
+              />
+              {import.meta.env.DEV && (
+                <>
+                  <ReactQueryDevtools initialIsOpen={false} />
+                  <TanStackDevtools
+                    plugins={[aiDevtoolsPlugin()]}
+                    eventBusConfig={{
+                      connectToServerBus: true,
+                    }}
+                  />
+                </>
+              )}
+            </ThemeProvider>
+          </QueryClientProvider>
+        </ClerkProvider>
       </AppErrorBoundary>
     </StrictMode>,
   );

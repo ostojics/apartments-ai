@@ -9,15 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import {Route as rootRouteImport} from './routes/__root';
+import {Route as LoginRouteImport} from './routes/login';
 import {Route as InvalidRouteImport} from './routes/invalid';
 import {Route as PublicRouteRouteImport} from './routes/_public/route';
-import {Route as _pathlessLayoutRouteRouteImport} from './routes/__pathlessLayout/route';
+import {Route as _adminRouteRouteImport} from './routes/__admin/route';
 import {Route as PublicIndexRouteImport} from './routes/_public/index';
-import {Route as _pathlessLayoutSettingsRouteImport} from './routes/__pathlessLayout/settings';
+import {Route as _adminDashboardRouteImport} from './routes/__admin/dashboard';
 import {Route as PublicApartmentsRouteRouteImport} from './routes/_public/apartments/route';
 import {Route as PublicApartmentsIndexRouteImport} from './routes/_public/apartments/index';
 import {Route as PublicApartmentsApartmentIdRouteImport} from './routes/_public/apartments/$apartmentId';
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any);
 const InvalidRoute = InvalidRouteImport.update({
   id: '/invalid',
   path: '/invalid',
@@ -27,8 +33,8 @@ const PublicRouteRoute = PublicRouteRouteImport.update({
   id: '/_public',
   getParentRoute: () => rootRouteImport,
 } as any);
-const _pathlessLayoutRouteRoute = _pathlessLayoutRouteRouteImport.update({
-  id: '/__pathlessLayout',
+const _adminRouteRoute = _adminRouteRouteImport.update({
+  id: '/__admin',
   getParentRoute: () => rootRouteImport,
 } as any);
 const PublicIndexRoute = PublicIndexRouteImport.update({
@@ -36,10 +42,10 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicRouteRoute,
 } as any);
-const _pathlessLayoutSettingsRoute = _pathlessLayoutSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => _pathlessLayoutRouteRoute,
+const _adminDashboardRoute = _adminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => _adminRouteRoute,
 } as any);
 const PublicApartmentsRouteRoute = PublicApartmentsRouteRouteImport.update({
   id: '/apartments',
@@ -59,55 +65,67 @@ const PublicApartmentsApartmentIdRoute = PublicApartmentsApartmentIdRouteImport.
 
 export interface FileRoutesByFullPath {
   '/invalid': typeof InvalidRoute;
+  '/login': typeof LoginRoute;
   '/apartments': typeof PublicApartmentsRouteRouteWithChildren;
-  '/settings': typeof _pathlessLayoutSettingsRoute;
+  '/dashboard': typeof _adminDashboardRoute;
   '/': typeof PublicIndexRoute;
   '/apartments/$apartmentId': typeof PublicApartmentsApartmentIdRoute;
   '/apartments/': typeof PublicApartmentsIndexRoute;
 }
 export interface FileRoutesByTo {
   '/invalid': typeof InvalidRoute;
-  '/settings': typeof _pathlessLayoutSettingsRoute;
+  '/login': typeof LoginRoute;
+  '/dashboard': typeof _adminDashboardRoute;
   '/': typeof PublicIndexRoute;
   '/apartments/$apartmentId': typeof PublicApartmentsApartmentIdRoute;
   '/apartments': typeof PublicApartmentsIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
-  '/__pathlessLayout': typeof _pathlessLayoutRouteRouteWithChildren;
+  '/__admin': typeof _adminRouteRouteWithChildren;
   '/_public': typeof PublicRouteRouteWithChildren;
   '/invalid': typeof InvalidRoute;
+  '/login': typeof LoginRoute;
   '/_public/apartments': typeof PublicApartmentsRouteRouteWithChildren;
-  '/__pathlessLayout/settings': typeof _pathlessLayoutSettingsRoute;
+  '/__admin/dashboard': typeof _adminDashboardRoute;
   '/_public/': typeof PublicIndexRoute;
   '/_public/apartments/$apartmentId': typeof PublicApartmentsApartmentIdRoute;
   '/_public/apartments/': typeof PublicApartmentsIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/invalid' | '/apartments' | '/settings' | '/' | '/apartments/$apartmentId' | '/apartments/';
+  fullPaths: '/invalid' | '/login' | '/apartments' | '/dashboard' | '/' | '/apartments/$apartmentId' | '/apartments/';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/invalid' | '/settings' | '/' | '/apartments/$apartmentId' | '/apartments';
+  to: '/invalid' | '/login' | '/dashboard' | '/' | '/apartments/$apartmentId' | '/apartments';
   id:
     | '__root__'
-    | '/__pathlessLayout'
+    | '/__admin'
     | '/_public'
     | '/invalid'
+    | '/login'
     | '/_public/apartments'
-    | '/__pathlessLayout/settings'
+    | '/__admin/dashboard'
     | '/_public/'
     | '/_public/apartments/$apartmentId'
     | '/_public/apartments/';
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  _pathlessLayoutRouteRoute: typeof _pathlessLayoutRouteRouteWithChildren;
+  _adminRouteRoute: typeof _adminRouteRouteWithChildren;
   PublicRouteRoute: typeof PublicRouteRouteWithChildren;
   InvalidRoute: typeof InvalidRoute;
+  LoginRoute: typeof LoginRoute;
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login';
+      path: '/login';
+      fullPath: '/login';
+      preLoaderRoute: typeof LoginRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/invalid': {
       id: '/invalid';
       path: '/invalid';
@@ -122,11 +140,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicRouteRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    '/__pathlessLayout': {
-      id: '/__pathlessLayout';
+    '/__admin': {
+      id: '/__admin';
       path: '';
       fullPath: '';
-      preLoaderRoute: typeof _pathlessLayoutRouteRouteImport;
+      preLoaderRoute: typeof _adminRouteRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     '/_public/': {
@@ -136,12 +154,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport;
       parentRoute: typeof PublicRouteRoute;
     };
-    '/__pathlessLayout/settings': {
-      id: '/__pathlessLayout/settings';
-      path: '/settings';
-      fullPath: '/settings';
-      preLoaderRoute: typeof _pathlessLayoutSettingsRouteImport;
-      parentRoute: typeof _pathlessLayoutRouteRoute;
+    '/__admin/dashboard': {
+      id: '/__admin/dashboard';
+      path: '/dashboard';
+      fullPath: '/dashboard';
+      preLoaderRoute: typeof _adminDashboardRouteImport;
+      parentRoute: typeof _adminRouteRoute;
     };
     '/_public/apartments': {
       id: '/_public/apartments';
@@ -167,17 +185,15 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface _pathlessLayoutRouteRouteChildren {
-  _pathlessLayoutSettingsRoute: typeof _pathlessLayoutSettingsRoute;
+interface _adminRouteRouteChildren {
+  _adminDashboardRoute: typeof _adminDashboardRoute;
 }
 
-const _pathlessLayoutRouteRouteChildren: _pathlessLayoutRouteRouteChildren = {
-  _pathlessLayoutSettingsRoute: _pathlessLayoutSettingsRoute,
+const _adminRouteRouteChildren: _adminRouteRouteChildren = {
+  _adminDashboardRoute: _adminDashboardRoute,
 };
 
-const _pathlessLayoutRouteRouteWithChildren = _pathlessLayoutRouteRoute._addFileChildren(
-  _pathlessLayoutRouteRouteChildren,
-);
+const _adminRouteRouteWithChildren = _adminRouteRoute._addFileChildren(_adminRouteRouteChildren);
 
 interface PublicApartmentsRouteRouteChildren {
   PublicApartmentsApartmentIdRoute: typeof PublicApartmentsApartmentIdRoute;
@@ -206,8 +222,9 @@ const PublicRouteRouteChildren: PublicRouteRouteChildren = {
 const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(PublicRouteRouteChildren);
 
 const rootRouteChildren: RootRouteChildren = {
-  _pathlessLayoutRouteRoute: _pathlessLayoutRouteRouteWithChildren,
+  _adminRouteRoute: _adminRouteRouteWithChildren,
   PublicRouteRoute: PublicRouteRouteWithChildren,
   InvalidRoute: InvalidRoute,
+  LoginRoute: LoginRoute,
 };
 export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
