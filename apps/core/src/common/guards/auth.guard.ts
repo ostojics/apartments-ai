@@ -21,7 +21,6 @@ export class AuthGuard implements CanActivate {
   constructor(
     @Inject(LOGGER) private readonly logger: ILoggerPort,
     @Inject(TENANT_REPOSITORY) private readonly tenantRepository: ITenantRepository,
-
     @Inject(JWT_SERVICE) private readonly jwtService: IJWTService,
   ) {}
 
@@ -53,7 +52,7 @@ export class AuthGuard implements CanActivate {
         throw err;
       }
 
-      if (tenant.slug !== tenantSlug) {
+      if (tenant.slug !== payload.metadata.tenant) {
         this.logger.warn('AuthGuard: Tenant slug in token does not match request', {
           tokenTenant: payload.metadata.tenant,
           requestTenant: tenantSlug,
