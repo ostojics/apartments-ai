@@ -3,6 +3,7 @@ import {TanStackRouterDevtools} from '@tanstack/react-router-devtools';
 
 export interface RouterContext {
   isValid: boolean;
+  isSignedIn: boolean;
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({

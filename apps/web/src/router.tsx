@@ -4,6 +4,6 @@ import NotFound from './components/not-found/not-found';
 
 export const router = createRouter({
   routeTree,
-  context: {isValid: false},
+  context: {isValid: false, isSignedIn: false},
   defaultNotFoundComponent: () => <NotFound />,
 });

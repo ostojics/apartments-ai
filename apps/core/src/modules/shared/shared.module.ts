@@ -1,8 +1,6 @@
 import {Global, Module} from '@nestjs/common';
 import {ANALYTICS_SERVICE} from './application/analytics/di-tokens';
 import {PostHogAnalyticsService} from './infrastructure/analytics/posthog.analytics.service';
-import {JWT_SERVICE} from './application/jwt/di-tokens';
-import {NestJsJwtService} from './infrastructure/jwt/nestjs-jwt.service';
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import {JwtModule} from '@nestjs/jwt';
 import {appConfig, AppConfig, AppConfigName} from 'src/config/app.config';
@@ -43,6 +41,8 @@ import {Queues} from 'src/common/enums/queues.enum';
 import {DeadLetterOrmEntity} from './infrastructure/dead-letter/dead-letter.entity';
 import {DEAD_LETTER_REPOSITORY} from './domain/dead-letter/dead-letter.repository.interface';
 import {TypeOrmDeadLetterRepository} from './infrastructure/dead-letter/typeorm-dead-letter.repository';
+import {JWT_SERVICE} from './application/jwt/di-tokens';
+import {ClerkJWTService} from './infrastructure/jwt/clerk.auth.service';
 
 @Global()
 @Module({
@@ -117,8 +117,8 @@ import {TypeOrmDeadLetterRepository} from './infrastructure/dead-letter/typeorm-
   ],
   controllers: [HealthCheckController],
   providers: [
+    {provide: JWT_SERVICE, useClass: ClerkJWTService},
     {provide: ANALYTICS_SERVICE, useClass: PostHogAnalyticsService},
-    {provide: JWT_SERVICE, useClass: NestJsJwtService},
     {provide: TRANSACTION_CONTEXT, useClass: TypeOrmTransactionContext},
     {provide: UNIT_OF_WORK, useClass: TypeOrmUnitOfWork},
     {provide: HASHING_SERVICE, useClass: Argon2HashingService},
@@ -133,8 +133,8 @@ import {TypeOrmDeadLetterRepository} from './infrastructure/dead-letter/typeorm-
     VoucherEmailProcessor,
   ],
   exports: [
-    ANALYTICS_SERVICE,
     JWT_SERVICE,
+    ANALYTICS_SERVICE,
     TRANSACTION_CONTEXT,
     UNIT_OF_WORK,
     HASHING_SERVICE,

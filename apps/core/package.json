@@ -24,8 +24,9 @@
     "typeorm": "typeorm-ts-node-esm"
   },
   "dependencies": {
-    "@host-elite/contracts": "workspace:*",
+    "@clerk/backend": "^3.2.3",
     "@date-fns/utc": "^2.1.1",
+    "@host-elite/contracts": "workspace:*",
     "@nestjs/bullmq": "^11.0.3",
     "@nestjs/common": "catalog:",
     "@nestjs/config": "catalog:",
@@ -58,9 +59,9 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@host-elite/linting": "workspace:*",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "catalog:",
+    "@host-elite/linting": "workspace:*",
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
